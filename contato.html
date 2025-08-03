@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!-- # Mesmo head do index.html -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - Laboratório de Samambaias</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- # Mesmos estilos do index.html + estilos do formulário -->
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            background: url('imagens/Asplenium\ pellucidum.jpg') center center no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            position: relative;
+            padding-bottom: 70px; /* # Espaço para o rodapé */
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(30,40,30,0.45);
+            z-index: 0;
+            pointer-events: none;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        .logo {
+            width: 210px;
+            margin-bottom: 1.2rem;
+            filter: none;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: rgba(56,142,60,0.85);
+            box-shadow: 0 2px 12px rgba(56,142,60,0.12);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        nav .nav-btn {
+            background: rgba(255,255,255,0.08);
+            border: none;
+            color: #fff;
+            font-size: 1.15rem;
+            padding: 1rem 2.2rem;
+            cursor: pointer;
+            transition: background 0.3s, box-shadow 0.3s, color 0.3s;
+            border-radius: 30px 30px 0 0;
+            margin: 0 0.2rem;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(76,175,80,0.08);
+            text-decoration: none;
+            display: inline-block;
+        }
+        nav .nav-btn.active, nav .nav-btn:hover {
+            background: linear-gradient(90deg, #4caf50 60%, #388e3c 100%);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(76,175,80,0.18);
+            text-decoration: none;
+        }
+        .tab-content {
+            display: none;
+            padding: 2.5rem 2rem;
+            max-width: 900px;
+            margin: 2.5rem auto 0 auto;
+            background: rgba(255,255,255,0.35);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(76,175,80,0.18);
+            backdrop-filter: blur(8px);
+            border: 1.2px solid #fff;
+            position: relative;
+            z-index: 1;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.7s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 {
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: none;
+        }
+        h2 {
+            font-size: 1.5rem;
+            color: #fff;
+            text-shadow: none;
+        }
+        footer {
+            text-align: center;
+            padding: 0.6rem 1.2rem;
+            background: rgba(56,142,60,0.85);
+            color: #fff;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            box-shadow: 0 -2px 12px rgba(56,142,60,0.12);
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 20;
+        }
+        /* # ESTILOS ESPECÍFICOS DO FORMULÁRIO */
+        .contato-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-top: 1.2rem;
+        }
+        
+        .contato-form label {
+            color: #fff;
+            font-weight: 500;
+        }
+        
+        .contato-form input, .contato-form textarea {
+            border-radius: 8px;
+            border: 1.2px solid #fff;
+            padding: 0.7rem;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.18);
+            color: #222;
+            resize: vertical;
+        }
+        
+        .contato-form button {
+            background: linear-gradient(90deg, #4caf50 60%, #388e3c 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.7rem 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .contato-form button:hover {
+            background: #388e3c;
+        }
+        
+        @media (max-width: 700px) {
+            nav {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            nav .nav-btn {
+                border-radius: 0;
+                margin: 0;
+                padding: 1rem 0.5rem;
+                font-size: 1rem;
+                width: 100%;
+            }
+            .tab-content { 
+                padding: 1.2rem 0.5rem; 
+            }
+            h1 { 
+                font-size: 1.5rem; 
+            }
+            h2 { 
+                font-size: 1.2rem; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- # Mesmo cabeçalho do index.html -->
+    <header>
+        <img src="imagens/capa_lab.png" alt="Logo Samambaia" class="logo">
+        <h1>Laboratório de Evolução de Samambaias e Licófitas</h1>
+        <p style="color: #fff; text-align: center; text-shadow: none;">Universidade Federal de Pernambuco | Biologia evolutiva | Samambaias e licófitas</p>
+    </header>
+    
+    <!-- # Barra de navegação com a aba Contato ativa -->
+    <nav>
+        <a href="sobre.html" class="nav-btn">Sobre</a>
+        <a href="pesquisa.html" class="nav-btn">Pesquisa</a>
+        <a href="equipe.html" class="nav-btn">Equipe</a>
+        <a href="publicações.html" class="nav-btn">Publicações</a>
+        <a href="imagens.html" class="nav-btn">Imagens</a>
+        <a href="contato.html" class="nav-btn active">Contato</a>
+    </nav>
+    
+    <!-- # Conteúdo da aba Contato -->
+    <section id="contato" class="tab-content active">
+        <h2>Contato</h2>
+        <p>Entre em contato conosco preenchendo o formulário abaixo ou pelo e-mail: <a href="mailto:samambaias@universidade.edu">samambaias@universidade.edu</a></p>
+        
+        <!-- # Formulário de contato -->
+        <form class="contato-form" action="mailto:samambaias@universidade.edu" method="POST" enctype="text/plain">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+            
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="mensagem">Mensagem:</label>
+            <textarea id="mensagem" name="mensagem" rows="4" required></textarea>
+            
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+    
+    <!-- # Mesmo rodapé do index.html -->
+    <footer>
+        &copy; 2025 Laboratório de Evolução de Samambaias e Licófitas
+    </footer>
+</body>
+</html>
