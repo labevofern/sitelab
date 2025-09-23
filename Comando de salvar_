@@ -2,6 +2,12 @@
 # O Git agora sabe quais alterações você quer salvar no próximo commit.
 git add .
 
+# NOTA SOBRE AVISOS (WARNINGS):
+# Ao executar "git add .", você pode ver avisos como "warning: LF will be replaced by CRLF".
+# Isso é normal e esperado no Windows. Significa que o Git está ajustando as quebras de linha
+# dos arquivos para o padrão do Windows. Não é um erro e pode ser ignorado.
+# Seus arquivos foram adicionados com sucesso. Prossiga para o próximo comando.
+
 # 2. Salva as alterações que estão na "área de preparação" em um commit (um "snapshot" do seu projeto).
 # A mensagem (-m) descreve o que foi feito. "Minhas edições no site" é uma boa mensagem.
 git commit -m "Minhas edições no site"
