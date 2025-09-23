@@ -19,10 +19,4 @@ git commit -m "Minhas edições no site"
 # 3. Envia os seus commits locais para o repositório remoto no GitHub.
 # Como você configurou o usuário local, este commit será associado à conta do laboratório.
 # O Git pode pedir o nome de usuário e senha/token da conta do GitHub do laboratório na primeira vez.
-git pull
-git push
-=======
-git add .
-git commit -m "Minhas edições no site"
-git push
->>>>>>> dbd1c9e387a4eb670965cb93e88f6cc000d91858
+git push origin main
