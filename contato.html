@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <!-- # Mesmo head do index.html -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contato - Laboratório de Samambaias</title>
+    <title>Contact - Fern Lab</title>
+     <link rel="icon" href="imagens/simb.png"> 
+
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- # Mesmos estilos do index.html + estilos do formulário -->
     <style>
         body {
@@ -14,7 +16,7 @@
             font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
             color: #fff;
             min-height: 100vh;
-            background: url('imagens/Asplenium\ pellucidum.jpg') center center no-repeat;
+            background: url('imagens/Microgramma_vacciniifolia_PR.jpg') center center no-repeat;
             background-size: cover;
             background-attachment: fixed;
             position: relative;
@@ -39,35 +41,72 @@
             margin-bottom: 1.2rem;
             filter: none;
         }
+
+        .header-subtitle {
+            color: #fff; 
+            text-align: center; 
+            text-shadow: none;
+            padding: 0 1rem;
+            font-size: 1rem;
+        }
+
+        /* # Barra de navegação */
         nav {
             display: flex;
             justify-content: center;
-            background: rgba(56,142,60,0.85);
-            box-shadow: 0 2px 12px rgba(56,142,60,0.12);
+            background: rgba(15, 25, 15, 0.6); /* Fundo mais escuro e translúcido */
+            backdrop-filter: blur(10px); /* Efeito de vidro */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: sticky;
             top: 0;
             z-index: 10;
+            padding: 0.5rem 0; /* Espaçamento interno */
         }
+        
+        /* # Botões da navegação */
         nav .nav-btn {
-            background: rgba(255,255,255,0.08);
+            background: transparent; /* Fundo transparente */
             border: none;
-            color: #fff;
-            font-size: 1.15rem;
-            padding: 1rem 2.2rem;
+            color: #e0e0e0; /* Cor mais suave */
+            font-size: 1.1rem; /* Tamanho de fonte ajustado */
+            padding: 0.8rem 1.5rem; /* Espaçamento ajustado */
             cursor: pointer;
-            transition: background 0.3s, box-shadow 0.3s, color 0.3s;
-            border-radius: 30px 30px 0 0;
-            margin: 0 0.2rem;
-            font-weight: 600;
-            box-shadow: 0 2px 8px rgba(76,175,80,0.08);
+            transition: color 0.3s ease;
+            font-weight: 500;
             text-decoration: none;
-            display: inline-block;
+            position: relative; /* Para o pseudo-elemento ::after */
+            margin: 0 0.5rem;
         }
-        nav .nav-btn.active, nav .nav-btn:hover {
-            background: linear-gradient(90deg, #4caf50 60%, #388e3c 100%);
-            color: #fff;
-            box-shadow: 0 2px 8px rgba(76,175,80,0.18);
-            text-decoration: none;
+
+        /* Efeito de sublinhado animado */
+        nav .nav-btn::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 5px; /* Posição do sublinhado */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4caf50;
+            transition: width 0.4s ease;
+        }
+        
+        /* # Botão ativo ou hover */
+        nav .nav-btn:hover {
+            color: #ffffff; /* Cor mais clara no hover */
+        }
+
+        nav .nav-btn:hover::after {
+            width: 70%; /* Largura do sublinhado no hover */
+        }
+
+        nav .nav-btn.active {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        nav .nav-btn.active::after {
+            width: 70%;
         }
         .tab-content {
             display: none;
@@ -98,8 +137,12 @@
         }
         h2 {
             font-size: 1.5rem;
-            color: #fff;
+            color: #c8e6c9;
             text-shadow: none;
+            text-align: center;
+            border-bottom: 2px solid #4caf50;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
         }
         footer {
             text-align: center;
@@ -115,12 +158,67 @@
             bottom: 0;
             z-index: 20;
         }
+
+        /* --- NOVOS ESTILOS DE CONTATO --- */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            align-items: flex-start;
+        }
+
+        .contact-details h3 {
+            font-size: 1.3rem;
+            color: #fff;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+        .info-item i {
+            font-size: 1.5rem;
+            color: #4caf50;
+            margin-top: 0.2rem;
+        }
+        .info-item p {
+            margin: 0;
+            line-height: 1.5;
+            font-size: 1rem;
+        }
+        .info-item a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .info-item a:hover {
+            color: #c8e6c9;
+        }
+
+        .map-container {
+            margin-top: 2rem;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 250px;
+            border: 0;
+            display: block;
+        }
+
         /* # ESTILOS ESPECÍFICOS DO FORMULÁRIO */
         .contato-form {
             display: flex;
             flex-direction: column;
             gap: 0.8rem;
-            margin-top: 1.2rem;
+            margin-top: 0; /* Removido margin-top */
+            height: 100%; /* Faz o formulário ocupar a altura total da coluna */
         }
         
         .contato-form label {
@@ -134,8 +232,19 @@
             padding: 0.7rem;
             font-size: 1rem;
             background: rgba(255,255,255,0.18);
-            color: #222;
+            color: #fff;
             resize: vertical;
+            font-family: 'Montserrat', 'Roboto', Arial, sans-serif; /* Fonte padronizada */
+        }
+
+        .contato-form textarea {
+            flex-grow: 1; /* Faz a área de texto crescer para ocupar o espaço */
+        }
+
+        .contato-form input::placeholder,
+        .contato-form textarea::placeholder {
+            color: #fff;
+            opacity: 0.8; /* Para diferenciar levemente do texto digitado */
         }
         
         .contato-form button {
@@ -154,26 +263,51 @@
             background: #388e3c;
         }
         
-        @media (max-width: 700px) {
-            nav {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            nav .nav-btn {
-                border-radius: 0;
-                margin: 0;
-                padding: 1rem 0.5rem;
-                font-size: 1rem;
-                width: 100%;
-            }
-            .tab-content { 
-                padding: 1.2rem 0.5rem; 
+        @media (max-width: 768px) {
+            .logo {
+                width: 180px;
             }
             h1 { 
-                font-size: 1.5rem; 
+                font-size: 1.8rem; 
+            }
+            .header-subtitle {
+                font-size: 0.85rem; /* Tamanho ligeiramente reduzido */
+            }
+            nav {
+                flex-direction: column;
+                align-items: center;
+                padding: 0;
+            }
+            nav .nav-btn {
+                width: 100%;
+                text-align: center;
+                margin: 0;
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            nav .nav-btn:last-child {
+                border-bottom: none;
+            }
+            nav .nav-btn::after {
+                display: none;
+            }
+            nav .nav-btn.active, nav .nav-btn:hover {
+                background: rgba(76, 175, 80, 0.2);
+                color: #fff;
+            }
+            .tab-content { 
+                padding: 1.5rem 1rem; 
+                margin-top: 1.5rem;
             }
             h2 { 
-                font-size: 1.2rem; 
+                font-size: 1.4rem; 
+            }
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .contato-form {
+                margin-top: 2rem;
             }
         }
     </style>
@@ -181,44 +315,75 @@
 <body>
     <!-- # Mesmo cabeçalho do index.html -->
     <header>
-        <img src="imagens/capa_lab.png" alt="Logo Samambaia" class="logo">
-        <h1>Laboratório de Evolução de Samambaias e Licófitas</h1>
-        <p style="color: #fff; text-align: center; text-shadow: none;">Universidade Federal de Pernambuco | Biologia evolutiva | Samambaias e licófitas</p>
+        <img src="imagens/capa_lab.png" alt="Fern Logo" class="logo">
+        <h1>Fern and Lycophyte Evolution Lab</h1>
+        <p class="header-subtitle">Federal University of Pernambuco | Evolutionary Biology | Ferns and Lycophytes</p>
     </header>
     
     <!-- # Barra de navegação com a aba Contato ativa -->
     <nav>
-        <a href="sobre.html" class="nav-btn">Sobre</a>
-        <a href="pesquisa.html" class="nav-btn">Pesquisa</a>
-        <a href="equipe.html" class="nav-btn">Equipe</a>
-        <a href="publicações.html" class="nav-btn">Publicações</a>
-        <a href="imagens.html" class="nav-btn">Imagens</a>
-        <a href="contato.html" class="nav-btn active">Contato</a>
+        <a href="sobre.html" class="nav-btn">About</a>
+        <a href="pesquisa.html" class="nav-btn">Research</a>
+        <a href="equipe.html" class="nav-btn">Team</a>
+        <a href="publicações.html" class="nav-btn">Publications</a>
+        <a href="imagens.html" class="nav-btn">Gallery</a>
+        <a href="contato.html" class="nav-btn active">Contact</a>
     </nav>
     
     <!-- # Conteúdo da aba Contato -->
     <section id="contato" class="tab-content active">
-        <h2>Contato</h2>
-        <p>Entre em contato conosco preenchendo o formulário abaixo.</p>
+        <h2>Get in Touch</h2>
         
-        <!-- # Formulário de contato usando FormSubmit -->
-        <form class="contato-form" action="https://formsubmit.co/niksoneyazevedo2017@gmail.com" method="POST">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_next" value="https://seusite.com/obrigado.html">
-            <input type="hidden" name="_autoresponse" value="Recebemos sua mensagem! Em breve entraremos em contato.">
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" required autocomplete="name">
-            <label for="email">E-mail:</label>
-            <input type="email" id="email" name="email" required autocomplete="email">
-            <label for="mensagem">Mensagem:</label>
-            <textarea id="mensagem" name="mensagem" rows="4" required></textarea>
-            <button type="submit">Enviar</button>
-        </form>
-        <p style="color:#fff; margin-top:1.2rem; font-size:1rem;">Obs: Para que o formulário funcione, acesse o site hospedado em um servidor (não abra como arquivo local).<br>Após o primeiro envio, confirme o e-mail do FormSubmit na sua caixa de entrada.</p>
-        </section>
+        <div class="contact-container">
+            <div class="contact-details">
+                <h3>Our Information</h3>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>
+                        Federal University of Pernambuco (UFPE)<br>
+                        Center for Biosciences, Department of Botany<br>
+                        Av. Prof. Moraes Rego, 1235 - Cidade Universitária<br>
+                        Recife - PE, 50670-901, Brazil
+                    </p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>
+                        <strong>Coordination:</strong><br>
+                        <a href="mailto:labevol.samambaias@ufpe.br">labevol.samambaias@ufpe.br</a>
+                    </p>
+                </div>
+
+                <div class="info-item">
+                    <i class="fab fa-instagram"></i>
+                    <p>
+                        <strong>Instagram:</strong><br>
+                        <a href="https://www.instagram.com/labevo.fern/" target="_blank">@labevo.fern</a>
+                    </p>
+                </div>
+
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3950.633993139144!2d-34.9509403!3d-8.0504196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7ab195fd620d13b%3A0xffa11af1393e0f23!2sCB%20-%20Centro%20de%20Bioci%C3%AAncias%20(UFPE)!5e0!3m2!1spt-BR!2sbr!4v1695838881515!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+            <form class="contato-form" action="https://formsubmit.co/niksoneyazevedo2017@gmail.com" method="POST">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="obrigado.html">
+                <input type="hidden" name="_autoresponse" value="We have received your message! We will get in touch soon.">
+                <label for="nome">Name:</label>
+                <input type="text" id="nome" name="nome" required autocomplete="name" placeholder="Your full name">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required autocomplete="email" placeholder="Your best e-mail">
+                <label for="mensagem">Message:</label>
+                <textarea id="mensagem" name="mensagem" required placeholder="Write your message here..."></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
     <!-- # Mesmo rodapé do index.html -->
     <footer>
-        &copy; 2025 Laboratório de Evolução de Samambaias e Licófitas
+        &copy; 2025 Fern and Lycophyte Evolution Lab
     </footer>
 </body>
 </html>
