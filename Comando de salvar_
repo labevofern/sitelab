@@ -1,3 +1,6 @@
+git config user.name "labevofern"
+git config user.email "labevol.samambaias@ufpe.br"
+
 # 1. Adiciona todos os arquivos modificados e novos para a "área de preparação" (staging area).
 # O Git agora sabe quais alterações você quer salvar no próximo commit.
 git add .
