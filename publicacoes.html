@@ -39,6 +39,25 @@
             width: 210px;
             margin-bottom: 1.2rem;
         }
+
+        /* --- BOTÃO HAMBURGER (MOBILE) --- */
+        #hamburger-btn {
+            display: none; /* Oculto por padrão */
+            position: fixed;
+            top: 15px;
+            right: 20px;
+            z-index: 1001;
+            background: rgba(15, 25, 15, 0.7);
+            backdrop-filter: blur(5px);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            width: 45px;
+            height: 45px;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
         nav {
             display: flex;
             justify-content: center;
@@ -323,17 +342,6 @@
         .modal-close:hover {
             color: #4caf50;
         }
-        .modal-caption {
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            color: #fff;
-            font-size: 18px;
-            background: rgba(0,0,0,0.6);
-            padding: 10px;
-        }
 
         @media (min-width: 768px) {
             .artigo {
@@ -351,17 +359,38 @@
             .header-subtitle {
                 font-size: 0.85rem; /* Tamanho ligeiramente reduzido */
             }
-            nav {
-                flex-direction: column;
-                align-items: center;
-                padding: 0;
+
+            /* --- ESTILOS DO MENU HAMBURGER --- */
+            #hamburger-btn {
+                display: block; /* Mostra o botão no mobile */
             }
+
+            nav {
+                position: fixed;
+                top: 0;
+                left: -100%; /* Começa fora da tela */
+                width: 70%;
+                height: 100%;
+                background: rgba(15, 25, 15, 0.9);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                align-items: flex-start; /* Alinha itens à esquerda */
+                padding-top: 60px; /* Espaço para o botão de fechar */
+                transition: left 0.3s ease-in-out;
+                z-index: 1000;
+            }
+
+            nav.open {
+                left: 0; /* Mostra o menu */
+            }
+
             nav .nav-btn {
                 width: 100%;
-                text-align: center;
+                text-align: left; /* Alinha texto à esquerda */
                 margin: 0;
-                padding: 1rem 0;
+                padding: 1rem 1.5rem; /* Ajusta padding */
                 border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                box-sizing: border-box;
             }
             nav .nav-btn:last-child {
                 border-bottom: none;
@@ -403,11 +432,15 @@
         <p class="header-subtitle">Federal University of Pernambuco | Evolutionary Biology | Ferns and Lycophytes</p>
     </header>
     
+    <button id="hamburger-btn" aria-label="Open menu">
+        <i class="fas fa-bars"></i>
+    </button>
+
     <nav>
         <a href="index.html" class="nav-btn">About</a>
         <a href="pesquisa.html" class="nav-btn">Research</a>
         <a href="equipe.html" class="nav-btn">Team</a>
-        <a href="publicações.html" class="nav-btn active">Publications</a>
+        <a href="publicacoes.html" class="nav-btn active">Publications</a>
         <a href="imagens.html" class="nav-btn">Gallery</a>
         <a href="contato.html" class="nav-btn">Contact</a>
     </nav>
@@ -473,9 +506,9 @@
                     <a href="https://www.scielo.br/j/aa/a/X9yQjq5QWQZVKKtZr5QzHqM/?lang=en" class="btn-acessar">Access Article</a>
                 </div>
                 <div class="artigo-gallery">
-                    <img src="imagens/Artigos/Rediscovery after three décadas_1.jpg" alt="Image from article 2-1" onclick="openModal('imagens/Artigos/Rediscovery after três décadas_1.jpg', 'Figure 1: A - Specimen of the sponge <em>Metania kiliani</em> (UFPEPOR2999) growing on the fronds of the fern <em>Actinostachys pennula</em> (UFP89884)...')">
-                    <img src="imagens/Artigos/Rediscovery after três décadas_2.jpg" alt="Image from article 2-2" onclick="openModal('imagens/Artigos/Rediscovery after três décadas_2.jpg', 'Figure 2: Distribution of <em>Metania kiliani</em> in Amazonas and Roraima states (Brazil) Black circle = type locality...')">
-                    <img src="imagens/Artigos/Rediscovery after três décadas_3.jpg" alt="Image from article 2-3" onclick="openModal('imagens/Artigos/Rediscovery after três décadas_3.jpg', 'Figure 3: SEM images of the spicules of <em>Metania kiliani</em> (UFPEPOR2999). A - Alpha-megasclere; B - Beta-megascleres; C-E - Anisochelaes gemoscleres; F-G - Boletiform gemmocleres; H-J - Gemmule...')">
+                    <img src="imagens/Artigos/Rediscovery after three decades_1.jpg" alt="Image from article 2-1" onclick="openModal('imagens/Artigos/Rediscovery after três décadas_1.jpg', 'Figure 1: A - Specimen of the sponge <em>Metania kiliani</em> (UFPEPOR2999) growing on the fronds of the fern <em>Actinostachys pennula</em> (UFP89884)...')">
+                    <img src="imagens/Artigos/Rediscovery after three decades_2.jpg" alt="Image from article 2-2" onclick="openModal('imagens/Artigos/Rediscovery after três décadas_2.jpg', 'Figure 2: Distribution of <em>Metania kiliani</em> in Amazonas and Roraima states (Brazil) Black circle = type locality...')">
+                    <img src="imagens/Artigos/Rediscovery after three decades_3.jpg" alt="Image from article 2-3" onclick="openModal('imagens/Artigos/Rediscovery after três décadas_3.jpg', 'Figure 3: SEM images of the spicules of <em>Metania kiliani</em> (UFPEPOR2999). A - Alpha-megasclere; B - Beta-megascleres; C-E - Anisochelaes gemoscleres; F-G - Boletiform gemmocleres; H-J - Gemmule...')">
                 </div>
             </div>
         </div>
@@ -493,6 +526,24 @@
     </footer>
 
     <script>
+        // --- CONTROLE DO MENU HAMBURGER ---
+        document.addEventListener("DOMContentLoaded", () => {
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const nav = document.querySelector('nav');
+            const icon = hamburgerBtn.querySelector('i');
+
+            hamburgerBtn.addEventListener('click', () => {
+                nav.classList.toggle('open');
+                if (nav.classList.contains('open')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        });
+
         // Função para abrir e fechar o resumo
         function toggleAbstract(element) {
             const container = element.nextElementSibling;
