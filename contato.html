@@ -19,13 +19,7 @@
             background: url('imagens/Microgramma_vacciniifolia_PR.jpg') center center no-repeat;
             background-size: cover;
             background-attachment: fixed;
-            display: flex;
-            flex-direction: column;
-        }
-        .content-wrapper {
-            flex: 1 0 auto;
             position: relative;
-            z-index: 1;
             padding-bottom: 70px; /* # Espaço para o rodapé */
         }
         body::before {
@@ -176,8 +170,7 @@
             font-size: 1.1rem;
             letter-spacing: 1px;
             box-shadow: 0 -2px 12px rgba(56,142,60,0.12);
-            /* position: fixed; */ /* Removido para evitar sobreposição */
-            flex-shrink: 0; /* Impede que o rodapé encolha */
+            position: fixed; /* Restaurado para consistência */
             left: 0;
             right: 0;
             bottom: 0;
@@ -362,80 +355,78 @@
     </style>
 </head>
 <body>
-    <div class="content-wrapper">
-        <!-- # Mesmo cabeçalho do index.html -->
-        <header>
-            <img src="imagens/capa_lab.png" alt="Fern Logo" class="logo">
-            <h1>Fern and Lycophyte Evolution Lab</h1>
-            <p class="header-subtitle">Federal University of Pernambuco | Evolutionary Biology | Ferns and Lycophytes</p>
-        </header>
+    <!-- # Mesmo cabeçalho do index.html -->
+    <header>
+        <img src="imagens/capa_lab.png" alt="Fern Logo" class="logo">
+        <h1>Fern and Lycophyte Evolution Lab</h1>
+        <p class="header-subtitle">Federal University of Pernambuco | Evolutionary Biology | Ferns and Lycophytes</p>
+    </header>
+    
+    <button id="hamburger-btn" aria-label="Open menu">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- # Barra de navegação com a aba Contato ativa -->
+    <nav>
+        <a href="index.html" class="nav-btn">About</a>
+        <a href="pesquisa.html" class="nav-btn">Research</a>
+        <a href="equipe.html" class="nav-btn">Team</a>
+        <a href="publicacoes.html" class="nav-btn">Publications</a>
+        <a href="imagens.html" class="nav-btn">Gallery</a>
+        <a href="contato.html" class="nav-btn active">Contact</a>
+    </nav>
+    
+    <!-- # Conteúdo da aba Contato -->
+    <section id="contato" class="tab-content active">
+        <h2>Get in Touch</h2>
         
-        <button id="hamburger-btn" aria-label="Open menu">
-            <i class="fas fa-bars"></i>
-        </button>
+        <div class="contact-container">
+            <form class="contato-form" action="https://formsubmit.co/niksoneyazevedo2017@gmail.com" method="POST">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="labevofern.github.io/sitelab/obrigado.html">
+                <input type="hidden" name="_autoresponse" value="We have received your message! We will get in touch soon.">
+                <label for="nome">Name:</label>
+                <input type="text" id="nome" name="nome" required autocomplete="name" placeholder="Your full name">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required autocomplete="email" placeholder="Your best e-mail">
+                <label for="mensagem">Message:</label>
+                <textarea id="mensagem" name="mensagem" required placeholder="Write your message here..."></textarea>
+                <button type="submit">Send Message</button>
+            </form>
 
-        <!-- # Barra de navegação com a aba Contato ativa -->
-        <nav>
-            <a href="index.html" class="nav-btn">About</a>
-            <a href="pesquisa.html" class="nav-btn">Research</a>
-            <a href="equipe.html" class="nav-btn">Team</a>
-            <a href="publicacoes.html" class="nav-btn">Publications</a>
-            <a href="imagens.html" class="nav-btn">Gallery</a>
-            <a href="contato.html" class="nav-btn active">Contact</a>
-        </nav>
-        
-        <!-- # Conteúdo da aba Contato -->
-        <section id="contato" class="tab-content active">
-            <h2>Get in Touch</h2>
-            
-            <div class="contact-container">
-                <form class="contato-form" action="https://formsubmit.co/niksoneyazevedo2017@gmail.com" method="POST">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_next" value="https://labevofern.github.io/sitelab/obrigado.html">
-                    <input type="hidden" name="_autoresponse" value="We have received your message! We will get in touch soon.">
-                    <label for="nome">Name:</label>
-                    <input type="text" id="nome" name="nome" required autocomplete="name" placeholder="Your full name">
-                    <label for="email">E-mail:</label>
-                    <input type="email" id="email" name="email" required autocomplete="email" placeholder="Your best e-mail">
-                    <label for="mensagem">Message:</label>
-                    <textarea id="mensagem" name="mensagem" required placeholder="Write your message here..."></textarea>
-                    <button type="submit">Send Message</button>
-                </form>
+            <div class="contact-details">
+                <h3>Our Information</h3>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>
+                        Federal University of Pernambuco (UFPE)<br>
+                        Center for Biosciences, Department of Botany<br>
+                        Av. Prof. Moraes Rego, 1235 - Cidade Universitária<br>
+                        Recife - PE, 50670-901, Brazil
+                    </p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>
+                        <strong>Coordination:</strong><br>
+                        <a href="mailto:labevol.samambaias@ufpe.br">labevol.samambaias@ufpe.br</a>
+                    </p>
+                </div>
 
-                <div class="contact-details">
-                    <h3>Our Information</h3>
-                    <div class="info-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <p>
-                            Federal University of Pernambuco (UFPE)<br>
-                            Center for Biosciences, Department of Botany<br>
-                            Av. Prof. Moraes Rego, 1235 - Cidade Universitária<br>
-                            Recife - PE, 50670-901, Brazil
-                        </p>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-envelope"></i>
-                        <p>
-                            <strong>Coordination:</strong><br>
-                            <a href="mailto:labevol.samambaias@ufpe.br">labevol.samambaias@ufpe.br</a>
-                        </p>
-                    </div>
+                <div class="info-item">
+                    <i class="fab fa-instagram"></i>
+                    <p>
+                        <strong>Instagram:</strong><br>
+                        <a href="https://www.instagram.com/labevo.fern/" target="_blank">@labevo.fern</a>
+                    </p>
+                </div>
 
-                    <div class="info-item">
-                        <i class="fab fa-instagram"></i>
-                        <p>
-                            <strong>Instagram:</strong><br>
-                            <a href="https://www.instagram.com/labevo.fern/" target="_blank">@labevo.fern</a>
-                        </p>
-                    </div>
-
-                    <div class="map-container">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3950.633993139144!2d-34.9509403!3d-8.0504196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7ab195fd620d13b%3A0xffa11af1393e0f23!2sCB%20-%20Centro%20de%20Bioci%C3%AAncias%20(UFPE)!5e0!3m2!1spt-BR!2sbr!4v1695838881515!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3950.633993139144!2d-34.9509403!3d-8.0504196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7ab195fd620d13b%3A0xffa11af1393e0f23!2sCB%20-%20Centro%20de%20Bioci%C3%AAncias%20(UFPE)!5e0!3m2!1spt-BR!2sbr!4v1695838881515!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
     <!-- # Mesmo rodapé do index.html -->
     <footer>
         &copy; 2025 Fern and Lycophyte Evolution Lab
@@ -458,5 +449,11 @@
                 }
             });
         });
+    </script>
+</body>
+</html>
+    </script>
+</body>
+</html>
     </script>
 </body>
