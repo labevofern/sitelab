@@ -4,8 +4,11 @@
     <!-- # Configurações básicas da página -->
     <meta charset="UTF-8"> <!-- # Suporte a caracteres especiais -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- # Responsividade -->
-    <title>Laboratório de Evolução de Samambaias e Licófitas</title>
-    
+    <title>Fern and Lycophyte Evolution Lab</title>
+    <link rel="icon" href="imagens/simb.png"> 
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- # Importação de fontes do Google -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     
@@ -16,13 +19,24 @@
             font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
             color: #fff;
             min-height: 100vh;
-            background: url('imagens/Asplenium\ pellucidum.jpg') center center no-repeat;
+            background: url('imagens/Microgramma_vacciniifolia_PR.jpg') center center no-repeat;
             background-size: cover;
             background-attachment: fixed;
             position: relative;
             padding-bottom: 70px; /* # Espaço para o rodapé */
         }
         
+        /* --- EFEITO SURREAL DE PARTÍCULAS --- */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* # Posição atrás do conteúdo, mas acima do overlay */
+            pointer-events: none; /* # Permite cliques através do canvas */
+        }
+
         /* # Overlay escuro para melhor contraste */
         body::before {
             content: "";
@@ -47,41 +61,72 @@
             margin-bottom: 1.2rem;
             filter: none;
         }
+
+        .header-subtitle {
+            color: #fff; 
+            text-align: center; 
+            text-shadow: none;
+            padding: 0 1rem;
+            font-size: 1rem;
+        }
         
         /* # Barra de navegação */
         nav {
             display: flex;
             justify-content: center;
-            background: rgba(56,142,60,0.85);
-            box-shadow: 0 2px 12px rgba(56,142,60,0.12);
+            background: rgba(15, 25, 15, 0.6); /* Fundo mais escuro e translúcido */
+            backdrop-filter: blur(10px); /* Efeito de vidro */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: sticky;
             top: 0;
             z-index: 10;
+            padding: 0.5rem 0; /* Espaçamento interno */
         }
         
         /* # Botões da navegação */
         nav .nav-btn {
-            background: rgba(255,255,255,0.08);
+            background: transparent; /* Fundo transparente */
             border: none;
-            color: #fff;
-            font-size: 1.15rem;
-            padding: 1rem 2.2rem;
+            color: #e0e0e0; /* Cor mais suave */
+            font-size: 1.1rem; /* Tamanho de fonte ajustado */
+            padding: 0.8rem 1.5rem; /* Espaçamento ajustado */
             cursor: pointer;
-            transition: background 0.3s, box-shadow 0.3s, color 0.3s;
-            border-radius: 30px 30px 0 0;
-            margin: 0 0.2rem;
-            font-weight: 600;
-            box-shadow: 0 2px 8px rgba(76,175,80,0.08);
+            transition: color 0.3s ease;
+            font-weight: 500;
             text-decoration: none;
-            display: inline-block;
+            position: relative; /* Para o pseudo-elemento ::after */
+            margin: 0 0.5rem;
+        }
+
+        /* Efeito de sublinhado animado */
+        nav .nav-btn::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 5px; /* Posição do sublinhado */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4caf50;
+            transition: width 0.4s ease;
         }
         
         /* # Botão ativo ou hover */
-        nav .nav-btn.active, nav .nav-btn:hover {
-            background: linear-gradient(90deg, #4caf50 60%, #388e3c 100%);
-            color: #fff;
-            box-shadow: 0 2px 8px rgba(76,175,80,0.18);
-            text-decoration: none;
+        nav .nav-btn:hover {
+            color: #ffffff; /* Cor mais clara no hover */
+        }
+
+        nav .nav-btn:hover::after {
+            width: 70%; /* Largura do sublinhado no hover */
+        }
+
+        nav .nav-btn.active {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        nav .nav-btn.active::after {
+            width: 70%;
         }
         
         /* # Conteúdo das abas */
@@ -120,11 +165,169 @@
         }
         
         h2 {
-            font-size: 1.5rem;
-            color: #fff;
+            font-size: 1.6rem;
+            color: #c8e6c9;
             text-shadow: none;
+            margin-bottom: 2rem; /* Espaçamento adicionado */
+            text-align: center; /* Centraliza o título */
+            border-bottom: 2px solid #4caf50;
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: #c8e6c9;
+            margin-top: 3rem;
+            border-bottom: 2px solid #4caf50;
+            padding-bottom: 0.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .tab-content p {
+            line-height: 1.6;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        /* NOVOS ESTILOS PARA A SEÇÃO "SOBRE" */
+        .lab-intro {
+            font-size: 1.15rem !important;
+            text-align: center !important;
+            margin-bottom: 2.5rem;
+            font-weight: 500;
+        }
+
+        .mission-approach-container {
+            display: grid;
+            grid-template-columns: 1fr; /* Alterado para uma coluna */
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-box {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid #4caf50;
+        }
+
+        .info-box h4 {
+            margin-top: 0;
+            font-size: 1.3rem;
+            color: #c8e6c9;
+        }
+
+        .info-box p {
+            font-size: 0.95rem !important;
+        }
+
+        /* NOVOS ESTILOS PARA A SEÇÃO "EM NÚMEROS" */
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin-top: 2.5rem;
+            margin-bottom: 2rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            min-width: 120px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #4caf50;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 0.25rem;
+        }
+
+        /* Estilos antigos da lista - serão substituídos */
+        .research-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 1rem;
+        }
+
+        .research-list li {
+            background: rgba(0, 0, 0, 0.15);
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #4caf50;
+        }
+
+        .research-list strong {
+            font-size: 1.2rem;
+            color: #c8e6c9; /* Verde claro para destaque */
+        }
+
+        /* NOVOS ESTILOS PARA OS CARDS DE PESQUISA */
+        .research-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .research-card {
+            background: rgba(0, 0, 0, 0.25);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .research-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+        }
+
+        .research-card h4 {
+            font-size: 1.3rem;
+            color: #c8e6c9;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .research-card p {
+            font-size: 0.95rem;
+            text-align: justify;
+            flex-grow: 1; /* Faz o parágrafo ocupar o espaço disponível */
+        }
+
+        .keywords {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 1rem;
+            font-style: italic;
         }
         
+        /* --- ANIMAÇÃO DE SCROLL --- */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* # Rodapé */
         footer {
             text-align: center;
@@ -142,30 +345,70 @@
         }
         
         /* # Estilos para mobile */
-        @media (max-width: 700px) {
+        @media (max-width: 768px) {
+            .logo {
+                width: 180px; /* Logo um pouco menor */
+            }
+            h1 { 
+                font-size: 1.8rem; 
+            }
+            .header-subtitle {
+                font-size: 0.85rem; /* Tamanho ligeiramente reduzido */
+            }
             nav {
                 flex-direction: column;
-                align-items: stretch;
+                align-items: center; /* Centraliza os botões */
+                padding: 0;
             }
             
             nav .nav-btn {
-                border-radius: 0;
-                margin: 0;
-                padding: 1rem 0.5rem;
-                font-size: 1rem;
                 width: 100%;
+                text-align: center;
+                margin: 0;
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            nav .nav-btn:last-child {
+                border-bottom: none;
+            }
+
+            /* Remove o efeito de sublinhado no mobile e destaca o botão ativo */
+            nav .nav-btn::after {
+                display: none;
+            }
+            nav .nav-btn.active, nav .nav-btn:hover {
+                background: rgba(76, 175, 80, 0.2); /* Fundo verde sutil */
+                color: #fff;
             }
             
             .tab-content { 
-                padding: 1.2rem 0.5rem; 
-            }
-            
-            h1 { 
-                font-size: 1.5rem; 
+                padding: 1.5rem 1rem; 
+                margin-top: 1.5rem;
             }
             
             h2 { 
-                font-size: 1.2rem; 
+                font-size: 1.4rem; 
+            }
+            h3 {
+                font-size: 1.3rem;
+            }
+
+            .stats-container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .stat-item {
+                min-width: unset;
+                width: 100%;
+            }
+            .stat-number {
+                font-size: 2.2rem;
+            }
+
+            /* Ajusta containers de grid para uma coluna */
+            .mission-approach-container, .research-cards-container {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -174,29 +417,126 @@
     <!-- # Cabeçalho com logo e título -->
     <header>
         <img src="imagens/capa_lab.png" alt="Logo Samambaia" class="logo">
-        <h1>Laboratório de Evolução de Samambaias e Licófitas</h1>
-        <p style="color: #fff; text-align: center; text-shadow: none;">Universidade Federal de Pernambuco | Biologia evolutiva | Samambaias e licófitas</p>
+        <h1>Fern and Lycophyte Evolution Lab</h1>
+        <p class="header-subtitle">Federal University of Pernambuco | Evolutionary Biology | Ferns and Lycophytes</p>
     </header>
     
     <!-- # Barra de navegação -->
     <nav>
-        <a href="sobre.html" class="nav-btn active">Sobre</a>
-        <a href="pesquisa.html" class="nav-btn">Pesquisa</a>
-        <a href="equipe.html" class="nav-btn">Equipe</a>
-        <a href="Publicações.html" class="nav-btn">Publicações</a>
-        <a href="imagens.html" class="nav-btn">Imagens</a>
-        <a href="contato.html" class="nav-btn">Contato</a>
+        <a href="sobre.html" class="nav-btn active">About</a>
+        <a href="pesquisa.html" class="nav-btn">Research</a>
+        <a href="equipe.html" class="nav-btn">Team</a>
+        <a href="Publicações.html" class="nav-btn">Publications</a>
+        <a href="imagens.html" class="nav-btn">Gallery</a>
+        <a href="contato.html" class="nav-btn">Contact</a>
     </nav>
     
-    <!-- # Conteúdo principal (Aba Sobre) -->
-    <section id="sobre" class="tab-content active">
-        <h2>Sobre o Laboratório</h2>
-        <p>O Laboratório de Evolução de Samambaias e Licófitas dedica-se ao estudo da diversidade, evolução e ecologia dessas plantas fascinantes. Nosso objetivo é compreender os processos evolutivos que moldaram a flora atual e contribuir para a conservação da biodiversidade.</p>
-    </section>
+  <!-- # Conteúdo principal (Aba Sobre) -->
+<section id="sobre" class="tab-content active">
+    <h2>About the Lab</h2>
+    <p class="lab-intro">In the heart of northeastern Brazil, at the Federal University of Pernambuco, our laboratory is a center of excellence dedicated to the study of ferns and lycophytes. We unite passion and science to explore and unravel the evolutionary history, phenotypic complexity, and ecological diversity of these fascinating plant groups.</p>
+
+    <div class="mission-approach-container">
+        <div class="info-box reveal-on-scroll">
+            <h4>Our Mission</h4>
+            <p>Our mission is to unravel the mysteries of the evolution, history, and diversity—both genetic and phenotypic—of these lineages, actively contributing to biodiversity conservation and the advancement of scientific knowledge in underexplored areas.</p>
+        </div>
+        <div class="info-box reveal-on-scroll">
+            <h4>Our Approach</h4>
+            <p>We adopt a multi-evidence approach, integrating phenotypic, genomic, and environmental data. Our goal is to understand the evolutionary processes and patterns that have shaped the flora we see today, translating complex discoveries into accessible and relevant knowledge.</p>
+        </div>
+    </div>
+
+    <div class="info-box reveal-on-scroll">
+        <h4>Our Commitment to Diversity</h4>
+        <p style="text-align: justify;">We believe that science thrives on diverse perspectives. Our lab is a safe and inclusive space for everyone, regardless of race, ethnicity, gender identity, sexual orientation, religion, disability, or socioeconomic background. We actively champion equity and stand in solidarity with Black, Indigenous, People of Color (BIPOC), and LGBTQIA+ communities. We are committed to fostering an environment where all voices are heard, valued, and respected.</p>
+    </div>
+
+    <div class="stats-container reveal-on-scroll">
+        <div class="stat-item">
+            <span class="stat-number" data-goal="10">0+</span>
+            <div class="stat-label">Publications</div>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" data-goal="4">0+</span>
+            <div class="stat-label">Active Projects</div>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" data-goal="8">0+</span>
+            <div class="stat-label">Collaborators</div>
+        </div>
+    </div>
+
+    <h3 class="reveal-on-scroll">Our Lines of Research</h3>
+    <div class="research-cards-container">
+        <div class="research-card reveal-on-scroll">
+            <h4>Evolution</h4>
+            <p>We seek to understand the evolution of plant lineages adapted to tropical environments. Our investigations cover the processes and patterns of diversification and geography, both historical and contemporary, as well as the mechanisms of divergence, convergence, natural selection, and speciation that shape this biodiversity.</p>
+            <div class="keywords">Convergence, Divergence, Diversification, Vascular Plants, Natural Selection, Speciation, Tropics</div>
+        </div>
+        <div class="research-card reveal-on-scroll">
+            <h4>Integrative Systematics</h4>
+            <p>We investigate evolutionary relationships and describe biodiversity using an integrative approach that explores morphological, molecular, spectral, ecological data, and predictive models. Our main focus is on the major groups of tropical ferns and lycophytes (but not exclusively!).</p>
+            <div class="keywords">Biodiversity, Spectroscopy, Lycophytes, Predictive Models, Molecular, Morphology, Ferns, Systematics</div>
+        </div>
+        <div class="research-card reveal-on-scroll">
+            <h4>Evolutionary Ecology</h4>
+            <p>We study how ferns and lycophytes interact with the environment. Our studies assess the impacts of climate change, characterize flora at various scales, and map endemic, rare, and threatened species, with the ultimate goal of supporting effective conservation strategies for them.</p>
+            <div class="keywords">Conservation, Ecology, Threatened Species, Rare Species, Regional Flora, Climate Change, Taxonomy</div>
+        </div>
+    </div>
+
+</section>
     
     <!-- # Rodapé -->
     <footer>
-        &copy; 2025 Laboratório de Evolução de Samambaias e Licófitas
+        &copy; 2025 Fern and Lycophyte Evolution Lab
     </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Animação dos contadores
+            const statsContainer = document.querySelector('.stats-container');
+            let hasAnimated = false;
+            const animateStats = () => {
+                if (hasAnimated) return;
+                hasAnimated = true;
+                document.querySelectorAll('.stat-number').forEach(stat => {
+                    const goal = parseInt(stat.getAttribute('data-goal'));
+                    let current = 0;
+                    const increment = Math.ceil(goal / 100);
+                    const duration = 20;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= goal) {
+                            clearInterval(timer);
+                            stat.textContent = goal + '+';
+                        } else {
+                            stat.textContent = current + '+';
+                        }
+                    }, duration);
+                });
+            };
+
+            // Animação de revelação ao rolar
+            const revealElements = document.querySelectorAll('.reveal-on-scroll');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        // Se o elemento for o container de stats, anima os números
+                        if (entry.target.classList.contains('stats-container')) {
+                            animateStats();
+                        }
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
 </body>
 </html>
