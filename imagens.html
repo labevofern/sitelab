@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -873,4 +874,881 @@
 
     </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- # Mesmo head do index.html -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Fern Lab</title>
+    <link rel="icon" href="imagens/simb.png"> 
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- # Mesmos estilos do index.html -->
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            background: url('imagens/Microgramma_vacciniifolia_PR.jpg') center center no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            position: relative;
+            padding-bottom: 70px; /* # Espaço para o rodapé */
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(30,40,30,0.45);
+            z-index: 0;
+            pointer-events: none;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        .logo {
+            width: 210px;
+            margin-bottom: 1.2rem;
+            filter: none;
+        }
+
+        .header-subtitle {
+            color: #fff; 
+            text-align: center; 
+            text-shadow: none;
+            padding: 0 1rem;
+            font-size: 1rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background: rgba(15, 25, 15, 0.6); /* Fundo mais escuro e translúcido */
+            backdrop-filter: blur(10px); /* Efeito de vidro */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            padding: 0.5rem 0; /* Espaçamento interno */
+        }
+        nav .nav-btn {
+            background: transparent; /* Fundo transparente */
+            border: none;
+            color: #e0e0e0; /* Cor mais suave */
+            font-size: 1.1rem; /* Tamanho de fonte ajustado */
+            padding: 0.8rem 1.5rem; /* Espaçamento ajustado */
+            cursor: pointer;
+            transition: color 0.3s ease;
+            font-weight: 500;
+            text-decoration: none;
+            position: relative; /* Para o pseudo-elemento ::after */
+            margin: 0 0.5rem;
+        }
+
+        /* Efeito de sublinhado animado */
+        nav .nav-btn::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 5px; /* Posição do sublinhado */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4caf50;
+            transition: width 0.4s ease;
+        }
+        
+        /* # Botão ativo ou hover */
+        nav .nav-btn:hover {
+            color: #ffffff; /* Cor mais clara no hover */
+        }
+
+        nav .nav-btn:hover::after {
+            width: 70%; /* Largura do sublinhado no hover */
+        }
+
+        nav .nav-btn.active {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        nav .nav-btn.active::after {
+            width: 70%;
+        }
+        .tab-content {
+            display: none;
+            padding: 2.5rem 2rem;
+            max-width: 900px;
+            margin: 2.5rem auto 0 auto;
+            background: rgba(255,255,255,0.35);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(76,175,80,0.18);
+            backdrop-filter: blur(8px);
+            border: 1.2px solid #fff;
+            position: relative;
+            z-index: 1;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.7s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 {
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: none;
+        }
+        h2 {
+            font-size: 1.6rem;
+            color: #c8e6c9;
+            text-shadow: none;
+            text-align: center;
+            border-bottom: 2px solid #4caf50;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- ESTILOS DOS FILTROS E BUSCA --- */
+        .filter-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        #searchInput {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.5);
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: box-shadow 0.3s, border-color 0.3s;
+        }
+        #searchInput:focus {
+            outline: none;
+            border-color: #4caf50;
+            box-shadow: 0 0 15px rgba(76,175,80,0.3);
+        }
+        #searchInput::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+        .filter-buttons {
+            text-align: center;
+        }
+        .filter-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #fff;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            margin: 0 0.3rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 0.3s, color 0.3s;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: #4caf50;
+            border-color: #4caf50;
+            color: #fff;
+        }
+
+        /* --- ESTILOS DA GALERIA --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        /* --- ESTILO PARA O BOTÃO CARREGAR MAIS --- */
+        .load-more-container {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        #loadMoreBtn {
+            background: #4caf50;
+            border: none;
+            color: #fff;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.3s;
+        }
+        #loadMoreBtn:hover {
+            background: #388e3c;
+            transform: scale(1.05);
+        }
+        #loadMoreBtn.hidden {
+            display: none;
+        }
+
+        /* --- NOVOS ESTILOS PARA ITENS DA GALERIA --- */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            display: none; /* Oculta todos os itens por padrão */
+        }
+        .gallery-item.visible {
+            display: block; /* Torna os itens visíveis via JS */
+        }
+        .gallery-item.hidden {
+            opacity: 0;
+            transform: scale(0.9);
+            pointer-events: none;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0.5rem; /* Reduz o padding para dar mais espaço ao texto */
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            box-sizing: border-box; /* Garante que o padding não aumente o tamanho total */
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .overlay-caption {
+            font-size: 0.9rem;
+            font-weight: 500;
+            max-width: 100%; /* Garante que a legenda não ultrapasse a largura do overlay */
+        }
+
+        .overlay-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- MODAL --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+        }
+        .modal-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #fff;
+            font-size: 1rem;
+            background: rgba(0,0,0,0.6);
+            padding: 10px;
+            width: 80%;
+            margin: 0 auto;
+            border-radius: 5px;
+        }
+        .modal-close {
+            position: absolute;
+            top: 20px; right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* --- NOVOS ESTILOS PARA NAVEGAÇÃO DO MODAL --- */
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.4);
+            color: #fff;
+            border: none;
+            font-size: 2rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            user-select: none;
+        }
+        .modal-nav:hover {
+            background: rgba(76,175,80,0.8);
+        }
+        #prevBtn { left: 15px; border-radius: 5px 0 0 5px; }
+        #nextBtn { right: 15px; border-radius: 0 5px 5px 0; }
+
+        footer {
+            text-align: center;
+            padding: 0.6rem 1.2rem;
+            background: rgba(56,142,60,0.85);
+            color: #fff;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            box-shadow: 0 -2px 12px rgba(56,142,60,0.12);
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 20;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                width: 180px;
+            }
+            h1 { 
+                font-size: 1.8rem; 
+            }
+            .header-subtitle {
+                font-size: 0.85rem; /* Tamanho ligeiramente reduzido */
+            }
+            nav {
+                flex-direction: column;
+                align-items: center;
+                padding: 0;
+            }
+            nav .nav-btn {
+                width: 100%;
+                text-align: center;
+                margin: 0;
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            nav .nav-btn:last-child {
+                border-bottom: none;
+            }
+            nav .nav-btn::after {
+                display: none;
+            }
+            nav .nav-btn.active, nav .nav-btn:hover {
+                background: rgba(76, 175, 80, 0.2);
+                color: #fff;
+            }
+            .tab-content { 
+                padding: 1.5rem 1rem; 
+                margin-top: 1.5rem;
+            }
+            h2 { 
+                font-size: 1.4rem; 
+            }
+            .filter-buttons {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            .filter-btn {
+                margin: 0;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 0.5rem;
+            }
+            .gallery-item img {
+                height: 120px;
+            }
+            .modal-nav {
+                font-size: 1.5rem;
+                padding: 0.3rem 0.8rem;
+            }
+            #prevBtn { left: 5px; }
+            #nextBtn { right: 5px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- # Mesmo cabeçalho do index.html -->
+    <header>
+        <img src="imagens/capa_lab.png" alt="Fern Logo" class="logo">
+        <h1>Fern and Lycophyte Evolution Lab</h1>
+        <p class="header-subtitle">Federal University of Pernambuco | Evolutionary Biology | Ferns and Lycophytes</p>
+    </header>
+    
+    <!-- # Barra de navegação com a aba Imagens ativa -->
+    <nav>
+        <a href="sobre.html" class="nav-btn">About</a>
+        <a href="pesquisa.html" class="nav-btn">Research</a>
+        <a href="equipe.html" class="nav-btn">Team</a>
+        <a href="Publicações.html" class="nav-btn">Publications</a>
+        <a href="imagens.html" class="nav-btn active">Gallery</a>
+        <a href="contato.html" class="nav-btn">Contact</a>
+    </nav>
+    
+    <!-- # Conteúdo da aba Imagens -->
+    <section id="imagens" class="tab-content active">
+        <h2>Our Gallery</h2>
+        <p>See photos of our species, field expeditions, and lab activities.</p>
+        
+        <div class="filter-controls">
+            <input type="text" id="searchInput" onkeyup="updateGallery()" placeholder="Search the gallery...">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-category="all" onclick="setActiveFilter(this)">All</button>
+                <button class="filter-btn" data-category="especies" onclick="setActiveFilter(this)">Species</button>
+                <button class="filter-btn" data-category="campo" onclick="setActiveFilter(this)">Field Activities</button>
+                <button class="filter-btn" data-category="cong" onclick="setActiveFilter(this)">Congresses and scientific/social events</button>
+            </div>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item" data-category="campo" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Serra bonita 2024.jpg" alt="Team on a field expedition at RPPN Serra Bonita" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption">Team on a field expedition at RPPN Serra Bonita</span>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="campo" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Serra da moeda.jpg" alt="Team on a field expedition at Serra da Moeda" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption">Team on a field expedition at Serra da Moeda</span>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="campo" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Pico do Jabre.jpg" alt="Team on a field expedition at Pico do Jabre" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption">Landscape of a collection area</span>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="cong" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/CNBOT_2024.png" alt="National Congress of Botany - Brasília/2024" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption">National Congress of Botany - Brasília/2024</span>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="cong" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/CNBOT_2025.jpg" alt="National Congress of Botany - Piauí/2025" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption">National Congress of Botany - Piauí/2025</span>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="cong" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/CNBOT_2025_1.jpg" alt="National Congress of Botany - Piauí/2025" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption">National Congress of Botany - Piauí/2025</span>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="cong" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Reunião do núcleo 2024.jpg" alt="Meeting of the Pteridology Nucleus of Brazil (CNBOT/2024)" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption">Meeting of the Pteridology Nucleus of Brazil (CNBOT/2024)</span>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="cong" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/festa junina 2024.jpg" alt="Lab's June Party 2025" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption">Lab's June Party 2025</span>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Microgramma_nana_MT.JPG" alt="Microgramma Nana" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Microgramma nana</i></span>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Microgramma_tobagensis_Peru.JPG" alt="Microgramma tobagensis" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Microgramma tobagensis</i></span>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Adiantum cajennese_PA.JPG" alt="Adiantum cajennese" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Adiantum cajennese</i></span>
+              </div>
+         </div>
+                <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Asplenium_reprodução vegetativa2_SP_Tapiraí.JPG" alt="Asplenium sp. (vegetative reproduction)" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Asplenium</i> sp. (vegetative reproduction)</span>
+              </div>
+         </div>
+                <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Asplenium_reprodução vegetativa_SP_Tapiraí.JPG" alt="Asplenium sp. (vegetative reproduction)" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Asplenium</i> sp. (vegetative reproduction)</span>
+         </div>
+              </div>
+            <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Baculo__SP_Tapiraí.JPG" alt="Fiddlehead of a fern (sp.)" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption">Fiddlehead of a fern (sp.)</span>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Cyathea corcovadensis__SP_Tapiraí.JPG" alt="Cyathea corcovadensis" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Cyathea corcovadensis</i></span>
+              </div>
+         </div>
+                <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Cyathea_atrovirens_SP_Tapirai.JPG" alt="Cyathea atrovirens" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Cyathea atrovirens</i></span>
+              </div>
+         </div>
+                <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Cyathea_bipinnatifida_AC_Serra do Divisor.JPG" alt="Cyathea bipinnatifida" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Cyathea bipinnatifida</i></span>
+                </div>
+        </div>
+            <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Eupodium_kaulfussi_SP_Tapiraí.JPG" alt="Eupodium kaulfussi" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Eupodium kaulfussi</i></span>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Gleicheniaceae_habito_SP_Tapiraí.JPG" alt="Gleicheniaceae" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Gleicheniaceae</i></span>
+              </div>
+         </div>
+                <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Hecistopteris_pumila_AC.JPG" alt="Hecistopteris pumila" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Hecistopteris pumila</i></span>
+              </div>
+         </div>
+                <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Hemidyctium marginatum_SP_Tapiraí.JPG" alt="Hemidyctium marginatum" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Hemidyctium marginatum</i></span>  
+              </div>
+         </div>
+                <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Lindsaea_hemiglossa_AC_Serra Divisor.JPG" alt="Lindsaea hemiglossa" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Lindsaea hemiglossa</i></span>
+                </div>
+        </div>
+            <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Lomaridium_plumieri_SP_Tapiraí.JPG" alt="Lomaridium plumieri" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Lomaridium plumieri</i></span>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Microgramma squamulosa_venação_SP_Tapiraí.JPG" alt="Microgramma squamulosa" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Microgramma squamulosa</i></span>
+              </div>
+         </div>
+                <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Microgramma_geminata_ES.JPG" alt="Microgramma geminata" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Microgramma geminata</i></span>
+              </div>
+         </div>
+                <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Microgramma_microsoroides_ES.JPG" alt="Microgramma microsoroides" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Microgramma microsoroides</i></span>      
+              </div>
+         </div>
+            <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Microgramma_vacciniifolia_PR.jpg" alt="Microgramma vacciniifolia" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Microgramma vacciniifolia</i></span>
+              </div>
+         </div>
+                <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Neoblechnum_brasiliense_SP_Tapiraí.JPG" alt="Neoblechnum brasiliense" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Neoblechnum brasiliense</i></span>
+              </div>
+         </div>
+                <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Pleopeltis_hirsutissima_SP_Tapiraí.JPG" alt="Pleopeltis hirsutissima" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Pleopeltis hirsutissima</i></span>  
+              </div>
+         </div>
+                <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Saccoloma_inaequale_SP_Tapiraí.JPG" alt="Saccoloma inaequale" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Saccoloma inaequale</i></span>
+                </div>
+        </div>
+            <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Schizaea_elegans_SP_Tapiraí.JPG" alt="Schizaea elegans" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Schizaea elegans</i></span>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Schizaea_flabellum_AC.JPG" alt="Schizaea flabellum" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Schizaea flabellum</i></span>
+              </div>
+         </div>
+                <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Selaginella_SP_Tapiraí.JPG" alt="Selaginella sp." loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Selaginella</i> sp.</span>
+              </div>
+         </div>
+                <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Trichomanes_diversifrons_ACSerra Divisor.JPG" alt="Trichomanes diversifrons" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Trichomanes diversifrons</i></span>       
+                </div>
+            </div>
+            <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Trichomanes_elegans_soros_SP_Tapiraí.JPG" alt="Trichomanes elegans" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Trichomanes elegans</i></span>
+              </div>
+         </div>
+                <div class="gallery-item" data-category="especies" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Triplophyllum funestum_PA.JPG" alt="Triplophyllum funestum" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption"><i>Triplophyllum funestum</i></span>
+              </div>
+         </div>  
+    </div>
+
+    <div class="load-more-container">
+        <button id="loadMoreBtn">Load More</button>
+    </div>
+    </section>
+
+    <!-- Modal para Imagens -->
+    <div id="imageModal" class="modal">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <button id="prevBtn" class="modal-nav" onclick="changeImage(-1)">&#10094;</button>
+        <img class="modal-content" id="modalImage">
+        <button id="nextBtn" class="modal-nav" onclick="changeImage(1)">&#10095;</button>
+        <div id="modalCaption" class="modal-caption"></div>
+    </div>
+    
+    <!-- # Mesmo rodapé do index.html -->
+    <footer>
+        &copy; 2025 Fern and Lycophyte Evolution Lab
+    </footer>
+
+    <script>
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("modalImage");
+        const modalCaption = document.getElementById("modalCaption");
+        let currentImageIndex;
+        let visibleImages = [];
+
+        function openModal(element) {
+            const img = element.querySelector('img');
+            modal.style.display = "flex";
+            modalImg.src = img.src;
+            modalCaption.textContent = img.alt;
+            document.body.style.overflow = "hidden";
+
+            // Prepara a navegação
+            visibleImages = Array.from(document.querySelectorAll('.gallery-item.visible'));
+            currentImageIndex = visibleImages.indexOf(element);
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        // Fecha o modal ao clicar fora da imagem
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        function changeImage(direction) {
+            currentImageIndex += direction;
+            if (currentImageIndex >= visibleImages.length) {
+                currentImageIndex = 0;
+            } else if (currentImageIndex < 0) {
+                currentImageIndex = visibleImages.length - 1;
+            }
+            const nextImg = visibleImages[currentImageIndex].querySelector('img');
+            modalImg.src = nextImg.src;
+            modalCaption.textContent = nextImg.alt;
+        }
+
+        document.addEventListener("keydown", function(event) {
+            if (modal.style.display === "flex") {
+                if (event.key === "Escape") closeModal();
+                if (event.key === "ArrowLeft") changeImage(-1);
+                if (event.key === "ArrowRight") changeImage(1);
+            }
+        });
+
+        // --- LÓGICA ATUALIZADA PARA FILTRO E "CARREGAR MAIS" ---
+        let activeCategory = 'all';
+        const itemsPerLoad = 6;
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+
+        function updateGallery() {
+            const searchTerm = document.getElementById('searchInput').value.toUpperCase();
+            const allItems = document.querySelectorAll('.gallery-item');
+            let filteredItems = [];
+
+            // 1. Esconde todos e coleta os que correspondem ao filtro
+            allItems.forEach(item => {
+                item.classList.remove('visible');
+                const itemCategory = item.getAttribute('data-category');
+                const itemAltText = item.querySelector('img').alt.toUpperCase();
+                
+                const categoryMatch = (activeCategory === 'all' || itemCategory === activeCategory);
+                const searchMatch = (itemAltText.indexOf(searchTerm) > -1);
+
+                if (categoryMatch && searchMatch) {
+                    filteredItems.push(item);
+                }
+            });
+
+            // 2. Mostra o primeiro lote de itens filtrados
+            filteredItems.slice(0, itemsPerLoad).forEach(item => {
+                item.classList.add('visible');
+            });
+
+            // 3. Controla a visibilidade do botão "Carregar Mais"
+            if (filteredItems.length > itemsPerLoad) {
+                loadMoreBtn.classList.remove('hidden');
+            } else {
+                loadMoreBtn.classList.add('hidden');
+            }
+        }
+
+        function setActiveFilter(button) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            activeCategory = button.getAttribute('data-category');
+            updateGallery();
+        }
+
+        loadMoreBtn.addEventListener('click', () => {
+            const searchTerm = document.getElementById('searchInput').value.toUpperCase();
+            // Seleciona apenas os itens que estão ocultos
+            const hiddenItems = document.querySelectorAll('.gallery-item:not(.visible)');
+            let itemsToShow = [];
+
+            // Encontra os próximos itens ocultos que correspondem ao filtro atual
+            hiddenItems.forEach(item => {
+                if (itemsToShow.length < itemsPerLoad) {
+                    const itemCategory = item.getAttribute('data-category');
+                    const itemAltText = item.querySelector('img').alt.toUpperCase();
+                    const categoryMatch = (activeCategory === 'all' || itemCategory === activeCategory);
+                    const searchMatch = (itemAltText.indexOf(searchTerm) > -1);
+
+                    if (categoryMatch && searchMatch) {
+                        itemsToShow.push(item);
+                    }
+                }
+            });
+
+            // Mostra os itens encontrados
+            itemsToShow.forEach(item => item.classList.add('visible'));
+
+            // Verifica novamente se ainda há itens ocultos que correspondem ao filtro
+            const stillHiddenItems = document.querySelectorAll('.gallery-item:not(.visible)');
+            let moreItemsToLoad = false;
+            stillHiddenItems.forEach(item => {
+                const itemCategory = item.getAttribute('data-category');
+                const itemAltText = item.querySelector('img').alt.toUpperCase();
+                const categoryMatch = (activeCategory === 'all' || itemCategory === activeCategory);
+                const searchMatch = (itemAltText.indexOf(searchTerm) > -1);
+                if(categoryMatch && searchMatch) {
+                    moreItemsToLoad = true;
+                }
+            });
+
+            // Se não houver mais itens para carregar, esconde o botão
+            if (!moreItemsToLoad) {
+                 loadMoreBtn.classList.add('hidden');
+            }
+        });
+
+        // Carregamento inicial da galeria
+        document.addEventListener('DOMContentLoaded', updateGallery);
+
+    </script>
+</body>
+>>>>>>> dbd1c9e387a4eb670965cb93e88f6cc000d91858
 </html>

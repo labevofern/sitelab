@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -495,4 +496,503 @@
         });
     </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- # Mesmo head do index.html -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research - Fern Lab</title>
+    <link rel="icon" href="imagens/simb.png"> 
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- # Importação de fontes do Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* # ESTILOS GERAIS (comuns a todas as páginas) */
+        body {
+            margin: 0;
+            font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            background: url('imagens/Microgramma_vacciniifolia_PR.jpg') center center no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            position: relative;
+            padding-bottom: 70px; /* # Espaço para o rodapé */
+        }
+        
+        /* # Overlay escuro para melhor contraste */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(30,40,30,0.45);
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        /* # Estilo do cabeçalho */
+        header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* # Logo do laboratório */
+        .logo {
+            width: 210px;
+            margin-bottom: 1.2rem;
+            filter: none;
+        }
+
+        .header-subtitle {
+            color: #fff; 
+            text-align: center; 
+            text-shadow: none;
+            padding: 0 1rem;
+            font-size: 1rem;
+        }
+        
+        /* # Barra de navegação */
+        nav {
+            display: flex;
+            justify-content: center;
+            background: rgba(15, 25, 15, 0.6); /* Fundo mais escuro e translúcido */
+            backdrop-filter: blur(10px); /* Efeito de vidro */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            padding: 0.5rem 0; /* Espaçamento interno */
+        }
+        
+        /* # Botões da navegação */
+        nav .nav-btn {
+            background: transparent; /* Fundo transparente */
+            border: none;
+            color: #e0e0e0; /* Cor mais suave */
+            font-size: 1.1rem; /* Tamanho de fonte ajustado */
+            padding: 0.8rem 1.5rem; /* Espaçamento ajustado */
+            cursor: pointer;
+            transition: color 0.3s ease;
+            font-weight: 500;
+            text-decoration: none;
+            position: relative; /* Para o pseudo-elemento ::after */
+            margin: 0 0.5rem;
+        }
+
+        /* Efeito de sublinhado animado */
+        nav .nav-btn::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 5px; /* Posição do sublinhado */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4caf50;
+            transition: width 0.4s ease;
+        }
+        
+        /* # Botão ativo ou hover */
+        nav .nav-btn:hover {
+            color: #ffffff; /* Cor mais clara no hover */
+        }
+
+        nav .nav-btn:hover::after {
+            width: 70%; /* Largura do sublinhado no hover */
+        }
+
+        nav .nav-btn.active {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        nav .nav-btn.active::after {
+            width: 70%;
+        }
+        
+        /* # Conteúdo das abas */
+        .tab-content {
+            display: none;
+            padding: 2.5rem 2rem;
+            max-width: 900px;
+            margin: 2.5rem auto 0 auto;
+            background: rgba(255,255,255,0.35);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(76,175,80,0.18);
+            backdrop-filter: blur(8px);
+            border: 1.2px solid #fff;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* # Aba ativa */
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.7s;
+        }
+        
+        /* # Animação de entrada */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* # Títulos e texto */
+        h1 {
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: none;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            color: #c8e6c9;
+            text-shadow: none;
+            text-align: center;
+            border-bottom: 2px solid #4caf50;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- Filtro de busca --- */
+        .filter-container {
+            margin-bottom: 2.5rem;
+        }
+        #searchInput {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.5);
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: box-shadow 0.3s, border-color 0.3s;
+        }
+        #searchInput:focus {
+            outline: none;
+            border-color: #4caf50;
+            box-shadow: 0 0 15px rgba(76,175,80,0.3);
+        }
+        #searchInput::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* --- Estilos dos Cards de Projeto --- */
+        .project-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .project-card {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(76,175,80,0.2);
+        }
+        .project-card-content {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .project-card h3 {
+            font-size: 1.3rem;
+            color: #c8e6c9;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+        .project-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            text-align: justify;
+        }
+        .project-card .project-members {
+            flex-grow: 0; /* Impede que a lista de membros cresça */
+        }
+        .project-members {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.9);
+            margin-top: 1rem;
+            line-height: 1.5;
+        }
+        .project-members strong {
+            color: #fff;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.9);
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+        .project-meta strong {
+            color: #fff;
+        }
+
+        .project-keywords {
+            margin-top: 1rem;
+        }
+        .project-keywords span {
+            display: inline-block;
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid #4caf50;
+            color: #c8e6c9;
+            padding: 0.3rem 0.6rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            transition: background-color 0.3s;
+        }
+        .project-keywords span:hover {
+            background-color: rgba(76, 175, 80, 0.4);
+        }
+
+        /* --- ANIMAÇÃO DE SCROLL --- */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        ul {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        
+        /* # Rodapé */
+        footer {
+            text-align: center;
+            padding: 0.6rem 1.2rem;
+            background: rgba(56,142,60,0.85);
+            color: #fff;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            box-shadow: 0 -2px 12px rgba(56,142,60,0.12);
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 20;
+        }
+        
+        /* # Estilos para mobile */
+        @media (max-width: 768px) {
+            .logo {
+                width: 180px;
+            }
+            h1 { 
+                font-size: 1.8rem; 
+            }
+            .header-subtitle {
+                font-size: 0.85rem; /* Tamanho ligeiramente reduzido */
+            }
+            nav {
+                flex-direction: column;
+                align-items: center;
+                padding: 0;
+            }
+            nav .nav-btn {
+                width: 100%;
+                text-align: center;
+                margin: 0;
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            nav .nav-btn:last-child {
+                border-bottom: none;
+            }
+            nav .nav-btn::after {
+                display: none;
+            }
+            nav .nav-btn.active, nav .nav-btn:hover {
+                background: rgba(76, 175, 80, 0.2);
+                color: #fff;
+            }
+            .tab-content { 
+                padding: 1.5rem 1rem; 
+                margin-top: 1.5rem;
+            }
+            h2 { 
+                font-size: 1.4rem; 
+            }
+            .project-card {
+                padding: 1rem;
+            }
+            .project-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- # Mesmo cabeçalho do index.html -->
+    <header>
+        <img src="imagens/capa_lab.png" alt="Fern Logo" class="logo">
+        <h1>Fern and Lycophyte Evolution Lab</h1>
+        <p class="header-subtitle">Federal University of Pernambuco | Evolutionary Biology | Ferns and Lycophytes</p>
+    </header>
+    
+    <!-- # Barra de navegação com a aba Pesquisa ativa -->
+    <nav>
+        <a href="sobre.html" class="nav-btn">About</a>
+        <a href="pesquisa.html" class="nav-btn active">Research</a>
+        <a href="equipe.html" class="nav-btn">Team</a>
+        <a href="Publicações.html" class="nav-btn">Publications</a>
+        <a href="imagens.html" class="nav-btn">Gallery</a>
+        <a href="contato.html" class="nav-btn">Contact</a>
+    </nav>
+    
+    <!-- # Conteúdo da aba Pesquisa -->
+    <section id="pesquisa" class="tab-content active">
+        <h2>Research Projects</h2>
+        
+        <div class="filter-container">
+            <input type="text" id="searchInput" onkeyup="searchProjects()" placeholder="Search projects by title, member, or keyword...">
+        </div>
+
+        <div class="project-grid">
+            <div class="project-card reveal-on-scroll">
+                <div class="project-card-content">
+                    <h3>Phylogenomics, taxonomy, and biogeography of <em>Polypodium</em> (Polypodiaceae Polypodiopsida) with an emphasis on Neotropical species</h3>
+                    <p>Polypodium is one of the least studied genera of epiphytic plants. This project proposes studies to reconstruct the evolutionary and biogeographic history with genomic data to understand the diversification of lineages/species in time and space, as well as to update the taxonomy of the group in the Neotropics.</p>
+                    <p class="project-members"><strong>Members:</strong> Thais Elias Almeida - Member / Alexandre Salino - Coordinator / Ingridy Oliveira Moura - Member / J. Daniel Tejero-Díez - Member / David Sanín - Member</p>
+                    <div class="project-meta">
+                        <span class="project-funding"><strong>Funding:</strong> Foundation for Research Support of the State of Minas Gerais</span>
+                        <span class="project-date"><strong>Period:</strong> 2023 - Present</span>
+                    </div>
+                    <div class="project-keywords">
+                        <span>biogeography</span>
+                        <span>phylogenomics</span>
+                        <span>morphology</span>
+                        <span>evolution</span>
+                </div>
+            </div>
+        </div>
+        <div class="project-card reveal-on-scroll">
+                <div class="project-card-content">
+                    <h3>Speciation and evolution in two lineages of terrestrial plants: an integrative approach</h3>
+                    <p>Species are fundamental within the sciences, used as premises for studies in various areas of basic and applied science. Although it is possible to observe discontinuities between organisms and populations in nature, there is not necessarily a relationship between morphological divergence and lineage separation; however, the definition of species remains biased, focusing on macromorphological characteristics. The use of integrative approaches can help document the true diversity of organisms, accelerating the identification and description of new taxa, and documenting genetic, morphological, and functional diversity to reduce knowledge gaps in the tropics and optimize the balance between conservation and development in the region. This project seeks to investigate the speciation process in six lineages of ferns and lycophytes, relating phylogenetic and phenotypic patterns to delimit species that reflect evolutionary history. Infraspecific phylogenies will be generated from enriched genomic libraries, and phenotypic data (morpho-spectral, nuclear DNA content, and niche models) will be obtained. Based on the recovered clades, we will use comparative methods to infer correlations between phenotypic and environmental characters, and classification analyses to test whether the recovered lineages can be phenotypically discriminated.</p>
+                    <p class="project-members"><strong>Members:</strong> Thais Elias Almeida - Coordinator / Santiago, Augusto C.P. - Member / Alexandre SALINO - Member / Ashley R. Field - Member / Thiago André - Member / Marise Helen Vale de Oliveira - Member / Ingridy O. Moura - Member / Clarisse Palma-Silva - Member</p>
+                    <div class="project-meta">
+                        <span class="project-funding"><strong>Funding:</strong> Not cited</span>
+                        <span class="project-date"><strong>Period:</strong> 2022 - Present</span>
+                    </div>
+                    <div class="project-keywords">
+                        <span>spectroscopy</span>
+                        <span>phylogenomics</span>
+                        <span>morphology</span>
+                        <span>EFA</span>
+                </div>
+            </div>
+        </div>
+        <div class="project-card reveal-on-scroll">
+                <div class="project-card-content">
+                    <h3>Dynamics of phenotypic space exploration in ferns and lycophytes</h3>
+                    <p>The origin of phenotypic variation is one of the fundamental questions in macroevolution. The phenotype, a product of the complex interaction between the environment and the genotype, is directly linked to the fitness of organisms and is subject to the action of selection. Furthermore, the set of phenotypic characteristics of a given organism defines or restricts the ecological space where it can survive and reproduce, its niche. Various evolutionary processes can act over time to influence the existence or absence of phenotypic disparity, such as stabilizing or divergent selection, pleiotropy, gene flow, linkage of co-adapted traits, drift, stasis, constraints, or biotic factors like competition, herbivory, etc. This project aims to understand the occupation of phenotypic and environmental space in a comparative phylogenetic context in various lineages of ferns and lycophytes using morphometric, spectral (near-infrared region), and environmental data, and robust phylogenetic inferences obtained through massive DNA sequencing.</p>
+                    <p class="project-members"><strong>Members:</strong> Thais Elias Almeida - Coordinator / Santiago, Augusto C.P. - Member / Oliveira, Marise Helen Vale de - Member / Carolina do Valle Monteiro Sousa - Member / Keven S. Lima - Member / Niksoney Azevedo Mendonça - Member</p>
+                    <div class="project-meta">
+                        <span class="project-funding"><strong>Funding:</strong> Not cited</span>
+                        <span class="project-date"><strong>Period:</strong> 2022 - Present</span>
+                    </div>
+                    <div class="project-keywords">
+                        <span>spectroscopy</span>
+                        <span>environmental</span>
+                        <span>morphology</span>
+                        <span>EFA</span>
+                </div>
+            </div>
+        </div>
+         <div class="project-grid">
+            <div class="project-card reveal-on-scroll">
+                <div class="project-card-content">
+                    <h3>Genealogy of all Australian Ferns and Lycophytes for a modernised Flora of Australia</h3>
+                    <p>Australia is home to 530 species of ferns and lycophytes (2 classes, 14 orders, 32 families, 134 genera, and 530 species and infraspecies) representing 2.5% of the nation's flora and including 7% of plant species in biodiversity legislation (Field 2020 + species published in 2020). The Flora of Australia treatment of ferns and lycophytes was completed over 20 years ago (1998) before the main waves of the phylogenetic and taxonomic informatics revolutions. As a result, many aspects of this treatment have not stood the test of time and require modernisation. Our project will partner the approach of the international Genealogy of Flagellate Plants (GoFlag; http://flagellateplants.group.ufl.edu) project with the national Genomics for Australian Plants (GAP) project plus Australasian and international fern and lycophyte systematics authorities to build a modern phylogenomically informed taxonomic synthesis of the fern and lycophyte Flora of Australia. Our project will generate a world-class target-sequence-capture dataset of 408 nuclear loci from an already-sampled comprehensive collection set of all extant Australian ferns and lycophytes (including oceanic islands), and undertake comprehensive analyses to estimate a whole-of-flora phylogeny. This new synthesis will be used to assess the family, generic, and especially species diversity of ferns and lycophytes in Australia by phylogenomic comparison of Australian species with a massive database of outgroup species produced by the GoFlag project. This international approach is essential to truly quantify the species diversity of the Australian fern and lycophyte flora because 60% of the species are widespread over the Asian or Oceanian region, most endemic species have a non-Australian sister-lineage, and their monophyly with non-Australian counterparts has never truly been tested.</p>
+                    <p class="project-members"><strong>Members:</strong> Thais Elias Almeida - Integrante / Ashley R. Field - Coordenador / Daniel Ohlsen - Integrante / Leon Perrie - Integrante / Lara Shepherd - Integrante / Matt Renner - Integrante / Gordon Burleigh - Integrante / Nathalie Nagalingum - Integrante / Emily Sessa - Integrante / Michael Bayly - Integrante</p>
+                    <div class="project-meta">
+                        <span class="project-funding"><strong>Financiamento:</strong> Australian Biological Resources Study</span>
+                        <span class="project-date"><strong>Período:</strong> 2021 - Atual</span>
+                    </div>
+                    <div class="project-keywords">
+                        <span>phylogenomics</span>
+                        <span>taxonomic revision</span>
+                        <span>biogeographic analysis</span>
+                        <span>fern and lycophyte diversity</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- # Mesmo rodapé do index.html -->
+    <footer>
+        &copy; 2025 Fern and Lycophyte Evolution Lab
+    </footer>
+
+    <script>
+        function searchProjects() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toUpperCase();
+            const cards = document.querySelectorAll('.project-card');
+
+            cards.forEach(card => {
+                const title = card.querySelector('h3').textContent;
+                const description = card.querySelector('p').textContent;
+                const members = card.querySelector('.project-members').textContent;
+                const keywords = Array.from(card.querySelectorAll('.project-keywords span')).map(tag => tag.textContent).join(' ');
+                
+                const textToSearch = (title + description + members + keywords).toUpperCase();
+
+                if (textToSearch.indexOf(filter) > -1) {
+                    card.style.display = "flex"; // Alterado para flex para funcionar com o novo layout
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        // Animação de revelação ao rolar
+        document.addEventListener("DOMContentLoaded", () => {
+            const revealElements = document.querySelectorAll('.reveal-on-scroll');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+>>>>>>> dbd1c9e387a4eb670965cb93e88f6cc000d91858
 </html>

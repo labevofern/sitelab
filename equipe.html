@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -654,4 +655,662 @@
     &copy; 2025 Fern and Lycophyte Evolution Lab
   </footer>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team - Fern Lab</title>
+   <link rel="icon" href="imagens/simb.png"> 
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --menu-font-size: 1.15rem; /* tamanho único para guias, títulos e nomes */
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+      color: #fff;
+      min-height: 100vh;
+      background: url('imagens/Microgramma_vacciniifolia_PR.jpg') center center no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+      position: relative;
+      padding-bottom: 70px;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(30,40,30,0.45);
+      z-index: 0;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo { width: 210px; margin-bottom: 1.2rem; }
+
+    .header-subtitle {
+        color: #fff; 
+        text-align: center; 
+        text-shadow: none;
+        padding: 0 1rem;
+        font-size: 1rem;
+    }
+
+        /* # Barra de navegação */
+        nav {
+            display: flex;
+            justify-content: center;
+            background: rgba(15, 25, 15, 0.6); /* Fundo mais escuro e translúcido */
+            backdrop-filter: blur(10px); /* Efeito de vidro */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            padding: 0.5rem 0; /* Espaçamento interno */
+        }
+        
+        /* # Botões da navegação */
+        nav .nav-btn {
+            background: transparent; /* Fundo transparente */
+            border: none;
+            color: #e0e0e0; /* Cor mais suave */
+            font-size: 1.1rem; /* Tamanho de fonte ajustado */
+            padding: 0.8rem 1.5rem; /* Espaçamento ajustado */
+            cursor: pointer;
+            transition: color 0.3s ease;
+            font-weight: 500;
+            text-decoration: none;
+            position: relative; /* Para o pseudo-elemento ::after */
+            margin: 0 0.5rem;
+        }
+
+        /* Efeito de sublinhado animado */
+        nav .nav-btn::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 5px; /* Posição do sublinhado */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4caf50;
+            transition: width 0.4s ease;
+        }
+        
+        /* # Botão ativo ou hover */
+        nav .nav-btn:hover {
+            color: #ffffff; /* Cor mais clara no hover */
+        }
+
+        nav .nav-btn:hover::after {
+            width: 70%; /* Largura do sublinhado no hover */
+        }
+
+        nav .nav-btn.active {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        nav .nav-btn.active::after {
+            width: 70%;
+        }
+
+    .tab-content {
+      display: none;
+      padding: 2.5rem 2rem;
+      max-width: 1000px;
+      margin: 2.5rem auto 0 auto;
+      background: rgba(255,255,255,0.35);
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(76,175,80,0.18);
+      backdrop-filter: blur(8px);
+      border: 1.2px solid #fff;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tab-content.active { display: block; }
+
+    h1 { font-size: 2.2rem; letter-spacing: 2px; color: #fff; }
+    h2 { 
+      font-size: 1.6rem;
+      color: #c8e6c9;
+      margin-top: 3rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      border-bottom: 2px solid #4caf50;
+      padding-bottom: 0.5rem;
+    }
+    h2:first-of-type {
+      margin-top: 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 0.6rem 1.2rem;
+      background: rgba(56,142,60,0.85);
+      color: #fff;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      box-shadow: 0 -2px 12px rgba(56,142,60,0.12);
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 20;
+    }
+
+    .team-member {
+      display: flex;
+      flex-direction: column;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden; /* Para o efeito de brilho */
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .team-member:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(76,175,80,0.25);
+    }
+
+    /* Efeito de brilho no hover */
+    .team-member::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -150%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .team-member:hover::after {
+      left: 150%;
+    }
+
+    .team-photo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .team-photo {
+      width: 130px;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #4caf50;
+      margin-bottom: 0.8rem;
+      display: block;
+      box-shadow: 0 0 15px rgba(76,175,80,0.3);
+    }
+
+    .team-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 0.8rem;
+    }
+
+    .team-icons a {
+      color: white;
+      font-size: 24px;
+      text-decoration: none;
+      transition: transform 0.3s;
+    }
+
+    .team-icons a:hover {
+      transform: scale(1.2);
+    }
+
+    .team-info {
+      text-align: center;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .team-name {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 0.3rem;
+      color: #c8e6c9;
+    }
+
+    .team-area {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      font-style: italic;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .team-description {
+      font-size: 0.95rem;
+      margin-top: 0.8rem;
+      text-align: justify;
+      line-height: 1.6;
+    }
+
+    @media (min-width: 768px) {
+      .team-member {
+        flex-direction: row;
+        align-items: flex-start;
+        text-align: left;
+      }
+      
+      .team-photo-container {
+        margin-right: 1.5rem;
+        margin-bottom: 0;
+      }
+      
+      .team-info {
+        text-align: left;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .team-description {
+        flex-grow: 1;
+      }
+    }
+
+    /* NOVOS ESTILOS PARA MOBILE */
+    @media (max-width: 768px) {
+        .logo {
+            width: 180px;
+        }
+        h1 { 
+            font-size: 1.8rem; 
+        }
+        .header-subtitle {
+            font-size: 0.85rem; /* Tamanho ligeiramente reduzido */
+        }
+        nav {
+            flex-direction: column;
+            align-items: center;
+            padding: 0;
+        }
+        nav .nav-btn {
+            width: 100%;
+            text-align: center;
+            margin: 0;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        nav .nav-btn:last-child {
+            border-bottom: none;
+        }
+        nav .nav-btn::after {
+            display: none;
+        }
+        nav .nav-btn.active, nav .nav-btn:hover {
+            background: rgba(76, 175, 80, 0.2);
+            color: #fff;
+        }
+        .tab-content { 
+            padding: 1.5rem 1rem; 
+            margin-top: 1.5rem;
+        }
+        h2 { 
+            font-size: 1.4rem; 
+        }
+        .team-member {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .team-photo-container {
+            margin-right: 0;
+            margin-bottom: 1rem;
+        }
+        .team-photo {
+            width: 120px;
+            height: 120px;
+        }
+        .team-info {
+            text-align: center;
+        }
+        .team-name {
+            font-size: 1.15rem;
+        }
+        .team-description {
+            text-align: justify; /* Mantém a justificação para melhor leitura */
+        }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="imagens/capa_lab.png" alt="Fern Logo" class="logo">
+    <h1>Fern and Lycophyte Evolution Lab</h1>
+    <p class="header-subtitle">Federal University of Pernambuco | Evolutionary Biology | Ferns and Lycophytes</p>
+  </header>
+
+  <nav>
+    <a href="sobre.html" class="nav-btn">About</a>
+    <a href="pesquisa.html" class="nav-btn">Research</a>
+    <a href="equipe.html" class="nav-btn active">Team</a>
+    <a href="Publicações.html" class="nav-btn">Publications</a>
+    <a href="imagens.html" class="nav-btn">Gallery</a>
+    <a href="contato.html" class="nav-btn">Contact</a>
+  </nav>
+
+  <section id="equipe" class="tab-content active">
+    <h2>Coordinator</h2>
+    <div class="team-member">
+      <div class="team-photo-container">
+        <img src="imagens/thaís.webp" alt="Photo of Thaís Almeida" class="team-photo">
+        <div class="team-icons">
+          <a href="mailto:thais.almeida@ufpe.br" title="E-mail"><i class="fa-solid fa-envelope"></i></a> 
+          <a href="http://lattes.cnpq.br/1101716646731462" target="_blank" title="Lattes CV"><i class="fa-solid fa-graduation-cap"></i></a>
+          <a href="https://www.researchgate.net/profile/Niksoney-Mendonca" title="ResearchGate" target="_blank"><i class="fa-brands fa-researchgate"></i></a>
+        </div>
+      </div>
+      <div class="team-info">
+        <div class="team-name">Dr. Thaís E. Almeida | Federal University of Pernambuco (UFPE)</div>
+        <div class="team-area">Evolution and systematics of ferns and lycophytes</div>
+        <div class="team-description">
+          I am currently an Associate Professor (Class C, Level 3) at the Federal University of Pernambuco, in Recife. I work in the areas of Evolution, Evolutionary Biogeography, and Integrative Systematics of plants, with an emphasis on ferns and lycophytes. I am accredited in the Postgraduate Program in Plant Biology at the Federal University of Pernambuco. I am the editor-in-chief of the journal Acta Botanica Brasilica and an area editor for the Botanical Journal of the Linnean Society.
+        </div>
+      </div>
+    </div>
+
+    <h2>Collaborators</h2>
+    <div class="team-member">
+      <div class="team-photo-container">
+        <img src="imagens/Augusto-Santiago.webp" class="team-photo">
+        <div class="team-icons">
+          <a href="mailto:augusto.psantiago@ufpe.br" title="E-mail"><i class="fa-solid fa-envelope"></i></a> 
+          <a href="http://lattes.cnpq.br/5588512571924381" target="_blank" title="Lattes CV"><i class="fa-solid fa-graduation-cap"></i></a>
+          <a href="https://www.researchgate.net/profile/Augusto-Santiago" title="ResearchGate" target="_blank"><i class="fa-brands fa-researchgate"></i></a>
+        </div>
+      </div>
+      <div class="team-info">
+        <div class="team-name">Dr. Augusto C. P. Santiago | Federal University of Pernambuco (UFPE)</div>
+        <div class="team-area">Taxonomy and floristics of ferns and lycophytes</div>
+        <div class="team-description">
+          He has experience in the field of Botany, with an emphasis on Cryptogam Taxonomy, working mainly on the following topics: pteridophytes, floristics, biogeography, ecology, and conservation. He is currently a Professor in the Postgraduate Program: PROFBIO - Professional Master's in Biology Teaching (CAV-UFPE) and Vice-Coordinator of the Distance Learning Biological Sciences Degree Course (CAV-UFPE).
+        </div>
+      </div>
+    </div>
+
+    <div class="team-member">
+      <div class="team-photo-container">
+        <img src="imagens/lucas.gif" class="team-photo">
+        <div class="team-icons">
+          <a href="mailto:lucaslima1618@gmail.com" title="E-mail"><i class="fa-solid fa-envelope"></i></a> 
+          <a href="http://lattes.cnpq.br/7370603565698856" target="_blank" title="Lattes CV"><i class="fa-solid fa-graduation-cap"></i></a>
+          <a href="https://www.researchgate.net/profile/Lucas-Lima-27" title="ResearchGate" target="_blank"><i class="fa-brands fa-researchgate"></i></a>
+        </div>
+      </div>
+      <div class="team-info">
+        <div class="team-name">Dr. Lucas V. lima | Regional University of Blumenau (FURB)</div>
+        <div class="team-area">Taxonomy, systematics, and cytogenetics of ferns</div>
+        <div class="team-description">
+          Graduated in Biological Sciences from the Federal University of Juiz de Fora, with a master's and doctorate in Plant Biology from the Federal University of Minas Gerais. Academic training focused on systematics, evolution, and biogeography of lycophytes and ferns, with an emphasis on the Gleicheniaceae family. He has experience in phylogenomics, molecular biology, cytogenetics, species distribution modeling, and biogeography. His research line involves exploring the diversity, evolution, and biogeography of vascular plants, especially within the context of lycophytes and ferns.
+        </div>
+      </div>
+    </div>
+
+    <div class="team-member">
+      <div class="team-photo-container">
+        <img src="imagens/Luiza-F-A-De-Paula.webp" class="team-photo">
+        <div class="team-icons">
+          <a href="mailto:luizafap@gmail.com" title="E-mail"><i class="fa-solid fa-envelope"></i></a> 
+          <a href="http://lattes.cnpq.br/0132667795350123" target="_blank" title="Lattes CV"><i class="fa-solid fa-graduation-cap"></i></a>
+          <a href="https://www.researchgate.net/profile/Luiza-F-A-De-Paula" title="ResearchGate" target="_blank"><i class="fa-brands fa-researchgate"></i></a>
+        </div>
+      </div>
+      <div class="team-info">
+        <div class="team-name">Dr. Luiza F. A. de Paula | Federal University of Minas Gerais (UFMG)</div>
+        <div class="team-area">Biogeography, ecology and systematics of angiosperms (especially on inselbergs)</div>
+        <div class="team-description">
+          PhD in Botany from the University of Rostock (Germany). Bachelor's and Master's degrees from UFMG (Federal University of Minas Gerais). She specializes in Botany and Plant Ecology, focusing on functional ecology, biogeography, and vegetation conservation in inselbergs. She was a visiting researcher at national and international institutions and completed a postdoctoral fellowship at UFMG (2019-2025). She is currently a researcher and professor at UFMG through the CNPq Talent Attraction Program and works as a Project Scientist at The Red List Project. She is a co-founder of the Primate's Papagaio Podcast, a science outreach initiative.
+        </div>
+      </div>
+    </div>
+
+  <h2>PhD Students</h2>
+    <div class="team-member">
+      <div class="team-photo-container">
+        <img src="imagens/niksoney.jpg" class="team-photo">
+        <div class="team-icons">
+            <a href="mailto:niksoneyazevedo2017@gmail.com" title="E-mail"><i class="fa-solid fa-envelope"></i></a> 
+          <a href="http://lattes.cnpq.br/3437999134934422" target="_blank" title="Lattes CV"><i class="fa-solid fa-graduation-cap"></i></a>
+          <a href="https://www.researchgate.net/profile/Niksoney-Mendonca?ev=hdr_xprf" title="ResearchGate" target="_blank"><i class="fa-brands fa-researchgate"></i></a>
+        </div>
+      </div>
+      <div class="team-info">
+        <div class="team-name">Niksoney A. Mendonça | Federal University of Pernambuco (UFPE)</div>
+        <div class="team-area">PhD Student | Evolution of leaf dimorphism in ferns</div>
+        <div class="team-description">
+          As a PhD student in Plant Biology at UFPE, my research focuses on the evolution of leaf dimorphism in ferns, using phylogenomic and morphological approaches. My main areas of interest include the study of multiple tools to understand complex evolutionary processes, as well as the systematics and taxonomy of ferns and lycophytes. I actively contribute to floristic and inventory studies, seeking to fill gaps in the knowledge of flora.
+        </div>
+      </div>
+    </div>
+
+    <div class="team-member">
+      <div class="team-photo-container">
+        <img src="imagens/juliana.jpg" class="team-photo">
+        <div class="team-icons">
+          <a href="mailto:julianaaljahara4@gmail.com" title="E-mail"><i class="fa-solid fa-envelope"></i></a> 
+          <a href="http://lattes.cnpq.br/0824346920277361" target="_blank" title="Lattes CV"><i class="fa-solid fa-graduation-cap"></i></a>
+          <a href="https://www.researchgate.net/profile/Juliana-Aljahara-Sousa-Do-Nascimento" title="ResearchGate" target="_blank"><i class="fa-brands fa-researchgate"></i></a>
+        </div>
+      </div>
+      <div class="team-info">
+        <div class="team-name">Juliana Aljahara | Federal University of Pernambuco (UFPE)</div>
+        <div class="team-area">PhD Student | Morpho-anatomical adaptations and functional traits of <em>Microgramma vacciniifolia</em></div>
+        <div class="team-description">
+          PhD student in the Postgraduate Program in Plant Biology (PPGBV) at the Federal University of Pernambuco (UFPE). My interests include plant physiology and anatomy. Additionally, my research seeks to understand morphological adaptations in ferns in response to climate change and contrasting environments.
+        </div>
+      </div>
+    </div>
+
+     <div class="team-member">
+      <div class="team-photo-container">
+        <img src="imagens/Jean.webp" class="team-photo">
+        <div class="team-icons">
+          <a href="mailto:Jean.fontelas@ufpe.br" title="E-mail"><i class="fa-solid fa-envelope"></i></a> 
+          <a href="http://lattes.cnpq.br/0858295717487483" target="_blank" title="Lattes CV"><i class="fa-solid fa-graduation-cap"></i></a>
+          <a href="https://www.researchgate.net/profile/Jean-Fontelas" title="ResearchGate" target="_blank"><i class="fa-brands fa-researchgate"></i></a>
+        </div>
+      </div>
+      <div class="team-info">
+        <div class="team-name">Jean C. Fontelas | Federal University of Pernambuco (UFPE)</div>
+        <div class="team-area">PhD Student | Systematics and evolution of <em>Phlegmariurus</em></div>
+        <div class="team-description">
+          PhD student in the Postgraduate Program in Plant Biology at the Federal University of Pernambuco (PPGBV-UFPE), working on the project titled "Investigating species complexes in the oldest lineage of vascular plants: insights into <em>Phlegmariurus</em> (Herter) Holub (Huperzioideae, Lycopodiaceae)."
+        </div>
+      </div>
+    </div>
+
+    <div class="team-member">
+      <div class="team-photo-container">
+        <img src="imagens/Marise.png" class="team-photo">
+        <div class="team-icons">
+          <a href="mailto:mariseohv@gmail.com" title="E-mail"><i class="fa-solid fa-envelope"></i></a> 
+          <a href="http://lattes.cnpq.br/0091389086193885" target="_blank" title="Currículo Lattes"><i class="fa-solid fa-graduation-cap"></i></a>
+        </div>
+      </div>
+      <div class="team-info">
+        <div class="team-name">Marise H. V. de Oliveira | National Institute of Amazonian Research (INPA) </div>
+        <div class="team-area">PhD Student | Taxonomy and systematics of <em>Niphidium</em></div>
+        <div class="team-description">
+          With experience in the systematics of ferns and lycophytes. Reflora technical fellow (Database, digitization of the Botanical Collection) in 2016. DTI-C fellow of the Biodiversity Research Program in 2017. Master's in Biodiversity from the Federal University of Western Pará. PhD student in the Postgraduate Program in Biological Sciences (Botany) at the National Institute of Amazonian Research.
+        </div>
+      </div>
+    </div>
+
+    <div class="team-member">
+      <div class="team-photo-container">
+        <img src="imagens/Amanda.png" class="team-photo">
+        <div class="team-icons">
+          <a href="mailto:amandareisds@gmail.com" title="E-mail"><i class="fa-solid fa-envelope"></i></a> 
+          <a href="http://lattes.cnpq.br/7951722438287917" target="_blank" title="Currículo Lattes"><i class="fa-solid fa-graduation-cap"></i></a>
+          <a href="https://www.researchgate.net/profile/Amanda-Da-Silva-2" title="ResearchGate" target="_blank"><i class="fa-brands fa-researchgate"></i></a>
+        </div>
+      </div>
+      <div class="team-info">
+        <div class="team-name">Amanda R. da Silva | Federal University of Pernambuco (UFPE)</div>
+        <div class="team-area">PhD Student | Genomic evolution of Selaginellaceae</div>
+        <div class="team-description">
+          She has experience in Botany and Molecular Biology, with an emphasis on taxonomy, population genomics, and assembly of plant organellar genomes. She was a fellow of the Institutional Training Program (PCI) at the Emílio Goeldi Museum of Pará (2019-2021), working on the taxonomy of the genus Ouratea (Ochnaceae). She is currently a Technical Training IV-A fellow at the Vale Technological Institute and a PhD student in the Postgraduate Program in Plant Biology (UFPE), working in the areas of plant DNA barcode development and plastid genome assembly through next-generation sequencing (NGS), with an emphasis on the genus Selaginella for phylogenomic studies.
+        </div>
+      </div>
+    </div>
+
+    <h2>Master's Students</h2>
+ <div class="team-member">
+      <div class="team-photo-container">
+        <img src="imagens/Keven.png" class="team-photo">
+        <div class="team-icons">
+          <a href="mailto:keven.lima@ufpe.br" title="E-mail"><i class="fa-solid fa-envelope"></i></a> 
+          <a href="http://lattes.cnpq.br/1125848969392522" target="_blank" title="Currículo Lattes"><i class="fa-solid fa-graduation-cap"></i></a>
+          <a href="https://www.researchgate.net/profile/Keven-Lima-2" title="ResearchGate" target="_blank"><i class="fa-brands fa-researchgate"></i></a>
+        </div>
+      </div>
+      <div class="team-info">
+        <div class="team-name">Keven dos S. Lima | Federal University of Pernambuco (UFPE)</div>
+        <div class="team-area">MSc Student | Niche and evolution of environmental tolerances in <em>Microgramma</em></div>
+        <div class="team-description">
+          PhD student in Plant Biology, with interests in Evolution, Biogeography, and Ecology. He has research experience, having served as a PIBIC fellow in projects focused on plant catalogs for conservation and fern phylogeny. He collaborated as a technical support fellow at the INCT Virtual Herbarium of Flora and Fungi. Additionally, he has experience in laboratory monitoring and as a volunteer intern in Ecology and Biogeochemistry of Amazonian Ecosystems.
+        </div>
+      </div>
+    </div>
+
+     <div class="team-member">
+      <div class="team-photo-container">
+        <img src="imagens/Carol.jpg" class="team-photo">
+        <div class="team-icons">
+          <a href="mailto:carolina.valle@ufpe.br" title="E-mail"><i class="fa-solid fa-envelope"></i></a> 
+          <a href="http://lattes.cnpq.br/6437474904204826" target="_blank" title="Currículo Lattes"><i class="fa-solid fa-graduation-cap"></i></a>
+        </div>
+      </div>
+      <div class="team-info">
+        <div class="team-name">Carolina do Valle | Federal University of Pernambuco (UFPE)</div>
+        <div class="team-area">MSc Student | Biogeographic and phenotypic evolution of <em>Pleopeltis</em></div>
+        <div class="team-description">
+          Currently a PhD student in the postgraduate program in Plant Biology at the Federal University of Pernambuco. She was a PIBIC fellow on the project "Phylogenomics, phenotypic and niche diversification in Neotropical ferns," with the work plan titled "Crossing the Atlantic: testing niche conservation in species of <em>Amaropeulta</em> occurring in South America and Africa" (2021 - 2022). Her interests are in the areas of Plant Biology with a focus on systematics and evolution of ferns.
+        </div>
+      </div>
+    </div>
+
+    <div class="team-member">
+      <div class="team-photo-container">
+        <img src="imagens/D-Victor-Silva.png" class="team-photo">
+        <div class="team-icons">
+          <a href="mailto:dennys.victor@ufpe.br" title="E-mail"><i class="fa-solid fa-envelope"></i></a> 
+          <a href="http://lattes.cnpq.br/6532604656649482" target="_blank" title="Currículo Lattes"><i class="fa-solid fa-graduation-cap"></i></a>
+          <a href="https://www.researchgate.net/profile/D-Victor-Silva" title="ResearchGate" target="_blank"><i class="fa-brands fa-researchgate"></i></a>
+        </div>
+      </div>
+      <div class="team-info">
+        <div class="team-name">D. Victor Souza e Silva | Federal University of Pernambuco (UFPE)</div>
+        <div class="team-area">MSc Student | Systematics and taxonomy of Schizaeaceae</div>
+        <div class="team-description">
+          MSc student in the Postgraduate Program in Plant Biology (PPGBV-UFPE), with a concentration in Systematics and Evolution. Currently, my research focuses on the systematics of Schizaeaceae, with phylogenomic and taxonomic studies, emphasizing Neotropical lineages. Additionally, I conduct research in genomic evolution, cytogenetics, and systematics, using integrative approaches in ferns and lycophytes. In parallel, I dedicate efforts to reducing knowledge gaps about the Neotropical pteridoflora through floristic, taxonomic, and biogeographic studies.
+        </div>
+      </div>
+    </div>
+
+    <div class="team-member">
+      <div class="team-photo-container">
+        <img src="imagens/Julia.png" class="team-photo">
+        <div class="team-icons">
+          <a href="mailto:julia.zanatta@ufpe.br" title="E-mail"><i class="fa-solid fa-envelope"></i></a> 
+          <a href="http://lattes.cnpq.br/9406829070812459" target="_blank" title="Currículo Lattes"><i class="fa-solid fa-graduation-cap"></i></a>
+          <a href="https://www.researchgate.net/profile/Julia-Zanatta-Alves" title="ResearchGate" target="_blank"><i class="fa-brands fa-researchgate"></i></a>
+        </div>
+      </div>
+      <div class="team-info">
+        <div class="team-name">Julia Z. Alves | Federal University of Pernambuco (UFPE)</div>
+        <div class="team-area">MSc Student | Morphological convergence in fern lineages</div>
+        <div class="team-description">
+          MSc student in the Postgraduate Program in Plant Biology at UFPE (PPGBV/UFPE), with experience from two scientific initiation projects in the areas of morphometrics and niche modeling with an evolutionary focus on the genus <em>Microgramma</em>. Her current research line seeks to understand the environmental factors that most contribute to the evolutionary convergence of different fern genera. She also contributes to other research in areas such as species delimitation using near-infrared spectroscopy, the evolution of the ecological niche of vascular plants, and the evolutionary convergence of morphology in different fern lineages.
+        </div>
+      </div>
+    </div>
+
+     <div class="team-member">
+      <div class="team-photo-container">
+        <img src="imagens/Gutierrez-Duque.png" class="team-photo">
+        <div class="team-icons">
+          <a href="mailto:david.gutierrez@ufpe.br" title="E-mail"><i class="fa-solid fa-envelope"></i></a> 
+          <a href="http://lattes.cnpq.br/8526737252371501" target="_blank" title="Currículo Lattes"><i class="fa-solid fa-graduation-cap"></i></a>
+          <a href="https://www.researchgate.net/profile/David-Gutierrez-Duque" title="ResearchGate" target="_blank"><i class="fa-brands fa-researchgate"></i></a>
+        </div>
+      </div>
+      <div class="team-info">
+        <div class="team-name">David Gutiérrez-Duque | Federal University of Pernambuco (UFPE)</div>
+        <div class="team-area">MSc Student | Taxonomy, systematics, and biogeography of <em>Megalastrum</em></div>
+        <div class="team-description">
+          I am currently pursuing a master's degree at the Federal University of Pernambuco (Brazil), studying the fern genus <em>Megalastrum</em>. My main interest is Plant Biology, especially in the taxonomy and ecology of ferns. I also work with the systematics of the tree family Lecythidaceae.
+        </div>
+      </div>
+    </div>
+
+    <h2>Undergraduate Students</h2>
+ <div class="team-member">
+      <div class="team-photo-container">
+        <img src="imagens/Mayara.png" class="team-photo">
+        <div class="team-icons">
+          <a href="mailto:mayara.xavier@ufpe.br" title="E-mail"><i class="fa-solid fa-envelope"></i></a> 
+        </div>
+      </div>
+      <div class="team-info">
+        <div class="team-name">Mayara S. Xavier | Federal University of Pernambuco (UFPE)</div>
+        <div class="team-area">Undergraduate Research | Fern Systematics</div>
+        <div class="team-description">
+          Environmental sciences student, currently an undergraduate research student at the Fern and Lycophyte Evolution Lab. She is interested in systematics, taxonomy, and species delimitation.
+        </div>
+      </div>
+    </div>
+
+    <h2>External Students</h2>
+       <div class="team-member">
+      <div class="team-photo-container">
+        <img src="imagens/Vanessa.png" class="team-photo">
+        <div class="team-icons">
+          <a href="mailto:vferreiradocs@gmail.com" title="E-mail"><i class="fa-solid fa-envelope"></i></a> 
+          <a href="http://lattes.cnpq.br/5164180704630344" target="_blank" title="Lattes CV"><i class="fa-solid fa-graduation-cap"></i></a>
+          <a href="https://www.researchgate.net/profile/Vanessa-Ferreira-32" title="ResearchGate" target="_blank"><i class="fa-brands fa-researchgate"></i></a>
+        </div>
+      </div>
+      <div class="team-info">            
+        <div class="team-name">Vanessa F. Ferreira | Federal University of Maranhão (UFMA)</div>
+        <div class="team-area">MSc Student | Taxonomy and ecology of ferns and lycophytes</div>
+        <div class="team-description">
+          Bachelor's degree from the Federal University of Maranhão (UFMA) at the Chapadinha Center for Sciences (CCCh) and a member of the Plant Systematics Laboratory, where she was a PIBIC/FAPEMA fellow from 2022-2024. She is currently a master's student in the Postgraduate Program in Environmental Sciences/UFMA and a Technological and Industrial Development (DTI-C) fellow for the subproject "Unveiling diversity: flora as support for scientific, social, and economic development in the Eastern Amazon" of the PPBio/CNPq Network Line 1: Eastern Amazon.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Fern and Lycophyte Evolution Lab
+  </footer>
+</body>
+>>>>>>> dbd1c9e387a4eb670965cb93e88f6cc000d91858
 </html>

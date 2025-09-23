@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -573,4 +574,581 @@
         }
     </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publications - Fern Lab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="icon" href="imagens/simb.png"> 
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            background: url('imagens/Microgramma_vacciniifolia_PR.jpg') center center no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            position: relative;
+            padding-bottom: 70px;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(30,40,30,0.45);
+            z-index: 0;
+            pointer-events: none;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        .logo {
+            width: 210px;
+            margin-bottom: 1.2rem;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: rgba(15, 25, 15, 0.6); /* Fundo mais escuro e translúcido */
+            backdrop-filter: blur(10px); /* Efeito de vidro */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            padding: 0.5rem 0; /* Espaçamento interno */
+        }
+        nav .nav-btn {
+            background: transparent; /* Fundo transparente */
+            border: none;
+            color: #e0e0e0; /* Cor mais suave */
+            font-size: 1.1rem; /* Tamanho de fonte ajustado */
+            padding: 0.8rem 1.5rem; /* Espaçamento ajustado */
+            cursor: pointer;
+            transition: color 0.3s ease;
+            font-weight: 500;
+            text-decoration: none;
+            position: relative; /* Para o pseudo-elemento ::after */
+            margin: 0 0.5rem;
+        }
+
+        /* Efeito de sublinhado animado */
+        nav .nav-btn::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 5px; /* Posição do sublinhado */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4caf50;
+            transition: width 0.4s ease;
+        }
+        
+        /* # Botão ativo ou hover */
+        nav .nav-btn:hover {
+            color: #ffffff; /* Cor mais clara no hover */
+        }
+
+        nav .nav-btn:hover::after {
+            width: 70%; /* Largura do sublinhado no hover */
+        }
+
+        nav .nav-btn.active {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        nav .nav-btn.active::after {
+            width: 70%;
+        }
+        .tab-content {
+            display: none;
+            padding: 2.5rem 2rem;
+            max-width: 1000px;
+            margin: 2.5rem auto 0 auto;
+            background: rgba(255,255,255,0.35);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(76,175,80,0.18);
+            backdrop-filter: blur(8px);
+            border: 1.2px solid #fff;
+            position: relative;
+            z-index: 1;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.7s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 {
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            color: #fff;
+        }
+        h2 {
+            font-size: 1.6rem;
+            color: #c8e6c9;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #4caf50;
+            padding-bottom: 0.5rem;
+            text-align: center; /* Centralizado */
+        }
+        footer {
+            text-align: center;
+            padding: 0.6rem 1.2rem;
+            background: rgba(56,142,60,0.85);
+            color: #fff;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            box-shadow: 0 -2px 12px rgba(56,142,60,0.12);
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 20;
+        }
+
+        /* --- Filtro de busca --- */
+        .filter-container {
+            margin-bottom: 2.5rem;
+        }
+        #searchInput {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.5);
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: box-shadow 0.3s, border-color 0.3s;
+        }
+        #searchInput:focus {
+            outline: none;
+            border-color: #4caf50;
+            box-shadow: 0 0 15px rgba(76,175,80,0.3);
+        }
+        #searchInput::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* --- Agrupamento por ano --- */
+        .year-group {
+            margin-bottom: 2rem;
+        }
+        .year-title {
+            font-size: 1.8rem;
+            color: #fff;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.4);
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- NOVOS ESTILOS DOS ARTIGOS --- */
+        .artigo {
+            display: grid;
+            grid-template-columns: 1fr; /* Coluna única por padrão */
+            gap: 1.5rem;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .artigo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(76,175,80,0.2);
+        }
+
+        .artigo-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .artigo-info h3 {
+            font-size: 1.3rem;
+            color: #c8e6c9;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            text-align: left;
+        }
+
+        .authors, .journal-info {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+        .authors strong, .journal-info strong {
+            color: #fff;
+        }
+
+        .abstract-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            font-size: 0.95rem;
+            text-align: justify;
+            line-height: 1.6;
+        }
+        .abstract-container.open {
+            max-height: 1000px; /* Altura aumentada para garantir que o resumo caiba */
+        }
+
+        .toggle-abstract {
+            cursor: pointer;
+            color: #4caf50;
+            font-weight: bold;
+            margin: 0.5rem 0;
+            display: inline-block;
+        }
+
+        .keywords-container {
+            margin: 1rem 0;
+        }
+        .keyword-tag {
+            display: inline-block;
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid #4caf50;
+            color: #c8e6c9;
+            padding: 0.3rem 0.6rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .artigo-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+        .artigo-gallery img {
+            width: 100%;
+            border-radius: 8px;
+            object-fit: cover;
+            height: 120px;
+            cursor: pointer;
+            transition: transform 0.2s, filter 0.2s;
+        }
+        .artigo-gallery img:hover {
+            transform: scale(1.03);
+            filter: brightness(1.1);
+        }
+
+        .btn-acessar {
+            margin-top: auto; /* Empurra o botão para o final do container flex */
+            display: inline-block;
+            padding: 0.6rem 1.4rem;
+            background: #4caf50;
+            color: #fff;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .btn-acessar:hover {
+            background: #388e3c;
+        }
+
+        /* --- Modal de Imagem --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 0 25px rgba(0,0,0,0.5);
+        }
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .modal-close:hover {
+            color: #4caf50;
+        }
+        .modal-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #fff;
+            font-size: 18px;
+            background: rgba(0,0,0,0.6);
+            padding: 10px;
+        }
+
+        @media (min-width: 768px) {
+            .artigo {
+                grid-template-columns: 2fr 1fr; /* Duas colunas em telas maiores */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                width: 180px;
+            }
+            h1 { 
+                font-size: 1.8rem; 
+            }
+            .header-subtitle {
+                font-size: 0.85rem; /* Tamanho ligeiramente reduzido */
+            }
+            nav {
+                flex-direction: column;
+                align-items: center;
+                padding: 0;
+            }
+            nav .nav-btn {
+                width: 100%;
+                text-align: center;
+                margin: 0;
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            nav .nav-btn:last-child {
+                border-bottom: none;
+            }
+            nav .nav-btn::after {
+                display: none;
+            }
+            nav .nav-btn.active, nav .nav-btn:hover {
+                background: rgba(76, 175, 80, 0.2);
+                color: #fff;
+            }
+            .tab-content { 
+                padding: 1.5rem 1rem; 
+                margin-top: 1.5rem;
+            }
+            h2 { 
+                font-size: 1.4rem; 
+            }
+            .year-title { 
+                font-size: 1.6rem; 
+            }
+            .artigo {
+                grid-template-columns: 1fr; /* Força uma coluna */
+                padding: 1rem;
+            }
+            .artigo-info h3 { 
+                font-size: 1.2rem; 
+            }
+            .artigo-gallery {
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="imagens/capa_lab.png" alt="Fern Logo" class="logo">
+        <h1>Fern and Lycophyte Evolution Lab</h1>
+        <p class="header-subtitle">Federal University of Pernambuco | Evolutionary Biology | Ferns and Lycophytes</p>
+    </header>
+    
+    <nav>
+        <a href="sobre.html" class="nav-btn">About</a>
+        <a href="pesquisa.html" class="nav-btn">Research</a>
+        <a href="equipe.html" class="nav-btn">Team</a>
+        <a href="publicações.html" class="nav-btn active">Publications</a>
+        <a href="imagens.html" class="nav-btn">Gallery</a>
+        <a href="contato.html" class="nav-btn">Contact</a>
+    </nav>
+    
+    <section id="publicações" class="tab-content active">
+        <h2>Our Publications</h2>
+        
+        <div class="filter-container">
+            <input type="text" id="searchInput" onkeyup="searchPublications()" placeholder="Search by title, author, or keyword...">
+        </div>
+
+        <div class="year-group" data-year="2024">
+            <h3 class="year-title">2025</h3>
+            <!-- Artigo 1 -->
+            <div class="artigo">
+                <div class="artigo-info">
+                    <h3>Blowin' in the Wind: Ferns and Lycophytes Connect Biogeographic Refuges in the Atlantic Forest</h3>
+                    <p class="authors"><strong>Authors:</strong> D. Victor S. e Silva | Lucas V. Lima | Mércia P. P. Silva | Thais E. Almeida | Augusto C. P. Santiago</p>
+                    <p class="journal-info"><strong>Journal:</strong> Journal of Biogeography (2024)</p>
+                    
+                    <div class="toggle-abstract" onclick="toggleAbstract(this)">Read abstract +</div>
+                    <div class="abstract-container">
+                        <p><strong>Abstract:</strong> Test the floristic structure of fern and lycophyte in the Northeastern Atlantic Forest based on the two sub-regions of endemism, (1) montane inland wet forests and (2) Coastal Forests. Northeastern Brazil's Atlantic Forest, particularly the Coastal and Montane inland wet forests. Floristic composition was compiled from GBIF data, and environmental data were extracted from rasters for 57 forest remnants. PCA analyses were carried out to assess environmental structuring, NMDS to test floristic dissimilarity, and generalised dissimilarity modelling (GDM) to examine environmental effects on community distribution. Clusters were formed by K-means, and statistical analyses such as PERMANOVA and ANOSIM were carried out to test the significance of the results. A total of 307 species were recorded, 93.2% of which were ferns and 6.8% lycophytes. The floristic composition showed 71.6% of species shared between both sub-regions. PCA displayed significant environmental differences between montane inland wet forests and coastal forests, but NMDS did not indicate any separation in floristic composition. However, the clusters identified by K-means were highly significant (R = 0.445), in contrast to the groupings of the sub-regions (R = 0.124). GDM explained 78.8% of the distribution pattern, and its cluster classification revealed no clear structure between NAF sub-regions. Additionally, GDM highlighted variables such as geographic distance, cloud cover, rainfall, silt content and soil pH as determinants of the communities. Despite differences in environmental factors between montane inland wet forests and coastal forests, the floristic composition of ferns and lycophytes does not reflect this separation, suggesting that historical biogeography and long-distance dispersal facilitate high connectivity between these sub-regions.</p>
+                    </div>
+
+                    <div class="keywords-container">
+                        <span class="keyword-tag">biogeography</span>
+                        <span class="keyword-tag">ferns</span>
+                        <span class="keyword-tag">lycophytes</span>
+                        <span class="keyword-tag">Atlantic Forest</span>
+                        <span class="keyword-tag">dispersal</span>
+                    </div>
+                    <a href="https://doi.org/10.1111/jbi.70054" class="btn-acessar" target="_blank">Access Article</a>
+                </div>
+                <div class="artigo-gallery">
+                    <img src="imagens/Artigos/Blowin' in the_1.jpg" alt="Image from article 1" onclick="openModal('imagens/Artigos/Blowin\' in the_1.jpg', 'Figure 1: Study area: Northeastern Atlantic Forest with the São Francisco River delimiting the southern portion of the forest...')">
+                    <img src="imagens/Artigos/Blowin' in the_2.jpg" alt="Image from article 2" onclick="openModal('imagens/Artigos/Blowin\' in the_2.jpg', 'Figure 2: Representative ferns and lycophytes of the Northeastern Atlantic Forest...')">
+                    <img src="imagens/Artigos/Blowin' in the_3.jpg" alt="Image from article 3" onclick="openModal('imagens/Artigos/Blowin\' in the_3.jpg', 'Figure 3: PCA results showing the environmental distinction of the Northeastern Atlantic Forest subregions...')">
+                </div>
+            </div>
+        </div>
+
+    <!-- Artigo 2 -->
+            <div class="artigo">
+                <div class="artigo-info">
+                    <h3>Rediscovery after three decades of the freshwater sponge <i>Metania kiliani</i> on a terrestrial fern</h3>
+                    <p class="authors"><strong>Authors:</strong> Carolina do Valle M. de S. | Keven dos S. Lima | Ulisses Pinheiro | Thaís E. Almeida</p>
+                    <p class="journal-info"><strong>Journal:</strong> Acta Amazonica (2025)</p>
+                    
+                    <div class="toggle-abstract" onclick="toggleAbstract(this)">Read abstract +</div>
+                    <div class="abstract-container">
+                        <p><strong>Abstract:</strong> This study presents the second record of <i>Metania kiliani</i> (Porifera: Metaniidae) three decades after its description in 1992. The sponge was found on a herbarium specimen of the terrestrial fern <i>Actinostachys pennula</i> (Schizaeaceae), which is typically known to be absent from flooded environments. As sponges need at least some weeks to establish themselves on a support, this first record of a freshwater sponge on this fern suggests that <i>A. pennula</i> can withstand prolonged submergence. This is the first record of <i>M. kiliani</i> for the state of Roraima, Brazil.</p>
+                    </div>
+
+                    <div class="keywords-container">
+                        <span class="keyword-tag">Actinostachys</span>
+                        <span class="keyword-tag">Amazonia</span>
+                        <span class="keyword-tag">Metaniidae</span>
+                        <span class="keyword-tag">Porifera</span>
+                        <span class="keyword-tag">Schizaeaceae</span>
+                        <span class="keyword-tag">white-sand vegetation</span>
+                    </div>
+                    <a href="https://www.scielo.br/j/aa/a/X9yQjq5QWQZVKKtZr5QzHqM/?lang=en" class="btn-acessar">Access Article</a>
+                </div>
+                <div class="artigo-gallery">
+                    <img src="imagens/Artigos/Rediscovery after three decades_1.jpg" alt="Image from article 2-1" onclick="openModal('imagens/Artigos/Rediscovery after three décadas_1.jpg', 'Figure 1: A - Specimen of the sponge <em>Metania kiliani</em> (UFPEPOR2999) growing on the fronds of the fern <em>Actinostachys pennula</em> (UFP89884)...')">
+                    <img src="imagens/Artigos/Rediscovery after three decades_2.jpg" alt="Image from article 2-2" onclick="openModal('imagens/Artigos/Rediscovery after três décadas_2.jpg', 'Figure 2: Distribution of <em>Metania kiliani</em> in Amazonas and Roraima states (Brazil) Black circle = type locality...')">
+                    <img src="imagens/Artigos/Rediscovery after three decades_3.jpg" alt="Image from article 2-3" onclick="openModal('imagens/Artigos/Rediscovery after três décadas_3.jpg', 'Figure 3: SEM images of the spicules of <em>Metania kiliani</em> (UFPEPOR2999). A - Alpha-megasclere; B - Beta-megascleres; C-E - Anisochelaes gemoscleres; F-G - Boletiform gemmocleres; H-J - Gemmule...')">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal para imagens -->
+    <div id="imageModal" class="modal">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="modalCaption" class="modal-caption"></div>
+    </div>
+    
+    <footer>
+        &copy; 2025 Fern and Lycophyte Evolution Lab
+    </footer>
+
+    <script>
+        // Função para abrir e fechar o resumo
+        function toggleAbstract(element) {
+            const container = element.nextElementSibling;
+            container.classList.toggle('open');
+            if (container.classList.contains('open')) {
+                element.innerHTML = "Hide abstract -";
+            } else {
+                element.innerHTML = "Read abstract +";
+            }
+        }
+
+        // Função para abrir o modal com a imagem
+        function openModal(src, alt) {
+            document.getElementById("modalImage").src = src;
+            document.getElementById("modalCaption").innerHTML = alt;
+            document.getElementById("imageModal").style.display = "flex";
+            document.body.style.overflow = "hidden"; // Impede a rolagem da página
+        }
+
+        // Função para fechar o modal
+        function closeModal() {
+            document.getElementById("imageModal").style.display = "none";
+            document.body.style.overflow = "auto"; // Restaura a rolagem da página
+        }
+
+        // Fechar o modal ao clicar fora da imagem
+        document.getElementById("imageModal").addEventListener("click", function(event) {
+            if (event.target === document.getElementById("imageModal")) {
+                closeModal();
+            }
+        });
+
+        // Fechar o modal com a tecla ESC
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                closeModal();
+            }
+        });
+
+        // Função de busca
+        function searchPublications() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toUpperCase();
+            const yearGroups = document.querySelectorAll('.year-group');
+
+            yearGroups.forEach(group => {
+                const articles = group.querySelectorAll('.artigo');
+                let articlesVisibleInGroup = 0;
+
+                articles.forEach(artigo => {
+                    const title = artigo.querySelector('h3').textContent.toUpperCase();
+                    
+                    // Pega o elemento de autores, clona, remove o 'strong' e substitui '|' por espaço
+                    const authorsEl = artigo.querySelector('.authors');
+                    const authorsClone = authorsEl.cloneNode(true);
+                    authorsClone.querySelector('strong').remove();
+                    const authors = authorsClone.textContent.replace(/\|/g, ' ').toUpperCase();
+
+                    const keywords = Array.from(artigo.querySelectorAll('.keyword-tag')).map(tag => tag.textContent.toUpperCase()).join(' ');
+                    
+                    const textToSearch = title + ' ' + authors + ' ' + keywords;
+
+                    if (textToSearch.includes(filter)) {
+                        artigo.style.display = 'grid';
+                        articlesVisibleInGroup++;
+                    } else {
+                        artigo.style.display = 'none';
+                    }
+                });
+
+                // Oculta o título do ano se nenhum artigo corresponder à busca
+                if (articlesVisibleInGroup > 0) {
+                    group.style.display = 'block';
+                } else {
+                    group.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+>>>>>>> dbd1c9e387a4eb670965cb93e88f6cc000d91858
 </html>
