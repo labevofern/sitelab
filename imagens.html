@@ -12,10 +12,17 @@
     
     <!-- # Mesmos estilos do index.html -->
     <style>
-        body {
+        :root{
+  --accent:#4caf50; --accent-dark:#083912;
+  --text-primary:#edf7f0; --text-muted:rgba(237,247,240,0.85);
+  --bg-overlay:rgba(10,12,10,0.60); --surface:rgba(0,0,0,0.20);
+  --nav-bg:rgba(8,12,8,0.8); --footer-bg:rgba(25,90,30,0.9);
+  --btn-bg:rgba(10,16,10,0.8); --btn-border:rgba(255,255,255,0.10); --btn-hover:rgba(76,175,80,0.12);
+}
+body {
             margin: 0;
             font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
-            color: #fff;
+            color: var(--text-primary);
             min-height: 100vh;
             background: url('imagens/Microgramma_vacciniifolia_PR.jpg') center center no-repeat;
             background-size: cover;
@@ -27,7 +34,7 @@
             content: "";
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(30,40,30,0.45);
+            background: var(--bg-overlay);
             z-index: 0;
             pointer-events: none;
         }
@@ -72,7 +79,7 @@
         nav {
             display: flex;
             justify-content: center;
-            background: rgba(15, 25, 15, 0.6); /* Fundo mais escuro e translúcido */
+            background: var(--nav-bg); /* Fundo mais escuro e translúcido */
             backdrop-filter: blur(10px); /* Efeito de vidro */
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: sticky;
@@ -83,7 +90,7 @@
         nav .nav-btn {
             background: transparent; /* Fundo transparente */
             border: none;
-            color: #e0e0e0; /* Cor mais suave */
+            color: var(--text-muted); /* Cor mais suave */
             font-size: 1.1rem; /* Tamanho de fonte ajustado */
             padding: 0.8rem 1.5rem; /* Espaçamento ajustado */
             cursor: pointer;
@@ -129,7 +136,7 @@
             padding: 2.5rem 2rem;
             max-width: 900px;
             margin: 2.5rem auto 0 auto;
-            background: rgba(255,255,255,0.35);
+            background: var(--surface);
             border-radius: 18px;
             box-shadow: 0 8px 32px rgba(76,175,80,0.18);
             backdrop-filter: blur(8px);
@@ -217,28 +224,7 @@
         }
 
         /* --- ESTILO PARA O BOTÃO CARREGAR MAIS --- */
-        .load-more-container {
-            text-align: center;
-            margin-top: 2rem;
-        }
-        #loadMoreBtn {
-            background: #4caf50;
-            border: none;
-            color: #fff;
-            padding: 0.8rem 2rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: background 0.3s, transform 0.3s;
-        }
-        #loadMoreBtn:hover {
-            background: #388e3c;
-            transform: scale(1.05);
-        }
-        #loadMoreBtn.hidden {
-            display: none;
-        }
+        /* Estilos removidos pois o botão não será mais usado */
 
         /* --- NOVOS ESTILOS PARA ITENS DA GALERIA --- */
         .gallery-item {
@@ -247,15 +233,10 @@
             border-radius: 10px;
             cursor: pointer;
             transition: opacity 0.4s ease, transform 0.4s ease;
-            display: none; /* Oculta todos os itens por padrão */
+            display: block; /* Itens são visíveis por padrão */
         }
-        .gallery-item.visible {
-            display: block; /* Torna os itens visíveis via JS */
-        }
-        .gallery-item.hidden {
-            opacity: 0;
-            transform: scale(0.9);
-            pointer-events: none;
+        .gallery-item.hidden-by-filter {
+            display: none; /* Classe para ocultar itens filtrados */
         }
 
         .gallery-item img {
@@ -366,8 +347,8 @@
         footer {
             text-align: center;
             padding: 0.6rem 1.2rem;
-            background: rgba(56,142,60,0.85);
-            color: #fff;
+            background: var(--footer-bg);
+            color: var(--text-primary);
             font-size: 1.1rem;
             letter-spacing: 1px;
             box-shadow: 0 -2px 12px rgba(56,142,60,0.12);
@@ -376,6 +357,60 @@
             right: 0;
             bottom: 0;
             z-index: 20;
+        }
+
+        /* --- Transições e botão de alternância de tema --- */
+        body, nav, .tab-content, .gallery-item, footer { transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease; }
+        #theme-toggle {
+            position: fixed;
+            top: 15px;
+            right: 70px;
+            z-index: 1002;
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: var(--btn-bg);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            backdrop-filter: blur(6px);
+        }
+        #theme-toggle i { color: inherit; font-size: 1.1rem; line-height:1; }
+        #theme-toggle:hover { background: rgba(76,175,80,0.15); color: #fff; }
+        #theme-toggle:focus { outline: 3px solid rgba(76,175,80,0.25); outline-offset: 2px; }
+        @media (max-width:768px) { #theme-toggle { top:70px; right:20px; } }
+        body.light-mode { color:#000; } body.light-mode::before { background: rgba(255,255,255,0.82); }
+        /* força <strong> preto no modo claro (corrige negritos em legendas/overlays) */
+        body.light-mode strong { color: #000 !important; }
+        /* títulos maiores ficam verdes no modo claro */
+        body.light-mode header h1, body.light-mode h1, body.light-mode h2, body.light-mode h3 { color: var(--accent-dark); }
+        body.light-mode .header-subtitle { color:#000; }
+        body.light-mode nav { background: rgba(255,255,255,0.95); border-bottom:1px solid rgba(0,0,0,0.06); }
+        body.light-mode nav .nav-btn { color:#083912; }
+        body.light-mode .tab-content, body.light-mode .gallery-item { background: rgba(255,255,255,0.98); color:#000; border-color: rgba(0,0,0,0.06); }
+        body.light-mode .overlay-caption { color: #04260f; }
+        /* garantir que legendas e botões deixem de ser brancos */
+        body.light-mode .gallery-overlay, body.light-mode .overlay-caption, body.light-mode .filter-btn, body.light-mode .filter-btn.active { color: #000 !important; }
+        body.light-mode footer { color:#000; background: rgba(55,125,50,0.95); }
+
+        /* --- Aparência em Modo Claro (padronizado igual ao index.html) --- */
+        body.light-mode #theme_toggle {
+            background: #fff;
+            color: #083912;
+            border-color: rgba(76,175,80,0.25);
+            box-shadow: 0 0 0 6px rgba(76,175,80,0.06);
+        }
+        body.light-mode #theme_toggle:hover {
+            background: rgba(8,57,18,0.08);
+            color: #04260f;
+        }
+        body.light-mode #theme_toggle:focus {
+            outline: 3px solid rgba(8,57,18,0.15);
+            outline-offset: 2px;
         }
 
         @media (max-width: 768px) {
@@ -461,6 +496,32 @@
             #prevBtn { left: 5px; }
             #nextBtn { right: 5px; }
         }
+
+    /* --- Aplicar variáveis --- */
+    body { color: var(--text-primary); }
+    body::before { background: var(--bg-overlay); }
+    header h1, .header-subtitle { color: var(--text-primary); }
+    nav { background: var(--nav-bg); }
+    nav .nav-btn { color: var(--text-muted); }
+    .tab-content, .gallery-item { background: var(--surface); color: var(--text-primary); border-color: rgba(255,255,255,0.08); }
+    footer { background: var(--footer-bg); color: var(--text-primary); }
+    #theme-toggle { background: var(--btn-bg); border: 1px solid var(--btn-border); color: var(--text-primary); }
+    #theme-toggle:hover { background: var(--btn-hover); }
+
+    /* --- Variáveis para Modo Claro --- */
+    body.light-mode {
+      --text-primary: #04260f;
+      --text-muted: rgba(0,0,0,0.85);
+      --bg-overlay: rgba(255,255,255,0.82);
+      --surface: rgba(255,255,255,0.98);
+      --nav-bg: rgba(255,255,255,0.95);
+      --footer-bg: rgba(55,125,50,0.95);
+      --btn-bg: #fff;
+      --btn-border: rgba(76,175,80,0.25);
+      --btn-hover: rgba(8,57,18,0.08);
+    }
+    body.light-mode h2 { color: var(--accent-dark); border-bottom-color: var(--accent-dark); }
+    body.light-mode #theme-toggle { background: var(--btn-bg); color: var(--accent-dark); border-color: var(--btn-border); box-shadow: 0 0 0 6px rgba(76,175,80,0.06); }
     </style>
 </head>
 <body>
@@ -474,9 +535,12 @@
     <button id="hamburger-btn" aria-label="Open menu">
         <i class="fas fa-bars"></i>
     </button>
+    <button id="theme-toggle" aria-pressed="false" aria-label="Ativar modo claro" title="Switch between light/dark mode">
+        <i class="fas fa-moon" aria-hidden="true"></i>
+    </button>
 
     <!-- # Barra de navegação com a aba Imagens ativa -->
-    <nav>
+     <nav>
         <a href="index.html" class="nav-btn">About</a>
         <a href="pesquisa.html" class="nav-btn">Research</a>
         <a href="equipe.html" class="nav-btn">Team</a>
@@ -558,9 +622,7 @@
             </div>
     </div>
 
-    <div class="load-more-container">
-        <button id="loadMoreBtn">Load More</button>
-    </div>
+    <!-- O botão "Carregar Mais" foi removido -->
     </section>
 
     <!-- Modal para Imagens -->
@@ -606,7 +668,7 @@
             document.body.style.overflow = "hidden";
 
             // Prepara a navegação
-            visibleImages = Array.from(document.querySelectorAll('.gallery-item.visible'));
+            visibleImages = Array.from(document.querySelectorAll('.gallery-item:not(.hidden-by-filter)'));
             currentImageIndex = visibleImages.indexOf(element);
         }
 
@@ -642,19 +704,14 @@
             }
         });
 
-        // --- LÓGICA ATUALIZADA PARA FILTRO E "CARREGAR MAIS" ---
+        // --- LÓGICA ATUALIZADA PARA FILTRO ---
         let activeCategory = 'all';
-        const itemsPerLoad = 6;
-        const loadMoreBtn = document.getElementById('loadMoreBtn');
 
         function updateGallery() {
             const searchTerm = document.getElementById('searchInput').value.toUpperCase();
             const allItems = document.querySelectorAll('.gallery-item');
-            let filteredItems = [];
 
-            // 1. Esconde todos e coleta os que correspondem ao filtro
             allItems.forEach(item => {
-                item.classList.remove('visible');
                 const itemCategory = item.getAttribute('data-category');
                 const itemAltText = item.querySelector('img').alt.toUpperCase();
                 
@@ -662,21 +719,11 @@
                 const searchMatch = (itemAltText.indexOf(searchTerm) > -1);
 
                 if (categoryMatch && searchMatch) {
-                    filteredItems.push(item);
+                    item.classList.remove('hidden-by-filter');
+                } else {
+                    item.classList.add('hidden-by-filter');
                 }
             });
-
-            // 2. Mostra o primeiro lote de itens filtrados
-            filteredItems.slice(0, itemsPerLoad).forEach(item => {
-                item.classList.add('visible');
-            });
-
-            // 3. Controla a visibilidade do botão "Carregar Mais"
-            if (filteredItems.length > itemsPerLoad) {
-                loadMoreBtn.classList.remove('hidden');
-            } else {
-                loadMoreBtn.classList.add('hidden');
-            }
         }
 
         function setActiveFilter(button) {
@@ -686,51 +733,26 @@
             updateGallery();
         }
 
-        loadMoreBtn.addEventListener('click', () => {
-            const searchTerm = document.getElementById('searchInput').value.toUpperCase();
-            // Seleciona apenas os itens que estão ocultos
-            const hiddenItems = document.querySelectorAll('.gallery-item:not(.visible)');
-            let itemsToShow = [];
-
-            // Encontra os próximos itens ocultos que correspondem ao filtro atual
-            hiddenItems.forEach(item => {
-                if (itemsToShow.length < itemsPerLoad) {
-                    const itemCategory = item.getAttribute('data-category');
-                    const itemAltText = item.querySelector('img').alt.toUpperCase();
-                    const categoryMatch = (activeCategory === 'all' || itemCategory === activeCategory);
-                    const searchMatch = (itemAltText.indexOf(searchTerm) > -1);
-
-                    if (categoryMatch && searchMatch) {
-                        itemsToShow.push(item);
-                    }
-                }
-            });
-
-            // Mostra os itens encontrados
-            itemsToShow.forEach(item => item.classList.add('visible'));
-
-            // Verifica novamente se ainda há itens ocultos que correspondem ao filtro
-            const stillHiddenItems = document.querySelectorAll('.gallery-item:not(.visible)');
-            let moreItemsToLoad = false;
-            stillHiddenItems.forEach(item => {
-                const itemCategory = item.getAttribute('data-category');
-                const itemAltText = item.querySelector('img').alt.toUpperCase();
-                const categoryMatch = (activeCategory === 'all' || itemCategory === activeCategory);
-                const searchMatch = (itemAltText.indexOf(searchTerm) > -1);
-                if(categoryMatch && searchMatch) {
-                    moreItemsToLoad = true;
-                }
-            });
-
-            // Se não houver mais itens para carregar, esconde o botão
-            if (!moreItemsToLoad) {
-                 loadMoreBtn.classList.add('hidden');
-            }
-        });
+        // A lógica do botão "Carregar Mais" foi removida.
 
         // Carregamento inicial da galeria
         document.addEventListener('DOMContentLoaded', updateGallery);
 
+        document.addEventListener('DOMContentLoaded', () => {
+    const themeToggle = document.getElementById('theme-toggle');
+    if (!themeToggle) return;
+    const body = document.body;
+    const ICONS = { dark: '<i class="fas fa-moon" aria-hidden="true"></i>', light: '<i class="fas fa-sun" aria-hidden="true"></i>' };
+    const applyTheme = (mode) => {
+      if (mode === 'light') { body.classList.add('light-mode'); themeToggle.setAttribute('aria-pressed','true'); themeToggle.setAttribute('aria-label','Ativar modo escuro'); themeToggle.innerHTML = ICONS.light; }
+      else { body.classList.remove('light-mode'); themeToggle.setAttribute('aria-pressed','false'); themeToggle.setAttribute('aria-label','Ativar modo claro'); themeToggle.innerHTML = ICONS.dark; }
+      try { localStorage.setItem('site-theme', mode); } catch(e){}
+    };
+    let saved = null; try { saved = localStorage.getItem('site-theme'); } catch(e){}
+    if (saved) applyTheme(saved); else applyTheme(window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    themeToggle.addEventListener('click', () => applyTheme(body.classList.contains('light-mode') ? 'dark' : 'light'));
+    themeToggle.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); themeToggle.click(); } });
+  });
     </script>
 </body>
 </html>

@@ -14,10 +14,17 @@
     
     <style>
         /* # ESTILOS GERAIS (comuns a todas as páginas) */
+        :root{
+  --accent:#4caf50; --accent-dark:#083912;
+  --text-primary:#edf7f0; --text-muted:rgba(237,247,240,0.85);
+  --bg-overlay:rgba(10,12,10,0.60); --surface:rgba(0,0,0,0.25);
+  --nav-bg:rgba(8,12,8,0.8); --footer-bg:rgba(25,90,30,0.9);
+  --btn-bg:rgba(10,16,10,0.8); --btn-border:rgba(255,255,255,0.10); --btn-hover:rgba(76,175,80,0.12);
+}
         body {
             margin: 0;
             font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
-            color: #fff;
+            color: var(--text-primary);
             min-height: 100vh;
             background: url('imagens/Microgramma_vacciniifolia_PR.jpg') center center no-repeat;
             background-size: cover;
@@ -42,7 +49,7 @@
             content: "";
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(30,40,30,0.45);
+            background: var(--bg-overlay);
             z-index: 0;
             pointer-events: none;
         }
@@ -92,7 +99,7 @@
         nav {
             display: flex;
             justify-content: center;
-            background: rgba(15, 25, 15, 0.6); /* Fundo mais escuro e translúcido */
+            background: var(--nav-bg); /* Fundo mais escuro e translúcido */
             backdrop-filter: blur(10px); /* Efeito de vidro */
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: sticky;
@@ -105,7 +112,7 @@
         nav .nav-btn {
             background: transparent; /* Fundo transparente */
             border: none;
-            color: #e0e0e0; /* Cor mais suave */
+            color: var(--text-muted); /* Cor mais suave */
             font-size: 1.1rem; /* Tamanho de fonte ajustado */
             padding: 0.8rem 1.5rem; /* Espaçamento ajustado */
             cursor: pointer;
@@ -153,7 +160,7 @@
             padding: 2.5rem 2rem;
             max-width: 900px;
             margin: 2.5rem auto 0 auto;
-            background: rgba(255,255,255,0.35);
+            background: var(--surface);
             border-radius: 18px;
             box-shadow: 0 8px 32px rgba(76,175,80,0.18);
             backdrop-filter: blur(8px);
@@ -305,14 +312,26 @@
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
             display: flex;
             flex-direction: column;
         }
 
         .research-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+            transform: translateY(-10px);
+            box-shadow: 0 16px 32px rgba(0,0,0,0.25);
+            border-color: #4caf50;
+        }
+
+        .research-card:hover .research-icon {
+            transform: scale(1.1);
+        }
+
+        .research-icon {
+            font-size: 2.8rem;
+            color: #4caf50;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
         }
 
         .research-card h4 {
@@ -329,12 +348,21 @@
         }
 
         .keywords {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin-top: 1rem;
-            font-style: italic;
+            font-size: 0.8rem;
+            color: #e0e0e0;
+            margin-top: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
         }
         
+        .keywords span {
+            background: rgba(76, 175, 80, 0.2);
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+        }
+
         /* --- ANIMAÇÃO DE SCROLL --- */
         .reveal-on-scroll {
             opacity: 0;
@@ -346,12 +374,73 @@
             transform: translateY(0);
         }
 
+        /* --- ESTILOS PARA O BOTÃO DE TRADUÇÃO --- */
+        #google_translate_element {
+            position: fixed;
+            bottom: 80px; /* Acima do rodapé */
+            right: 15px;
+            z-index: 100;
+        }
+        
+        /* Estiliza o container do widget para parecer um botão */
+        .goog-te-gadget-simple {
+            display: flex !important;
+            align-items: center !important;
+            background-color: rgba(15, 25, 15, 0.7) !important;
+            border: 1px solid rgba(255,255,255,0.2) !important;
+            backdrop-filter: blur(5px);
+            padding: 8px 12px !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .goog-te-gadget-simple:hover {
+            background-color: rgba(76, 175, 80, 0.5) !important;
+        }
+
+        /* Adiciona o ícone de globo */
+        .goog-te-gadget-simple::before {
+            content: '\f0ac'; /* Ícone de globo do Font Awesome */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: #fff;
+            font-size: 1rem;
+            margin-right: 8px;
+            line-height: 1;
+        }
+
+        /* Estiliza o texto do idioma */
+        .goog-te-gadget-simple .goog-te-menu-value span {
+            color: #e0e0e0 !important;
+            font-family: 'Montserrat', sans-serif !important;
+            font-size: 0.9rem !important;
+            font-weight: 500 !important;
+        }
+        .goog-te-gadget-simple .goog-te-menu-value span:hover {
+            color: #fff !important;
+        }
+
+        /* Esconde o ícone e a seta padrão do Google */
+        .goog-te-gadget-icon,
+        .goog-te-gadget-simple .goog-te-menu-value span[style*="border-left"] {
+            display: none !important;
+        }
+        
+        /* Remove o "Powered by Google" que aparece no topo da página */
+        body {
+            top: 0px !important; 
+        }
+        .skiptranslate {
+            display: none !important;
+        }
+
+
         /* # Rodapé */
         footer {
             text-align: center;
             padding: 0.6rem 1.2rem;
-            background: rgba(56,142,60,0.85);
-            color: #fff;
+            background: var(--footer-bg);
+            color: var(--text-primary);
             font-size: 1.1rem;
             letter-spacing: 1px;
             box-shadow: 0 -2px 12px rgba(56,142,60,0.12);
@@ -450,8 +539,169 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* --- Transições suaves para troca de tema --- */
+        body, nav, .tab-content, .research-card, .info-box, footer {
+            transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        /* --- Botão de alternância de tema --- */
+        #theme-toggle {
+            position: fixed;
+            top: 15px; /* canto superior */
+            right: 70px; /* à esquerda do botão hamburger (hamburger: right:20px; width:45px) */
+            z-index: 1002; /* acima do hamburger (1001) */
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(15,25,15,0.75);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            backdrop-filter: blur(6px);
+        }
+        #theme-toggle:hover {
+            background: rgba(76,175,80,0.15);
+            color: #fff;
+        }
+        #theme-toggle:focus {
+            outline: 3px solid rgba(76,175,80,0.25);
+            outline-offset: 2px;
+        }
+
+        /* Posicionamento em telas pequenas: abaixo do botão hamburger */
+        @media (max-width: 768px) {
+            #theme-toggle {
+                top: 70px; /* abaixo do hamburger (hamburger top:15px, height ~45px) */
+                right: 20px;
+                width: 44px;
+                height: 44px;
+                border-radius: 8px;
+                z-index: 1002;
+            }
+        }
+
+        /* --- ESTILO DO MODO CLARO (aplicado em body.light-mode) --- */
+        body.light-mode {
+            --text-primary:#04260f; --text-muted:rgba(0,0,0,0.85);
+  --bg-overlay:rgba(255,255,255,0.82); --surface:rgba(255,255,255,0.98);
+  --nav-bg:rgba(255,255,255,0.95); --footer-bg:rgba(55,125,50,0.95);
+  --btn-bg:#fff; --btn-border:rgba(76,175,80,0.25); --btn-hover:rgba(8,57,18,0.08);
+        }
+        body.light-mode {
+            color: #111;
+        }
+        body.light-mode::before {
+            background: rgba(255,255,255,0.75);
+        }
+        body.light-mode nav {
+            background: rgba(255,255,255,0.95);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+        body.light-mode nav .nav-btn {
+            color: #1b5e20;
+        }
+        body.light-mode nav .nav-btn.active {
+            color: #1b5e20;
+        }
+        body.light-mode .tab-content {
+            background: rgba(255,255,255,0.98);
+            color: #1b1b1b;
+            border: 1px solid rgba(0,0,0,0.06);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        }
+        body.light-mode .research-card {
+            background: rgba(255,255,255,0.96);
+            border-color: rgba(0,0,0,0.06);
+            color: #111;
+        }
+        body.light-mode .info-box {
+            background: rgba(255,255,255,0.95);
+            border-left-color: #4caf50;
+            color: #111;
+        }
+        /* Ajusta o widget de tradução no modo claro */
+        body.light-mode .goog-te-gadget-simple {
+            background-color: rgba(255,255,255,0.94) !important;
+            border: 1px solid rgba(0,0,0,0.06) !important;
+        }
+        body.light-mode .goog-te-gadget-simple .goog-te-menu-value span {
+            color: #1b5e20 !important;
+        }
+
+        /* NOVAS SOBRESCRITURAS PARA GARANTIR TEXTOS ESCUROS NO MODO CLARO */
+        /* títulos maiores ficam verdes no modo claro */
+        body.light-mode header h1, body.light-mode h1, body.light-mode h2, body.light-mode h3 {
+            color: var(--accent-dark);
+            border-bottom-color: #4caf50;
+        }
+        /* subtítulo do cabeçalho preto no modo claro */
+        body.light-mode .header-subtitle { color: #000 !important; }
+
+        /* força <strong> preto no modo claro (corrige nomes/negritos) */
+        body.light-mode strong { color: #000 !important; }
+
+        /* garantir textos brancos em elementos diversos fiquem pretos no modo claro */
+        body.light-mode .research-card h4, body.light-mode .keywords span, body.light-mode .stat-label, body.light-mode .tab-content, body.light-mode .tab-content p { color: #000 !important; }
+        
+        body.light-mode .tab-content p {
+            color: #222;
+        }
+        body.light-mode .stat-label {
+            color: rgba(0,0,0,0.75);
+        }
+        body.light-mode .keywords {
+            color: #333;
+        }
+        body.light-mode .keywords span {
+            background: rgba(76,175,80,0.12);
+            color: #0b3b1a;
+        }
+        body.light-mode footer {
+            color: #111;
+            background: rgba(76,175,80,0.95);
+        }
+        body.light-mode .goog-te-gadget-simple::before {
+            color: #1b5e20;
+        }
+        body.light-mode #theme-toggle {
+            background: rgba(255,255,255,0.92);
+            color: #1b5e20;
+            border: 1px solid rgba(0,0,0,0.06);
+        }
+        body.light-mode #hamburger-btn {
+            background: rgba(255,255,255,0.9);
+            color: #1b5e20;
+            border: 1px solid rgba(0,0,0,0.06);
+        }
+        body.light-mode nav .nav-btn:hover,
+        body.light-mode nav .nav-btn.active {
+            background: rgba(76,175,80,0.12);
+            color: #083912;
+        }
+
+        /* --- Aparência em Modo Claro (padronizado) --- */
+        #theme-toggle i { color: inherit; font-size: 1.1rem; line-height:1; } /* garante ícone herdar cor */
+        body.light-mode #theme-toggle {
+            background: #fff;
+            color: #083912;
+            border-color: rgba(76,175,80,0.25);
+            box-shadow: 0 0 0 6px rgba(76,175,80,0.06);
+        }
+        body.light-mode #theme-toggle:hover {
+            background: rgba(8,57,18,0.08);
+            color: #04260f;
+        }
+        body.light-mode #theme-toggle:focus {
+            outline: 3px solid rgba(8,57,18,0.15);
+            outline-offset: 2px;
+        }
+
     </style>
-<meta name="google-site-verification" content="IWyJ_NzAIuGw_9udAAbmesAifWzTWvGjsEDieRRw93A" />
 </head>
 <body>
     <!-- # Cabeçalho com logo e título -->
@@ -466,7 +716,7 @@
     </button>
 
     <!-- # Barra de navegação -->
-    <nav>
+     <nav>
         <a href="index.html" class="nav-btn active">About</a>
         <a href="pesquisa.html" class="nav-btn">Research</a>
         <a href="equipe.html" class="nav-btn">Team</a>
@@ -474,7 +724,6 @@
         <a href="imagens.html" class="nav-btn">Gallery</a>
         <a href="contato.html" class="nav-btn">Contact</a>
     </nav>
-    
   <!-- # Conteúdo principal (Aba Sobre) -->
 <section id="sobre" class="tab-content active">
     <h2>About the Lab</h2>
@@ -514,23 +763,52 @@
     <h3 class="reveal-on-scroll">Our Lines of Research</h3>
     <div class="research-cards-container">
         <div class="research-card reveal-on-scroll">
+            <div class="research-icon"><i class="fas fa-dna"></i></div>
             <h4>Evolution</h4>
             <p>We seek to understand the evolution of plant lineages adapted to tropical environments. Our investigations cover the processes and patterns of diversification and geography, both historical and contemporary, as well as the mechanisms of divergence, convergence, natural selection, and speciation that shape this biodiversity.</p>
-            <div class="keywords">Convergence, Divergence, Diversification, Vascular Plants, Natural Selection, Speciation, Tropics</div>
+            <div class="keywords">
+                <span>Convergence</span> <span>Divergence</span> <span>Speciation</span> <span>Tropics</span>
+            </div>
         </div>
         <div class="research-card reveal-on-scroll">
+            <div class="research-icon"><i class="fas fa-sitemap"></i></div>
             <h4>Integrative Systematics</h4>
             <p>We investigate evolutionary relationships and describe biodiversity using an integrative approach that explores morphological, molecular, spectral, ecological data, and predictive models. Our main focus is on the major groups of tropical ferns and lycophytes (but not exclusively!).</p>
-            <div class="keywords">Biodiversity, Spectroscopy, Lycophytes, Predictive Models, Molecular, Morphology, Ferns, Systematics</div>
+            <div class="keywords">
+                <span>Biodiversity</span> <span>Spectroscopy</span> <span>Ferns</span> <span>Systematics</span>
+            </div>
         </div>
         <div class="research-card reveal-on-scroll">
+            <div class="research-icon"><i class="fas fa-leaf"></i></div>
             <h4>Evolutionary Ecology</h4>
             <p>We study how ferns and lycophytes interact with the environment. Our studies assess the impacts of climate change, characterize flora at various scales, and map endemic, rare, and threatened species, with the ultimate goal of supporting effective conservation strategies for them.</p>
-            <div class="keywords">Conservation, Ecology, Threatened Species, Rare Species, Regional Flora, Climate Change, Taxonomy</div>
+            <div class="keywords">
+                <span>Conservation</span> <span>Ecology</span> <span>Climate Change</span> <span>Taxonomy</span>
+            </div>
         </div>
     </div>
 </section>
+    
+    <!-- Botão de Tradução -->
+    <div id="google_translate_element"></div>
+
+    <!-- Botão de alternância de tema -->
+    <button id="theme-toggle" aria-pressed="false" aria-label="Ativar modo claro" title="Switch between light/dark mode">
+        <i class="fas fa-moon" aria-hidden="true"></i>
+    </button>
+
     </footer>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'pt', 
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -591,7 +869,52 @@
             revealElements.forEach(el => {
                 observer.observe(el);
             });
+
+            // --- Alternância de tema claro/escuro ---
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+            const ICONS = { dark: '<i class="fas fa-moon" aria-hidden="true"></i>', light: '<i class="fas fa-sun" aria-hidden="true"></i>' };
+
+            // Aplica tema conforme preferência salva ou preferência do sistema
+            const applyTheme = (mode) => {
+                if (mode === 'light') {
+                    body.classList.add('light-mode');
+                    themeToggle.setAttribute('aria-pressed', 'true');
+                    themeToggle.setAttribute('aria-label', 'Ativar modo escuro');
+                    themeToggle.innerHTML = ICONS.light;
+                } else {
+                    body.classList.remove('light-mode');
+                    themeToggle.setAttribute('aria-pressed', 'false');
+                    themeToggle.setAttribute('aria-label', 'Ativar modo claro');
+                    themeToggle.innerHTML = ICONS.dark;
+                }
+                try { localStorage.setItem('site-theme', mode); } catch(e){ /* sem persistência */ }
+            };
+
+            // Determina tema inicial
+            let saved = null;
+            try { saved = localStorage.getItem('site-theme'); } catch(e){ /* sem persistência */ }
+            if (saved) {
+                applyTheme(saved);
+            } else {
+                const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+                applyTheme(prefersLight ? 'light' : 'dark');
+            }
+
+            // Clique no botão alterna o tema
+            themeToggle.addEventListener('click', () => {
+                const isLight = body.classList.contains('light-mode');
+                applyTheme(isLight ? 'dark' : 'light');
+            });
+
+            // Permite alternar com Enter/Space quando focado
+            themeToggle.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    themeToggle.click();
+                }
+            });
         });
     </script>
-
 </body>
+</html>
