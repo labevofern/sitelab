@@ -80,7 +80,7 @@ body {
             display: flex;
             justify-content: center;
             background: var(--nav-bg); /* Fundo mais escuro e translúcido */
-            backdrop-filter: blur(10px); /* Efeito de vidro */
+            backdrop-filter: blur(5px); /* Efeito de vidro */
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: sticky;
             top: 0;
@@ -139,7 +139,7 @@ body {
             background: var(--surface);
             border-radius: 18px;
             box-shadow: 0 8px 32px rgba(76,175,80,0.18);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(4px);
             border: 1.2px solid #fff;
             position: relative;
             z-index: 1;
@@ -234,6 +234,8 @@ body {
             cursor: pointer;
             transition: opacity 0.4s ease, transform 0.4s ease;
             display: block; /* Itens são visíveis por padrão */
+            will-change: transform;
+            contain: layout style paint;
         }
         .gallery-item.hidden-by-filter {
             display: none; /* Classe para ocultar itens filtrados */
@@ -245,6 +247,7 @@ body {
             object-fit: cover;
             display: block;
             transition: transform 0.4s ease;
+            will-change: transform;
         }
 
         .gallery-item:hover img {
@@ -268,6 +271,7 @@ body {
             opacity: 0;
             transition: opacity 0.4s ease;
             box-sizing: border-box; /* Garante que o padding não aumente o tamanho total */
+            will-change: opacity;
         }
 
         .gallery-item:hover .gallery-overlay {
@@ -322,6 +326,47 @@ body {
             font-size: 40px;
             font-weight: bold;
             cursor: pointer;
+            transition: color 0.3s;
+        }
+        .modal-close:hover {
+            color: #4caf50;
+        }
+
+        /* --- ESTILOS DOS BOTÕES DE AÇÃO NO MODAL --- */
+        .modal-actions {
+            position: absolute;
+            right: 20px;
+            top: 30%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 1001;
+        }
+        .modal-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.2rem;
+            background: rgba(76, 175, 80, 0.85);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background 0.3s, transform 0.2s;
+            backdrop-filter: blur(4px);
+        }
+        .modal-btn:hover {
+            background: rgba(76, 175, 80, 0.95);
+            transform: scale(1.05);
+        }
+        .modal-btn:active {
+            transform: scale(0.98);
+        }
+        .modal-btn i {
+            font-size: 1rem;
         }
 
         /* --- NOVOS ESTILOS PARA NAVEGAÇÃO DO MODAL --- */
@@ -552,7 +597,7 @@ body {
     <!-- # Conteúdo da aba Imagens -->
     <section id="imagens" class="tab-content active">
         <h2>Our Gallery</h2>
-        <p>See photos of our species, field expeditions, and lab activities.</p>
+        <p>See photos of our activities and research.</p>
         
         <div class="filter-controls">
             <input type="text" id="searchInput" onkeyup="updateGallery()" placeholder="Search the gallery...">
@@ -560,64 +605,93 @@ body {
                 <button class="filter-btn active" data-category="all" onclick="setActiveFilter(this)">All</button>
                 <button class="filter-btn" data-category="campo" onclick="setActiveFilter(this)">Field Activities</button>
                 <button class="filter-btn" data-category="cong" onclick="setActiveFilter(this)">Congresses and scientific/social events</button>
+                <button class="filter-btn" data-category="fest" onclick="setActiveFilter(this)">Celebrations and festivities</button>
             </div>
         </div>
 
         <div class="gallery-grid">
-            <div class="gallery-item" data-category="campo" onclick="openModal(this)">
+            <div class="gallery-item" data-category="campo" data-id="0" onclick="openModal(this)">
                 <img src="imagens/imagens da seção/Serra bonita 2024.jpg" alt="Team on a field expedition at RPPN Serra Bonita" loading="lazy">
                 <div class="gallery-overlay">
                     <i class="fas fa-search-plus overlay-icon"></i>
                     <span class="overlay-caption">Team on a field expedition at RPPN Serra Bonita</span>
                 </div>
             </div>
-            <div class="gallery-item" data-category="campo" onclick="openModal(this)">
+            <div class="gallery-item" data-category="campo" data-id="1" onclick="openModal(this)">
                 <img src="imagens/imagens da seção/Serra da moeda.jpg" alt="Team on a field expedition at Serra da Moeda" loading="lazy">
                 <div class="gallery-overlay">
                     <i class="fas fa-search-plus overlay-icon"></i>
                     <span class="overlay-caption">Team on a field expedition at Serra da Moeda</span>
                 </div>
             </div>
-            <div class="gallery-item" data-category="campo" onclick="openModal(this)">
+            <div class="gallery-item" data-category="campo" data-id="2" onclick="openModal(this)">
                 <img src="imagens/imagens da seção/Pico do Jabre.jpg" alt="Team on a field expedition at Pico do Jabre" loading="lazy">
                 <div class="gallery-overlay">
                     <i class="fas fa-search-plus overlay-icon"></i>
                     <span class="overlay-caption">Landscape of a collection area</span>
                 </div>
             </div>
-            <div class="gallery-item" data-category="cong" onclick="openModal(this)">
+            <div class="gallery-item" data-category="cong" data-id="3" onclick="openModal(this)">
                 <img src="imagens/imagens da seção/CNBOT_2024.png" alt="National Congress of Botany - Brasília/2024" loading="lazy">
                 <div class="gallery-overlay">
                     <i class="fas fa-search-plus overlay-icon"></i>
                     <span class="overlay-caption">National Congress of Botany - Brasília/2024</span>
                 </div>
             </div>
-            <div class="gallery-item" data-category="cong" onclick="openModal(this)">
+            <div class="gallery-item" data-category="cong" data-id="4" onclick="openModal(this)">
                 <img src="imagens/imagens da seção/CNBOT_2025.jpg" alt="National Congress of Botany - Piauí/2025" loading="lazy">
                 <div class="gallery-overlay">
                     <i class="fas fa-search-plus overlay-icon"></i>
                     <span class="overlay-caption">National Congress of Botany - Piauí/2025</span>
                 </div>
             </div>
-            <div class="gallery-item" data-category="cong" onclick="openModal(this)">
+            <div class="gallery-item" data-category="cong" data-id="5" onclick="openModal(this)">
                 <img src="imagens/imagens da seção/CNBOT_2025_1.jpg" alt="National Congress of Botany - Piauí/2025" loading="lazy">
                 <div class="gallery-overlay">
                     <i class="fas fa-search-plus overlay-icon"></i>
                     <span class="overlay-caption">National Congress of Botany - Piauí/2025</span>
                 </div>
             </div>
-            <div class="gallery-item" data-category="cong" onclick="openModal(this)">
+            <div class="gallery-item" data-category="cong" data-id="6" onclick="openModal(this)">
                 <img src="imagens/imagens da seção/Reunião do núcleo 2024.jpg" alt="Meeting of the Pteridology Nucleus of Brazil (CNBOT/2024)" loading="lazy">
                 <div class="gallery-overlay">
                     <i class="fas fa-search-plus overlay-icon"></i>
                     <span class="overlay-caption">Meeting of the Pteridology Nucleus of Brazil (CNBOT/2024)</span>
                 </div>
             </div>
-            <div class="gallery-item" data-category="cong" onclick="openModal(this)">
+            <div class="gallery-item" data-category="fest" data-id="7" onclick="openModal(this)">
                 <img src="imagens/imagens da seção/festa junina 2024.jpg" alt="Lab's June Party 2025" loading="lazy">
                 <div class="gallery-overlay">
                     <i class="fas fa-search-plus overlay-icon"></i>
                     <span class="overlay-caption">Lab's June Party 2025</span>
+                </div>
+            </div> 
+            <div class="gallery-item" data-category="fest" data-id="8" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Halloween 2025.jpeg" alt="Halloween party 2025" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption">Halloween party 2025</span>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="fest" data-id="9" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/Frajolito.png" alt="Our mascot, &quot;Nice to meet you, Frajolito&quot;" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption">Our mascot, &quot;Nice to meet you, Frajolito&quot;</span>
+                </div>
+           </div> 
+            <div class="gallery-item" data-category="fest" data-id="10" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/CNBOT Botany Congress 2024.jpeg" alt="CNBOT Botany Congress 2024" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption">CNBOT Botany Congress 2024</span>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="fest" data-id="11" onclick="openModal(this)">
+                <img src="imagens/imagens da seção/End-of-year celebration 2025.jpg" alt="End-of-year celebration 2025" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus overlay-icon"></i>
+                    <span class="overlay-caption">End-of-year celebration 2025</span>
                 </div>
             </div>
     </div>
@@ -632,6 +706,16 @@ body {
         <img class="modal-content" id="modalImage">
         <button id="nextBtn" class="modal-nav" onclick="changeImage(1)">&#10095;</button>
         <div id="modalCaption" class="modal-caption"></div>
+        <div class="modal-actions">
+            <button class="modal-btn" onclick="downloadImage()" title="Download image">
+                <i class="fas fa-download"></i>
+                Download
+            </button>
+            <button class="modal-btn" onclick="shareImage()" title="Share image">
+                <i class="fas fa-share-alt"></i>
+                Share
+            </button>
+        </div>
     </div>
     </footer>
 
@@ -701,6 +785,55 @@ body {
                 if (event.key === "Escape") closeModal();
                 if (event.key === "ArrowLeft") changeImage(-1);
                 if (event.key === "ArrowRight") changeImage(1);
+            }
+        });
+
+        // Função para baixar a imagem
+        function downloadImage() {
+            const imageSrc = document.getElementById('modalImage').src;
+            const imageAlt = document.getElementById('modalImage').alt;
+            const link = document.createElement('a');
+            link.href = imageSrc;
+            link.download = imageAlt || 'imagem.jpg';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Função para compartilhar a imagem
+        function shareImage() {
+            const imageElement = visibleImages[currentImageIndex].querySelector('img');
+            const imageAlt = imageElement.alt;
+            const imageId = visibleImages[currentImageIndex].getAttribute('data-id');
+            const shareUrl = window.location.origin + window.location.pathname + '?image=' + imageId;
+
+            // Verifica se a API de compartilhamento do navegador está disponível
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Fern Lab Gallery',
+                    text: imageAlt || 'Check out this image from Fern Lab',
+                    url: shareUrl
+                }).catch(err => console.log('Erro ao compartilhar:', err));
+            } else {
+                // Fallback: copia a URL para a área de transferência
+                navigator.clipboard.writeText(shareUrl).then(() => {
+                    alert('Link copiado para a área de transferência!');
+                }).catch(err => {
+                    alert('Não foi possível copiar o link.');
+                });
+            }
+        }
+
+        // Verificar se há parâmetro de imagem na URL e abrir automaticamente
+        window.addEventListener('load', function() {
+            const params = new URLSearchParams(window.location.search);
+            const imageId = params.get('image');
+            
+            if (imageId !== null) {
+                const imageElement = document.querySelector('[data-id="' + imageId + '"]');
+                if (imageElement) {
+                    setTimeout(() => openModal(imageElement), 300);
+                }
             }
         });
 
