@@ -316,6 +316,15 @@
         .btn-acessar:hover {
             background: #388e3c;
         }
+        /* Mantém o botão de acesso inline quando está dentro de .journal-info (p.ex. preprints) */
+        .journal-info .btn-acessar {
+            display: block;              /* força quebra de linha, ficando abaixo do texto */
+            margin-top: 0.8rem;          /* espaço acima do botão */
+            margin-left: 0;
+            padding: 0.6rem 1.4rem;      /* padding padrão igual aos outros botões */
+            font-size: 0.95rem;
+            width: fit-content;         /* botão não ocupa 100% da largura */
+        }
 
         /* --- Modal de Imagem --- */
         .modal {
@@ -418,6 +427,10 @@
         @media (min-width: 768px) {
             .artigo {
                 grid-template-columns: 2fr 1fr; /* Duas colunas em telas maiores */
+            }
+            /* Força artigos marcados como full-width a ocupar toda a largura */
+            .artigo.full-width {
+                grid-template-columns: 1fr !important;
             }
         }
 
@@ -559,7 +572,39 @@
         <h2>Our Publications</h2>
         
         <div class="filter-container">
-            <input type="text" id="searchInput" onkeyup="searchPublications()" placeholder="Search by title, author, or keyword...">
+            <input type="text" id="searchInput" onkeyup="searchPublications()" placeholder="Search by title, author, year, or keyword...">
+        </div>
+
+        
+        <div class="year-group" data-year="2024">
+            <h3 class="year-title">2026</h3>
+
+              <!-- Artigo 1 -->
+            <div class="artigo">
+                <div class="artigo-info">
+                    <h3>Mesoamerican roots: the biogeographic history of the fern genus <i>Pleopeltis</i></h3>
+                    <p class="authors"><strong>Authors:</strong> Carolina do Valle | Alexandre Salino | Lucas V. Lima | Ingridy O. Moura | Thais E. Almeida</p>
+                    <p class="journal-info"><strong>Journal:</strong> Botanical Journal of the Linnean Society (2026)</p>
+                    
+                    <div class="toggle-abstract" onclick="toggleAbstract(this)">Read abstract +</div>
+                    <div class="abstract-container">
+                        <p><strong>Abstract:</strong> The genus <i>Pleopeltis</i> stands out for its high species richness in tropical montane regions and its disjunct neotropical–afrotropical distribution, with most species occurring in the Neotropics. This distribution provides a unique opportunity to explore dispersal patterns, a key mechanism in fern biogeography. In this study, we aimed to identify the biogeographic processes shaping the distribution of Pleopeltis and the directionality of its dispersal events throughout evolutionary history. We analysed a combined dataset of three plastid regions from 70 species to infer divergence times. Ancestral range estimation and stochastic biogeographic mapping were used to elucidate biogeographic patterns and processes. Our findings showed that dispersal was the main process driving the genus’s distribution, accounting for nearly half of the inferred biogeographic events. Notably, we identified a recent west-to-east dispersal pattern connecting the Neotropics with the Paleotropics, highlighting the significance of long-distance dispersal in ferns. Mexico and Central America were identified as the centre of origin and diversity for the genus and the main source of dispersal. The Andes were the second most important centre, functioning as a source and sink for dispersal events. These findings emphasize the critical roles of these dynamic centres in the diversification and distribution of global biodiversity.</p>
+                    </div>
+
+                    <div class="keywords-container">
+                        <span class="keyword-tag">dispersal directionality</span>
+                        <span class="keyword-tag">long-distance dispersal</span>
+                        <span class="keyword-tag">phylogenetic inferences</span>
+                        <span class="keyword-tag">source-sink</span>
+                    </div>
+                    <a href="https://doi.org/10.1093/botlinnean/boaf108" class="btn-acessar" target="_blank">Access Article</a>
+                </div>
+                <div class="artigo-gallery">
+                    <img src="imagens/Artigos/valle 2026 1.jpg" alt="Image from article 1" onclick="openModal('imagens/Artigos/valle 2026 1.jpg', 'Figure 2: Dispersal events estimated using stochastic biogeographic mapping. The number of events is based on...')">
+                    <img src="imagens/Artigos/valle 2026 2.jpg" alt="Image from article 2" onclick="openModal('imagens/Artigos/valle 2026 2.jpg', 'Figure 3: LDD events inferred in the biogeographic history of Pleopeltis. Dashed lines indicate alternative...')">
+                    <img src="imagens/Artigos/valle 2026 3.jpg" alt="Image from article 3" onclick="openModal('imagens/Artigos/valle 2026 3.jpg', 'Table 1: Comparative statistics among tested biogeographic models.')">
+                </div>
+            </div>
         </div>
 
         <div class="year-group" data-year="2024">
@@ -569,7 +614,7 @@
                 <div class="artigo-info">
                     <h3>Blowin' in the Wind: Ferns and Lycophytes Connect Biogeographic Refuges in the Atlantic Forest</h3>
                     <p class="authors"><strong>Authors:</strong> D. Victor S. e Silva | Lucas V. Lima | Mércia P. P. Silva | Thais E. Almeida | Augusto C. P. Santiago</p>
-                    <p class="journal-info"><strong>Journal:</strong> Journal of Biogeography (2024)</p>
+                    <p class="journal-info"><strong>Journal:</strong> Journal of Biogeography (2025)</p>
                     
                     <div class="toggle-abstract" onclick="toggleAbstract(this)">Read abstract +</div>
                     <div class="abstract-container">
@@ -597,7 +642,7 @@
             <div class="artigo">
                 <div class="artigo-info">
                     <h3>Rediscovery after three decades of the freshwater sponge <i>Metania kiliani</i> on a terrestrial fern</h3>
-                    <p class="authors"><strong>Authors:</strong> Carolina do Valle M. de S. | Keven dos S. Lima | Ulisses Pinheiro | Thaís E. Almeida</p>
+                    <p class="authors"><strong>Authors:</strong> Carolina do Valle | Keven dos S. Lima | Ulisses Pinheiro | Thaís E. Almeida</p>
                     <p class="journal-info"><strong>Journal:</strong> Acta Amazonica (2025)</p>
                     
                     <div class="toggle-abstract" onclick="toggleAbstract(this)">Read abstract +</div>
@@ -622,6 +667,136 @@
                 </div>
             </div>
         </div>
+
+ <!-- Artigo 3 -->
+            <div class="artigo">
+                <div class="artigo-info">
+                    <h3>Ferns and lycophytes in the Cerrado: a floristic study in eastern Maranhão, northeastern Brazil</h3>
+                    <p class="authors"><strong>Authors:</strong> Niksoney A. Mendonça | Sirlane S. Oliveira | Juliana Aljahara | Thaís E. Almeida | Roziajne S. Fernandes</p>
+                    <p class="journal-info"><strong>Journal:</strong> Rodriguesia (2025)</p>
+                    
+                    <div class="toggle-abstract" onclick="toggleAbstract(this)">Read abstract +</div>
+                    <div class="abstract-container">
+                        <p><strong>Abstract:</strong> The present study contributes to the knowledge of the fern and lycophyte flora of the city of Chapadinha, an area of the Cerrado located in the eastern state of Maranhão, Brazil. The study also presents taxonomic and environmental data on the occurrence of these species. Species were collected during five expeditions performed between December 2021 and August 2022, in two protected areas and some sites associated with wet environments outside these areas. In addition, specimens deposited in an herbarium were examined. In total, 20 species of ferns and three species of lycophytes were recorded, distributed over 12 families and 16 genera. The most representative families were Pteridaceae (six species) and Thelypteridaceae (four species). Despite the anthropization, riparian forests showed the highest richness (21 species), among which the non-flooded riparian forests stood out (18 species). Our data highlight the importance of identifying fern and lycophyte species and emphasize the potential of these species in future conservation studies and as ecological bioindicators.</p>
+                    </div>
+
+                    <div class="keywords-container">
+                        <span class="keyword-tag">bioindicators</span>
+                        <span class="keyword-tag">flora</span>
+                        <span class="keyword-tag">inventory</span>
+                        <span class="keyword-tag">vascular plants</span>
+                        <span class="keyword-tag">taxonomy</span>
+                    </div>
+                    <a href="https://doi.org/10.1590/2175-7860202475089" class="btn-acessar">Access Article</a>
+                </div>
+                <div class="artigo-gallery">
+                    <img src="imagens/Artigos/Mendonça 2025 1.jpg" alt="Image from article 2-1" onclick="openModal('imagens/Artigos/Mendonça 2025 1.jpg', 'Figure 1: Map of the study area with sampling locations of fern and lycophyte species in the...')">
+                    <img src="imagens/Artigos/Mendonça 2025 2.jpg" alt="Image from article 2-2" onclick="openModal('imagens/Artigos/Mendonça 2025 2.jpg', 'Figure 3: a-i. Lycophytes of Chapadinha municipality, northeastern Brazil...')">
+                    <img src="imagens/Artigos/Mendonça 2025 3.jpg" alt="Image from article 2-3" onclick="openModal('imagens/Artigos/Mendonça 2025 3.jpg', 'Figure 4:  a-j. Ferns of Chapadinha municipality, northeastern Brazil...')">
+                </div>
+            </div>
+        </div>
+
+ <div class="year-group" data-year="2024">
+            <h3 class="year-title">2024</h3>
+            <!-- Artigo 1 -->
+            <div class="artigo">
+                <div class="artigo-info">
+                    <h3>Isolated in biogeographic islands: discovery of a disjunct population of a fern in Northeastern Atlantic Forest</h3>
+                    <p class="authors"><strong>Authors:</strong> D. Victor S. e Silva | Niksoney A. Mendonça | Maria F. Barros | Thais E. Almeida | Augusto C. P. Santiago</p>
+                    <p class="journal-info"><strong>Journal:</strong> Revista Peruana de Biología (2024) - Scientific note</p>
+                    
+                    <div class="toggle-abstract" onclick="toggleAbstract(this)">Read abstract +</div>
+                    <div class="abstract-container">
+                        <p><strong>Abstract:</strong> Brejos Nordestinos (northeastern highland wet forests) is a unique ecosystem within the Northeastern Atlantic Forest. This area encompasses remmants of humid forests above 600 meters in the semi-arid region. These environmental conditions create an optimal ecosystem for the diversification of plants, including ferns. Pico do Jabre in Paraíba state, with an elevation of 1,208 meters above sea level, is an example of Brejo Nordestino. This study reports the occurrence of Pleopeltis pleopeltidis in the Northeastern Atlantic Forest, particularly at Pico do Jabre, a new record of P. pleopeltifolia for Paraíba state, and the local fern flora. Additional records of P. pleopeltidis were found in the municipalities of Triunfo and Floresta, in Pernambuco state, which are also classified as Brejos Nordestinos with elevations exceeding 1,000 m a.s.l. These findings extend the species known extent of occurrence by approximate 40%. The conservation status of P. pleopeltidis is suggested as Vulnerable (VU) across its entire range and Endangered (EN) in Northeast Brazil. The distance between populations in the Northeastern Atlantic Forest and the nearest populations in Bahia state ranges from 763–931 km, indicating a potential disjunction. Although the species occurs in three relatively close Brejos Nordestinos, the fragmented nature of the Northeastern Atlantic Forest results in isolated populations on these biogeo- graphical islands, surrounded by a Caatinga (seasonally dry tropical forest) matrix.</p>
+                    </div>
+
+                    <div class="keywords-container">
+                        <span class="keyword-tag">Brejos de Altitude</span>
+                        <span class="keyword-tag">Pico do Jabre</span>
+                        <span class="keyword-tag"><i>Pleopeltis pleopeltidis</i></span>
+                        <span class="keyword-tag">Species conservation</span>
+                        <span class="keyword-tag">Species distribution</span>
+                    </div>
+                    <a href=" https://doi.org/10.15381/rpb.v31i4.28802" class="btn-acessar" target="_blank">Access Article</a>
+                </div>
+                <div class="artigo-gallery">
+                    <img src="imagens/Artigos/victor 2024 1.jpg" alt="Image from article 1" onclick="openModal('imagens/Artigos/victor 2024 1.jpg', 'Figure 1: Map of the study area: Location of Pico do Jabre in the municipalities of Mãe...')">
+                    <img src="imagens/Artigos/victor 2024 4.jpg" alt="Image from article 2" onclick="openModal('imagens/Artigos/victor 2024 4.jpg', 'Figure 4: Distribution of <i>P. pleopeltidis</i> with new records highlighted in red..')">
+                    <img src="imagens/Artigos/victor 2024 5.jpg" alt="Image from article 5" onclick="openModal('imagens/Artigos/victor 2024 5.jpg', 'Figure 5: Ferns from Pico do Jabre. A-F. Species collected by...')">
+                </div>
+            </div>
+        </div>
+
+
+           <!-- Nova seção de Preprints -->
+        <div class="year-group" data-year="preprints">
+            <h3 class="year-title">Preprints</h3>
+            <div class="artigo full-width">
+               
+               <div class="artigo-info">
+                    <h3>Paths and obstacles to an evidence-based, reproducible, and dynamic Plant Taxonomy</h3>
+                    <p class="journal-info">
+                        <strong>Preprint:</strong> Thiago Andre &amp; Thaís E. Almeida — SciELO Preprints (preprint), 2025. <a href="https://preprints.scielo.org/index.php/scielo/preprint/view/12580/version/13239" target="_blank" class="btn-acessar">Acessar preprint</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="artigo full-width">
+                <div class="artigo-info">
+                    <h3>Rediscovery after three decades of the freshwater sponge <i>Metania kiliani</i> on a terrestrial fern</h3>
+                    <p class="journal-info">
+                        <strong>Preprint:</strong> Carolina do Valle M. de S., Keven dos S. Lima, Ulisses Pinheiro &amp; Thaís E. Almeida — SciELO Preprints (preprint), 2025. <a href="https://www.scielo.br/preprint/rediscovery" target="_blank" class="btn-acessar">Acessar preprint</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="artigo full-width">
+                <div class="artigo-info">
+                    <h3>Mesoamerican roots: the biogeographic history of the fern genus Pleopeltis</h3>
+                    <p class="journal-info">
+                        <strong>Preprint:</strong> Carolina do Valle, Alexandre Salino, Ingridy O. Moura, Lucas V. Lima  &amp; Thaís E. Almeida — SciELO Preprints (preprint), 2025. <a href="https://preprints.scielo.org/index.php/scielo/preprint/view/11988/version/12629" target="_blank" class="btn-acessar">Acessar preprint</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="artigo full-width">
+                <div class="artigo-info">
+                    <h3>Filling Gaps: Floristic Survey of Ferns and Lycophytes in Rio Grande do Norte state, northeastern Brazil</h3>
+                    <p class="journal-info">
+                        <strong>Preprint:</strong> Maurício B. Nascimento, Augusto C. O. Santiago, Fernanda A. Carvalho &amp; Thaís E. Almeida — SciELO Preprints (preprint), 2025. <a href="https://preprints.scielo.org/index.php/scielo/preprint/view/11877/version/12517" target="_blank" class="btn-acessar">Acessar preprint</a>
+                    </p>
+                </div>
+            </div>
+
+             <div class="artigo full-width">
+                <div class="artigo-info">
+                    <h3>Blowin' in the wind: ferns and lycophytes connect biogeographic refuges in the Atlantic Forest</h3>
+                    <p class="journal-info">
+                        <strong>Preprint:</strong> D. Victor S. Silva, Lucas V. Lima, Mércia P. P. Silva, Thaís E. Almeida &amp; Augusto C. P. Santiago — SciELO Preprints (preprint), 2025. <a href="https://preprints.scielo.org/index.php/scielo/preprint/view/11710/version/12335" target="_blank" class="btn-acessar">Acessar preprint</a>
+                    </p>
+                </div>
+            </div>
+
+             <div class="artigo full-width">
+                <div class="artigo-info">
+                    <h3>Fantastic plants and where to find them: niche occupancyanalysis in neotropical epiphytic species</h3>
+                    <p class="journal-info">
+                        <strong>Preprint:</strong> Keven dos S. Lima, Lucas v. Lima &amp; Thaís E. Almeida — SciELO Preprints (preprint), 2025. <a href="https://preprints.scielo.org/index.php/scielo/preprint/view/11070/version/11671" target="_blank" class="btn-acessar">Acessar preprint</a>
+                    </p>
+                </div>
+            </div>
+
+             <div class="artigo full-width">
+                <div class="artigo-info">
+                    <h3>Spectral signatures as evidence to test hypotheses in plant species complexes</h3>
+                    <p class="journal-info">
+                        <strong>Preprint:</strong> Niksoney A. Mendonça &amp; Thaís E. Almeida — SciELO Preprints (preprint), 2025. <a href="https://preprints.scielo.org/index.php/scielo/preprint/view/10972/version/11570" target="_blank" class="btn-acessar">Acessar preprint</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
     </section>
 
     <!-- Modal para imagens -->
@@ -690,43 +865,41 @@
             }
         });
 
-        // Função de busca
+        // Função de busca: procura por título, autores, palavras-chave e journal
         function searchPublications() {
             const input = document.getElementById('searchInput');
-            const filter = input.value.toUpperCase();
-            const yearGroups = document.querySelectorAll('.year-group');
+            const filter = (input.value || '').trim().toUpperCase();
 
-            yearGroups.forEach(group => {
-                const articles = group.querySelectorAll('.artigo');
-                let articlesVisibleInGroup = 0;
+            // Seleciona todos os artigos da página
+            const articles = document.querySelectorAll('.artigo');
+            // Mapa para contar quantos artigos visíveis cada grupo por ano possui
+            const groupCounts = new Map();
 
-                articles.forEach(artigo => {
-                    const title = artigo.querySelector('h3').textContent.toUpperCase();
-                    
-                    // Pega o elemento de autores, clona, remove o 'strong' e substitui '|' por espaço
-                    const authorsEl = artigo.querySelector('.authors');
-                    const authorsClone = authorsEl.cloneNode(true);
-                    authorsClone.querySelector('strong').remove();
-                    const authors = authorsClone.textContent.replace(/\|/g, ' ').toUpperCase();
+            articles.forEach(artigo => {
+                const title = (artigo.querySelector('h3')?.textContent || '');
+                const authors = (artigo.querySelector('.authors')?.textContent || '');
+                const journal = (artigo.querySelector('.journal-info')?.textContent || '');
+                const keywords = Array.from(artigo.querySelectorAll('.keyword-tag')).map(k => k.textContent || '').join(' ');
 
-                    const keywords = Array.from(artigo.querySelectorAll('.keyword-tag')).map(tag => tag.textContent.toUpperCase()).join(' ');
-                    
-                    const textToSearch = title + ' ' + authors + ' ' + keywords;
+                const combined = (title + ' ' + authors + ' ' + journal + ' ' + keywords).toUpperCase();
 
-                    if (textToSearch.includes(filter)) {
-                        artigo.style.display = 'grid';
-                        articlesVisibleInGroup++;
-                    } else {
-                        artigo.style.display = 'none';
-                    }
-                });
+                const matches = filter === '' || combined.indexOf(filter) > -1;
 
-                // Oculta o título do ano se nenhum artigo corresponder à busca
-                if (articlesVisibleInGroup > 0) {
-                    group.style.display = 'block';
+                if (matches) {
+                    // Restaura o display padrão do elemento (deixa o CSS controlar o layout)
+                    artigo.style.display = '';
+
+                    // Conta para o grupo de ano, se existir
+                    const group = artigo.closest('.year-group');
+                    if (group) groupCounts.set(group, (groupCounts.get(group) || 0) + 1);
                 } else {
-                    group.style.display = 'none';
+                    artigo.style.display = 'none';
                 }
+            });
+
+            // Atualiza visibilidade dos grupos por ano
+            document.querySelectorAll('.year-group').forEach(group => {
+                group.style.display = (groupCounts.get(group) || 0) > 0 ? 'block' : 'none';
             });
         }
 
