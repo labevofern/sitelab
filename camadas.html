@@ -178,21 +178,28 @@
             padding: 1.4rem;
             border-radius: 14px;
             border-left: 4px solid #4caf50;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            box-sizing: border-box;
+            overflow: hidden;
         }
         .card h4 {
-            margin-top: 0;
+            margin: 0;
             color: #c8e6c9;
             font-size: 1.2rem;
         }
         .card p, .card label {
             font-size: 0.95rem;
             color: var(--text-muted);
+            margin: 0;
+            line-height: 1.5;
         }
         .btn {
             display: inline-block;
             width: 100%;
             padding: 0.95rem 1rem;
-            margin-top: 0.8rem;
+            margin: 0;
             border-radius: 10px;
             border: 1px solid rgba(255,255,255,0.15);
             background: var(--btn-bg);
@@ -202,6 +209,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: background 0.3s ease, transform 0.2s ease;
+            box-sizing: border-box;
         }
         .btn:hover {
             background: var(--btn-hover);
@@ -212,12 +220,13 @@
         input {
             width: 100%;
             padding: 0.8rem 0.95rem;
-            margin: 0.5rem 0 0.7rem;
+            margin: 0;
             border: 1px solid rgba(255,255,255,0.25);
             border-radius: 8px;
             background: rgba(255,255,255,0.12);
             color: white;
             font-size: 1rem;
+            box-sizing: border-box;
         }
         input::placeholder { color: rgba(255,255,255,0.7); }
         .hint {
@@ -351,7 +360,7 @@
 
     <section class="tab-content">
         <h2>Environmental Layers</h2>
-        <p class="lab-intro">Quickly download the complete repository or a specific folder of environmental data for studies and analyses..</p>
+        <p class="lab-intro">Quickly download the complete repository of environmental data for studies and analyses.</p>
 
         <div class="info-box" style="margin-top: 0; margin-bottom: 1.5rem;">
             <h3>About these layers</h3>
@@ -363,30 +372,22 @@
             </a>
         </div>
 
-        <div class="cards">
-            <div class="card">
+        <div class="cards" style="display: flex; flex-direction: column; gap: 1rem;">
+            <div class="card" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
                 <h4>1. Download all</h4>
                 <p>Use this option to download the complete repository in ZIP format.</p>
                 <a class="btn btn-primary" href="https://github.com/labevofern/Environmental-layers/archive/refs/heads/main.zip" target="_blank" rel="noreferrer">📦 Download full ZIP</a>
             </div>
-            <div class="card">
-                <h4>2. Download a folder</h4>
-                <p>Enter the exact folder name to open the corresponding download.</p>
-                <label for="folderName">Exact folder name:</label>
-                <input type="text" id="folderName" list="folderSuggestions" autocomplete="off" placeholder="Ex: Bioclim variables 10 m">
-                <datalist id="folderSuggestions"></datalist>
-                <button class="btn" id="downloadFolderBtn">📁 Open folder download</button>
-                <p class="hint">Start typing, and the repository folders will appear as suggestions.</p>
-            </div>
-        </div>
 
-        <div class="info-box">
-            <h3>How to use</h3>
-            <ol>
-                <li>To download everything, click “Download full ZIP”.</li>
-                <li>To download a specific folder, enter the exact name and click “Open folder download”.</li>
-                <li>If you are unsure about the folder name, check the repository on GitHub.</li>
-            </ol>
+            <div class="info-box" style="margin: 0; height: auto; display: flex; flex-direction: column; justify-content: center;">
+                <h3>How to use</h3>
+                <ol>
+                    <li>To download everything, click “Download full ZIP”.</li>
+                    <li>This file includes the full repository structure and all environmental layers.</li>
+                    <li>Use it when you want to work locally with the complete dataset.</li>
+                    <li>If you need to check the source files, open the GitHub repository link above.</li>
+                </ol>
+            </div>
         </div>
     </section>
 
@@ -401,10 +402,6 @@
             const icon = hamburgerBtn.querySelector('i');
             const themeToggle = document.getElementById('theme-toggle');
             const themeIcon = themeToggle.querySelector('i');
-            const folderInput = document.getElementById('folderName');
-            const folderSuggestions = document.getElementById('folderSuggestions');
-            let refreshTimer = null;
-            let ultimaAtualizacao = 0;
 
             hamburgerBtn.addEventListener('click', () => {
                 nav.classList.toggle('open');
@@ -417,74 +414,6 @@
                 const isLight = document.body.classList.contains('light-mode');
                 themeToggle.setAttribute('aria-pressed', isLight ? 'true' : 'false');
                 themeIcon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
-            });
-
-            async function carregarSugestoesPastas() {
-                const agora = Date.now();
-                if (agora - ultimaAtualizacao < 5000) {
-                    return;
-                }
-
-                try {
-                    const resposta = await fetch('https://api.github.com/repos/labevofern/Environmental-layers/git/trees/main?recursive=1', {
-                        cache: 'no-store'
-                    });
-                    if (!resposta.ok) {
-                        throw new Error('Não foi possível carregar as pastas do repositório.');
-                    }
-
-                    const dados = await resposta.json();
-                    const pastas = [...new Set(
-                        (dados.tree || [])
-                            .filter(item => item.type === 'tree' && item.path)
-                            .map(item => item.path)
-                            .filter(path => !path.startsWith('.git') && !path.includes('/.'))
-                    )].sort();
-
-                    folderSuggestions.innerHTML = '';
-                    pastas.forEach(pasta => {
-                        const option = document.createElement('option');
-                        option.value = pasta;
-                        folderSuggestions.appendChild(option);
-                    });
-
-                    ultimaAtualizacao = agora;
-                } catch (erro) {
-                    console.warn('Erro ao carregar sugestões do GitHub:', erro);
-                }
-            }
-
-            folderInput.addEventListener('focus', () => {
-                carregarSugestoesPastas();
-            });
-
-            folderInput.addEventListener('input', () => {
-                clearTimeout(refreshTimer);
-                refreshTimer = setTimeout(() => {
-                    carregarSugestoesPastas();
-                }, 400);
-            });
-
-            document.addEventListener('visibilitychange', () => {
-                if (!document.hidden) {
-                    carregarSugestoesPastas();
-                }
-            });
-
-            setInterval(() => {
-                carregarSugestoesPastas();
-            }, 10000);
-
-            carregarSugestoesPastas();
-
-            document.getElementById('downloadFolderBtn').addEventListener('click', function () {
-                const folder = folderInput.value.trim();
-                if (!folder) {
-                    alert('Por favor, digite o nome da pasta.');
-                    return;
-                }
-                const url = 'https://download-directory.github.io/?url=' + encodeURIComponent('https://github.com/labevofern/Environmental-layers/tree/main/' + folder);
-                window.open(url, '_blank', 'noopener,noreferrer');
             });
         });
     </script>
