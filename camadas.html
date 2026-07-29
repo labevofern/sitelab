@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Environmental Layers</title>
+    <link rel="icon" href="imagens/simb.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root{
+            --accent:#4caf50; --accent-dark:#083912;
+            --text-primary:#edf7f0; --text-muted:rgba(237,247,240,0.85);
+            --bg-overlay:rgba(10,12,10,0.60); --surface:rgba(0,0,0,0.25);
+            --nav-bg:rgba(8,12,8,0.8); --footer-bg:rgba(25,90,30,0.9);
+            --btn-bg:rgba(10,16,10,0.8); --btn-border:rgba(255,255,255,0.10); --btn-hover:rgba(76,175,80,0.12);
+        }
+        body {
+            margin: 0;
+            font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+            color: var(--text-primary);
+            min-height: 100vh;
+            background: url('imagens/Microgramma_vacciniifolia_PR.jpg') center center no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            position: relative;
+            padding-bottom: 70px;
+        }
+        body, nav, .tab-content, .card, .info-box, footer {
+            transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+        }
+        #particle-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg-overlay);
+            z-index: 0;
+            pointer-events: none;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        .logo {
+            width: 210px;
+            margin-bottom: 1.2rem;
+            filter: none;
+        }
+        .header-subtitle {
+            color: #fff;
+            text-align: center;
+            text-shadow: none;
+            padding: 0 1rem;
+            font-size: 1rem;
+        }
+        #hamburger-btn {
+            display: none;
+            position: fixed;
+            top: 15px; right: 20px;
+            z-index: 1001;
+            background: rgba(15,25,15,0.7);
+            backdrop-filter: blur(5px);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            width: 45px; height: 45px;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            padding: 0.5rem 0;
+        }
+        nav .nav-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            font-weight: 500;
+            text-decoration: none;
+            position: relative;
+            margin: 0 0.5rem;
+        }
+        nav .nav-btn::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4caf50;
+            transition: width 0.4s ease;
+        }
+        nav .nav-btn:hover { color: #ffffff; }
+        nav .nav-btn:hover::after { width: 70%; }
+        nav .nav-btn.active { color: #ffffff; font-weight: 700; }
+        nav .nav-btn.active::after { width: 70%; }
+        .tab-content {
+            display: block;
+            padding: 2.5rem 2rem;
+            max-width: 900px;
+            margin: 2.5rem auto 0 auto;
+            background: var(--surface);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(76,175,80,0.18);
+            backdrop-filter: blur(8px);
+            border: 1.2px solid #fff;
+            position: relative;
+            z-index: 1;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 {
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: none;
+        }
+        h2 {
+            font-size: 1.6rem;
+            color: #c8e6c9;
+            text-shadow: none;
+            margin-bottom: 2rem;
+            text-align: center;
+            border-bottom: 2px solid #4caf50;
+            padding-bottom: 0.5rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            color: #c8e6c9;
+            margin-top: 3rem;
+            border-bottom: 2px solid #4caf50;
+            padding-bottom: 0.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .tab-content p {
+            line-height: 1.6;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+        .lab-intro {
+            font-size: 1.15rem !important;
+            text-align: center !important;
+            margin-bottom: 2.5rem;
+            font-weight: 500;
+        }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.2rem;
+            margin: 2rem 0;
+        }
+        .card {
+            background: rgba(0,0,0,0.12);
+            padding: 1.4rem;
+            border-radius: 14px;
+            border-left: 4px solid #4caf50;
+        }
+        .card h4 {
+            margin-top: 0;
+            color: #c8e6c9;
+            font-size: 1.2rem;
+        }
+        .card p, .card label {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 0.95rem 1rem;
+            margin-top: 0.8rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: var(--btn-bg);
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        .btn:hover {
+            background: var(--btn-hover);
+            transform: translateY(-2px);
+        }
+        .btn-primary { background: linear-gradient(135deg, var(--accent), #2e7d32); }
+        .btn-primary:hover { background: linear-gradient(135deg, #5abf63, #1b5e20); }
+        input {
+            width: 100%;
+            padding: 0.8rem 0.95rem;
+            margin: 0.5rem 0 0.7rem;
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.12);
+            color: white;
+            font-size: 1rem;
+        }
+        input::placeholder { color: rgba(255,255,255,0.7); }
+        .hint {
+            font-size: 0.9rem;
+            color: #dff4e2;
+        }
+        .info-box {
+            background: rgba(0,0,0,0.10);
+            padding: 1.2rem 1.3rem;
+            border-radius: 12px;
+            border-left: 4px solid #4caf50;
+            margin-top: 1.2rem;
+        }
+        .info-box h3 { margin-top: 0; text-align: left; border: none; padding: 0; margin-bottom: 0.8rem; }
+        .info-box ol { margin: 0; padding-left: 1.2rem; color: var(--text-muted); line-height: 1.7; }
+        footer {
+            background: var(--footer-bg);
+            color: #fff;
+            text-align: center;
+            padding: 0.8rem 1rem;
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            z-index: 2;
+        }
+        .footer-link { color: #fff; text-decoration: none; }
+        #theme-toggle {
+            position: fixed;
+            top: 15px;
+            right: 70px;
+            z-index: 1002;
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(10,16,10,0.8);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            backdrop-filter: blur(6px);
+        }
+        #theme-toggle:hover {
+            background: rgba(76,175,80,0.15);
+            color: #fff;
+        }
+        #theme-toggle:focus {
+            outline: 3px solid rgba(76,175,80,0.25);
+            outline-offset: 2px;
+        }
+        #theme-toggle i {
+            color: inherit;
+            font-size: 1.1rem;
+            line-height: 1;
+        }
+        @media (max-width: 768px) {
+            #theme-toggle {
+                top: 70px;
+                right: 20px;
+                width: 44px;
+                height: 44px;
+                border-radius: 8px;
+                z-index: 1002;
+            }
+        }
+        body.light-mode {
+            --text-primary:#18311d; --text-muted:rgba(24,49,29,0.85);
+            --bg-overlay:rgba(239,247,240,0.72); --surface:rgba(255,255,255,0.75);
+            --nav-bg:rgba(255,255,255,0.95); --footer-bg:rgba(55,125,50,0.95);
+            --btn-bg:rgba(255,255,255,0.95); --btn-hover:rgba(76,175,80,0.15);
+        }
+        body.light-mode .card, body.light-mode .info-box { background: rgba(255,255,255,0.75); }
+        body.light-mode .btn { color: #1b2e1d; }
+        body.light-mode .nav-btn { color: #2f3e2f; }
+        body.light-mode .nav-btn:hover, body.light-mode .nav-btn.active { color: #145a15; }
+        body.light-mode #theme-toggle {
+            background: rgba(255,255,255,0.92);
+            color: #1b5e20;
+            border: 1px solid rgba(0,0,0,0.06);
+            box-shadow: 0 0 0 6px rgba(76,175,80,0.06);
+        }
+        body.light-mode #theme-toggle:hover {
+            background: rgba(8,57,18,0.08);
+            color: #04260f;
+        }
+        body.light-mode #theme-toggle:focus {
+            outline: 3px solid rgba(8,57,18,0.15);
+            outline-offset: 2px;
+        }
+        @media (max-width: 860px) {
+            nav { flex-wrap: wrap; }
+            .cards { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 700px) {
+            #hamburger-btn { display: block; }
+            nav {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                border-radius: 0 0 16px 16px;
+                padding: 0.8rem 0;
+            }
+            nav.open { display: flex; }
+            .tab-content { padding: 1.5rem 1rem; margin-top: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <header>
+        <img src="imagens/capa_lab.png" alt="Logo Samambaia" class="logo">
+        <h1>Fern and Lycophyte Evolution Lab</h1>
+        <p class="header-subtitle">Federal University of Pernambuco | Evolutionary Biology | Ferns and Lycophytes</p>
+    </header>
+
+    <button id="hamburger-btn" aria-label="Open menu">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <nav>
+        <a href="index.html" class="nav-btn">About</a>
+        <a href="pesquisa.html" class="nav-btn">Research</a>
+        <a href="equipe.html" class="nav-btn">Team</a>
+        <a href="publicacoes.html" class="nav-btn">Publications</a>
+        <a href="imagens.html" class="nav-btn">Gallery</a>
+        <a href="camadas.html" class="nav-btn active">Environmental layers</a>
+        <a href="contato.html" class="nav-btn">Contact</a>
+    </nav>
+
+    <section class="tab-content">
+        <h2>Environmental Layers</h2>
+        <p class="lab-intro">Quickly download the complete repository or a specific folder of environmental data for studies and analyses..</p>
+
+        <div class="info-box" style="margin-top: 0; margin-bottom: 1.5rem;">
+            <h3>About these layers</h3>
+            <p style="margin: 0; line-height: 1.7; text-align: justify;">
+                These environmental layers are part of the laboratory's GitHub repository and are used in our analyses for ecological and evolutionary studies.
+            </p>
+            <a class="btn btn-primary" href="https://github.com/labevofern/Environmental-layers" target="_blank" rel="noreferrer" style="margin-top: 1rem; width: 100%; padding: 0.95rem 1rem; display: inline-block; text-align: center; box-sizing: border-box; font-size: 1rem; line-height: 1.2;">
+                <i class="fab fa-github"></i> Check the repository on GitHub
+            </a>
+        </div>
+
+        <div class="cards">
+            <div class="card">
+                <h4>1. Download all</h4>
+                <p>Use this option to download the complete repository in ZIP format.</p>
+                <a class="btn btn-primary" href="https://github.com/labevofern/Environmental-layers/archive/refs/heads/main.zip" target="_blank" rel="noreferrer">📦 Download full ZIP</a>
+            </div>
+            <div class="card">
+                <h4>2. Download a folder</h4>
+                <p>Enter the exact folder name to open the corresponding download.</p>
+                <label for="folderName">Exact folder name:</label>
+                <input type="text" id="folderName" list="folderSuggestions" autocomplete="off" placeholder="Ex: Bioclim variables 10 m">
+                <datalist id="folderSuggestions"></datalist>
+                <button class="btn" id="downloadFolderBtn">📁 Open folder download</button>
+                <p class="hint">Start typing, and the repository folders will appear as suggestions.</p>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>How to use</h3>
+            <ol>
+                <li>To download everything, click “Download full ZIP”.</li>
+                <li>To download a specific folder, enter the exact name and click “Open folder download”.</li>
+                <li>If you are unsure about the folder name, check the repository on GitHub.</li>
+            </ol>
+        </div>
+    </section>
+
+    <button id="theme-toggle" aria-pressed="false" aria-label="Ativar modo claro" title="Switch between light/dark mode">
+        <i class="fas fa-moon" aria-hidden="true"></i>
+    </button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const nav = document.querySelector('nav');
+            const icon = hamburgerBtn.querySelector('i');
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = themeToggle.querySelector('i');
+            const folderInput = document.getElementById('folderName');
+            const folderSuggestions = document.getElementById('folderSuggestions');
+            let refreshTimer = null;
+            let ultimaAtualizacao = 0;
+
+            hamburgerBtn.addEventListener('click', () => {
+                nav.classList.toggle('open');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+            });
+
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('light-mode');
+                const isLight = document.body.classList.contains('light-mode');
+                themeToggle.setAttribute('aria-pressed', isLight ? 'true' : 'false');
+                themeIcon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+            });
+
+            async function carregarSugestoesPastas() {
+                const agora = Date.now();
+                if (agora - ultimaAtualizacao < 5000) {
+                    return;
+                }
+
+                try {
+                    const resposta = await fetch('https://api.github.com/repos/labevofern/Environmental-layers/git/trees/main?recursive=1', {
+                        cache: 'no-store'
+                    });
+                    if (!resposta.ok) {
+                        throw new Error('Não foi possível carregar as pastas do repositório.');
+                    }
+
+                    const dados = await resposta.json();
+                    const pastas = [...new Set(
+                        (dados.tree || [])
+                            .filter(item => item.type === 'tree' && item.path)
+                            .map(item => item.path)
+                            .filter(path => !path.startsWith('.git') && !path.includes('/.'))
+                    )].sort();
+
+                    folderSuggestions.innerHTML = '';
+                    pastas.forEach(pasta => {
+                        const option = document.createElement('option');
+                        option.value = pasta;
+                        folderSuggestions.appendChild(option);
+                    });
+
+                    ultimaAtualizacao = agora;
+                } catch (erro) {
+                    console.warn('Erro ao carregar sugestões do GitHub:', erro);
+                }
+            }
+
+            folderInput.addEventListener('focus', () => {
+                carregarSugestoesPastas();
+            });
+
+            folderInput.addEventListener('input', () => {
+                clearTimeout(refreshTimer);
+                refreshTimer = setTimeout(() => {
+                    carregarSugestoesPastas();
+                }, 400);
+            });
+
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden) {
+                    carregarSugestoesPastas();
+                }
+            });
+
+            setInterval(() => {
+                carregarSugestoesPastas();
+            }, 10000);
+
+            carregarSugestoesPastas();
+
+            document.getElementById('downloadFolderBtn').addEventListener('click', function () {
+                const folder = folderInput.value.trim();
+                if (!folder) {
+                    alert('Por favor, digite o nome da pasta.');
+                    return;
+                }
+                const url = 'https://download-directory.github.io/?url=' + encodeURIComponent('https://github.com/labevofern/Environmental-layers/tree/main/' + folder);
+                window.open(url, '_blank', 'noopener,noreferrer');
+            });
+        });
+    </script>
+</body>
+</html>
