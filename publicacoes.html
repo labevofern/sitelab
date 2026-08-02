@@ -350,8 +350,12 @@
             position: absolute;
             top: 20px;
             right: 30px;
+            padding: 0;
+            border: 0;
+            background: transparent;
             color: #fff;
             font-size: 40px;
+            line-height: 1;
             font-weight: bold;
             cursor: pointer;
             transition: color 0.3s;
@@ -541,7 +545,349 @@
     }
     body.light-mode h2 { color: var(--accent-dark); border-bottom-color: var(--accent-dark); }
     body.light-mode #theme-toggle { background: var(--btn-bg); color: var(--accent-dark); border-color: var(--btn-border); box-shadow: 0 0 0 6px rgba(76,175,80,0.06); }
-        </style>
+
+    /* --- Apresentação da página de publicações --- */
+    .publications-heading {
+        margin: 0 0 1.75rem;
+        text-align: center;
+    }
+    .publications-heading > p {
+        max-width: 650px;
+        margin: 0 auto;
+        color: rgba(237,247,240,0.78);
+        font-size: 1rem;
+        line-height: 1.65;
+    }
+
+    .publication-tools {
+        margin-bottom: 2.2rem;
+        padding: 1rem;
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 14px;
+        background: rgba(4,15,7,0.48);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    }
+    .search-box {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    .search-box > i {
+        position: absolute;
+        left: 1rem;
+        z-index: 1;
+        color: #79cd7e;
+        pointer-events: none;
+    }
+    #searchInput {
+        min-height: 48px;
+        padding: 0.8rem 3rem 0.8rem 2.75rem;
+        border-color: rgba(255,255,255,0.16);
+        border-radius: 10px;
+        background: rgba(0,0,0,0.26);
+        font-family: inherit;
+    }
+    #searchInput:focus {
+        border-color: rgba(76,175,80,0.75);
+        box-shadow: 0 0 0 4px rgba(76,175,80,0.14);
+    }
+    #clearSearch {
+        position: absolute;
+        right: 0.6rem;
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        padding: 0;
+        border: 0;
+        border-radius: 8px;
+        background: transparent;
+        color: rgba(255,255,255,0.72);
+        cursor: pointer;
+    }
+    #clearSearch:hover,
+    #clearSearch:focus-visible {
+        background: rgba(255,255,255,0.09);
+        color: #fff;
+        outline: none;
+    }
+    .publication-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+        margin-top: 0.85rem;
+    }
+    .publication-filter {
+        min-height: 38px;
+        padding: 0.5rem 0.85rem;
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 9px;
+        background: rgba(255,255,255,0.035);
+        color: rgba(237,247,240,0.82);
+        font-family: inherit;
+        font-size: 0.82rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+    .publication-filter:hover {
+        border-color: rgba(76,175,80,0.5);
+        background: rgba(76,175,80,0.1);
+        color: #fff;
+    }
+    .publication-filter.active,
+    .publication-filter[aria-pressed="true"] {
+        border-color: #4caf50;
+        background: #4caf50;
+        color: #fff;
+        box-shadow: 0 5px 15px rgba(76,175,80,0.22);
+    }
+    #resultSummary {
+        margin: 0.8rem 0 0;
+        color: rgba(237,247,240,0.66);
+        font-size: 0.8rem;
+    }
+    .no-results {
+        margin: 0 0 2rem;
+        padding: 2.1rem 1rem;
+        border: 1px dashed rgba(255,255,255,0.2);
+        border-radius: 14px;
+        text-align: center;
+        color: rgba(237,247,240,0.75);
+        background: rgba(0,0,0,0.14);
+    }
+    .no-results i {
+        display: block;
+        margin-bottom: 0.7rem;
+        color: #74ca79;
+        font-size: 1.6rem;
+    }
+    [hidden] { display: none !important; }
+
+    .year-group { margin-bottom: 2.6rem; }
+    .year-title {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        margin: 0 0 1rem;
+        padding: 0 0 0.65rem;
+        border-bottom-color: rgba(126,216,132,0.35);
+        color: #fff;
+        font-size: 1.45rem;
+    }
+    .year-title::before {
+        content: '';
+        width: 4px;
+        height: 1.25em;
+        border-radius: 999px;
+        background: #4caf50;
+        box-shadow: 0 0 14px rgba(76,175,80,0.35);
+    }
+    .year-count {
+        margin-left: auto;
+        padding: 0.28rem 0.55rem;
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 999px;
+        color: rgba(237,247,240,0.7);
+        font-size: 0.72rem;
+        font-weight: 600;
+    }
+
+    .artigo {
+        position: relative;
+        isolation: isolate;
+        grid-template-columns: minmax(0, 1fr) 230px;
+        gap: 1.25rem;
+        margin-bottom: 1rem;
+        padding: 1.25rem;
+        overflow: hidden;
+        border-color: rgba(255,255,255,0.1);
+        border-radius: 13px;
+        background: linear-gradient(135deg, rgba(4,18,8,0.68), rgba(6,25,11,0.48));
+        box-shadow: 0 10px 26px rgba(0,0,0,0.15);
+    }
+    .artigo::before {
+        content: '';
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 3px;
+        background: linear-gradient(#76d17b, #2e7d32);
+    }
+    .artigo:hover {
+        transform: translateY(-3px);
+        border-color: rgba(126,216,132,0.25);
+        box-shadow: 0 14px 32px rgba(0,0,0,0.2);
+    }
+    .artigo-info { min-width: 0; }
+    .artigo-info h3 {
+        margin-bottom: 0.75rem;
+        color: #d8f0da;
+        font-size: 1.18rem;
+        line-height: 1.45;
+    }
+    .authors,
+    .journal-info {
+        margin: 0 0 0.7rem;
+        color: rgba(237,247,240,0.75);
+        font-size: 0.88rem;
+        line-height: 1.55;
+    }
+    .authors strong,
+    .journal-info strong { color: #f3fbf4; }
+    .toggle-abstract {
+        align-self: flex-start;
+        margin: 0.15rem 0 0.5rem;
+        padding: 0.42rem 0;
+        border: 0;
+        background: transparent;
+        color: #76d17b;
+        font-family: inherit;
+        font-size: 0.84rem;
+        text-align: left;
+    }
+    .toggle-abstract:hover { color: #a4e8a8; }
+    .toggle-abstract:focus-visible {
+        border-radius: 4px;
+        outline: 3px solid rgba(76,175,80,0.24);
+        outline-offset: 2px;
+    }
+    .abstract-container {
+        color: rgba(237,247,240,0.84);
+    }
+    .abstract-container p { margin: 0.35rem 0 0.7rem; }
+    .keywords-container { margin: 0.55rem 0 0.7rem; }
+    .keyword-tag {
+        margin-right: 0.3rem;
+        margin-bottom: 0.38rem;
+        padding: 0.3rem 0.55rem;
+        border-color: rgba(118,209,123,0.38);
+        border-radius: 999px;
+        background: rgba(76,175,80,0.11);
+        color: #bce9bf;
+        font-size: 0.72rem;
+    }
+    .btn-acessar,
+    .journal-info .btn-acessar {
+        align-self: flex-start;
+        width: fit-content;
+        margin-top: 0.25rem;
+        padding: 0.6rem 0.9rem;
+        border: 1px solid rgba(126,216,132,0.55);
+        border-radius: 8px;
+        background: rgba(76,175,80,0.14);
+        color: #eaf7eb;
+        font-size: 0.82rem;
+        font-weight: 700;
+    }
+    .btn-acessar::after {
+        content: '\2197';
+        margin-left: 0.45rem;
+        font-size: 0.82em;
+    }
+    .btn-acessar:hover {
+        border-color: #64c46a;
+        background: #388e3c;
+        color: #fff;
+    }
+    .artigo-gallery {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        grid-template-rows: repeat(2, 94px);
+        gap: 0.48rem;
+        align-self: start;
+    }
+    .artigo-gallery img {
+        width: 100%;
+        height: 100%;
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 7px;
+        background: rgba(255,255,255,0.04);
+    }
+    .artigo-gallery img:first-child { grid-row: 1 / 3; }
+    .artigo.full-width { grid-template-columns: 1fr; }
+
+    body.light-mode .publications-heading > p,
+    body.light-mode #resultSummary { color: rgba(0,0,0,0.67); }
+    body.light-mode .publication-tools,
+    body.light-mode .no-results {
+        border-color: rgba(8,57,18,0.12);
+        background: rgba(255,255,255,0.72);
+        color: #173b1c;
+    }
+    body.light-mode #searchInput {
+        border-color: rgba(8,57,18,0.18);
+        background: #fff;
+        color: #102b14;
+    }
+    body.light-mode #searchInput::placeholder { color: rgba(0,0,0,0.5); }
+    body.light-mode #clearSearch { color: rgba(0,0,0,0.58); }
+    body.light-mode #clearSearch:hover { background: rgba(8,57,18,0.08); color: #083912; }
+    body.light-mode .publication-filter {
+        border-color: rgba(8,57,18,0.14);
+        background: rgba(8,57,18,0.035);
+        color: #17421c;
+    }
+    body.light-mode .publication-filter:hover { color: #083912; }
+    body.light-mode .publication-filter.active,
+    body.light-mode .publication-filter[aria-pressed="true"] { color: #fff; }
+    body.light-mode .year-count {
+        border-color: rgba(8,57,18,0.13);
+        color: rgba(0,0,0,0.58);
+    }
+    body.light-mode .artigo {
+        border-color: rgba(8,57,18,0.1);
+        background: rgba(255,255,255,0.94);
+        box-shadow: 0 9px 24px rgba(20,70,28,0.08);
+    }
+    body.light-mode .artigo:hover {
+        border-color: rgba(76,175,80,0.3);
+        box-shadow: 0 14px 28px rgba(20,70,28,0.12);
+    }
+    body.light-mode .artigo-info h3 { color: #083912; }
+    body.light-mode .authors,
+    body.light-mode .journal-info,
+    body.light-mode .abstract-container { color: #263c2a !important; }
+    body.light-mode .keyword-tag {
+        border-color: rgba(46,125,50,0.24);
+        background: rgba(76,175,80,0.08);
+        color: #245a29 !important;
+    }
+    body.light-mode .btn-acessar {
+        border-color: rgba(46,125,50,0.4);
+        background: rgba(76,175,80,0.1);
+        color: #15501c;
+    }
+    body.light-mode .btn-acessar:hover { background: #388e3c; color: #fff; }
+
+    .visually-hidden {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        padding: 0 !important;
+        margin: -1px !important;
+        overflow: hidden !important;
+        clip: rect(0,0,0,0) !important;
+        white-space: nowrap !important;
+        border: 0 !important;
+    }
+
+    @media (max-width: 850px) {
+        .artigo { grid-template-columns: 1fr; }
+        .artigo-gallery {
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: 105px;
+        }
+        .artigo-gallery img:first-child { grid-row: auto; }
+    }
+    @media (max-width: 560px) {
+        .publication-tools { padding: 0.8rem; }
+        .publication-filters { display: grid; grid-template-columns: repeat(2, 1fr); }
+        .publication-filter { width: 100%; }
+        .artigo { padding: 1rem; }
+        .artigo-gallery { grid-template-columns: 1fr; grid-template-rows: repeat(3, 150px); }
+    }
+    </style>
+    <link rel="stylesheet" href="site-theme-toggle.css">
 </head>
 <body>
     <header>
@@ -570,14 +916,37 @@
     </nav>
     
     <section id="publicações" class="tab-content active">
-        <h2>Our Publications</h2>
-        
-        <div class="filter-container">
-            <input type="text" id="searchInput" onkeyup="searchPublications()" placeholder="Search by title, author, year, or keyword...">
+        <div class="publications-heading">
+            <h2>Our Publications</h2>
+            <p>Explore peer-reviewed articles, editorials, datasets, and preprints produced by our team and research collaborators.</p>
+        </div>
+
+        <div class="publication-tools" aria-label="Publication search and filters">
+            <label class="search-box" for="searchInput">
+                <span class="visually-hidden">Search publications</span>
+                <i class="fas fa-search" aria-hidden="true"></i>
+                <input type="search" id="searchInput" autocomplete="off" placeholder="Search by title, author, journal, year, or keyword...">
+                <button type="button" id="clearSearch" aria-label="Clear search" title="Clear search" hidden>
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </label>
+            <div class="publication-filters" role="group" aria-label="Filter publications by period">
+                <button type="button" class="publication-filter active" data-filter="all" aria-pressed="true">All works</button>
+                <button type="button" class="publication-filter" data-filter="2026" aria-pressed="false">2026</button>
+                <button type="button" class="publication-filter" data-filter="2025" aria-pressed="false">2025</button>
+                <button type="button" class="publication-filter" data-filter="2024" aria-pressed="false">2024</button>
+                <button type="button" class="publication-filter" data-filter="other" aria-pressed="false">Other works</button>
+            </div>
+            <p id="resultSummary" aria-live="polite"></p>
+        </div>
+
+        <div id="noResults" class="no-results" hidden>
+            <i class="fas fa-seedling" aria-hidden="true"></i>
+            No publications match your search. Try another author, title, or keyword.
         </div>
 
         
-        <div class="year-group" data-year="2024">
+        <div class="year-group" data-year="2026">
             <h3 class="year-title">2026</h3>
 
              <!-- Artigo -->
@@ -607,7 +976,6 @@
                         <img src="imagens/Artigos/Lima 2026 3.png" alt="Image from article 3" onclick="openModal('imagens/Artigos/Lima 2026 3.png', 'Figure 3: Heatmaps representing dispersal events...')">
                 </div>
             </div>
-        </div>
 
        <!-- Artigo -->
  <div class="artigo">
@@ -637,7 +1005,6 @@
                         <img src="imagens/Artigos/Silva, Santiago & Almeida (2026) - Neoschizaea Image[4].jpg" alt="Image from article 3" onclick="openModal('imagens/Artigos/Silva, Santiago & Almeida (2026) - Neoschizaea Image[4].jpg', 'Figure 3:  Spore morphology of <i>Neoschizaea</i> and other Schizaeaceae genera...')">
                 </div>
             </div>
-        </div>
 
        <div class="artigo">
                 <div class="artigo-info">
@@ -665,12 +1032,11 @@
                     <img src="imagens/Artigos/mauricio flora_3.jpg" alt="Image from article 3" onclick="openModal('imagens/Artigos/mauricio flora_3.jpg', 'Figure 2: Habitat diversity in the study area. (a) Temporary pond, Floresta Nacional de Nísia Floresta (FLONA).....')">
                 </div>
             </div>
-        </div>
      
 
  <div class="artigo">
                 <div class="artigo-info">
-                    <h3>A comparison of interspecific and intraspecific phenotypic variation in spectral signatures of ferns with robust versus uncertain species boundaries</i></h3>
+                    <h3>A comparison of interspecific and intraspecific phenotypic variation in spectral signatures of ferns with robust versus uncertain species boundaries</h3>
                     <p class="authors"><strong>Authors:</strong> Niksoney A. Mendonça | Marise H. V. Oliveira | Thais E. Almeida</p>
                     <p class="journal-info"><strong>Journal:</strong> Journal of Plant Research (2026) - Original research article</p>
                     
@@ -695,7 +1061,6 @@
                     <img src="imagens/Artigos/fig. 3 - espectros médios.png" alt="Image from article 3" onclick="openModal('imagens/Artigos/fig. 3 - espectros médios.png', 'Figure 3: Spectral signature (average data) for eight...')">
                 </div>
             </div>
-        </div>
 
               <!-- Artigo 1 -->
             <div class="artigo">
@@ -725,7 +1090,7 @@
             </div>
         </div>
 
-        <div class="year-group" data-year="2024">
+        <div class="year-group" data-year="2025">
             <h3 class="year-title">2025</h3>
             <!-- Artigo 1 -->
             <div class="artigo">
@@ -760,7 +1125,6 @@ paraphyly of <i>Sticherus</i> as defined so far, while ensuring nomenclatural st
                     <img src="imagens/Artigos/Lima et al. 2025 3.jpg" alt="Image from article 3" onclick="openModal('imagens/Artigos/Lima et al. 2025 3.jpg', 'Figure 3: Morphological comparison of Sticheroides species...')">
                 </div>
             </div>
-        </div>
 
             <div class="artigo">
                 <div class="artigo-info">
@@ -788,7 +1152,6 @@ paraphyly of <i>Sticherus</i> as defined so far, while ensuring nomenclatural st
                     <img src="imagens/Artigos/Blowin' in the_3.jpg" alt="Image from article 3" onclick="openModal('imagens/Artigos/Blowin\' in the_3.jpg', 'Figure 3: PCA results showing the environmental distinction of the Northeastern Atlantic Forest subregions...')">
                 </div>
             </div>
-        </div>
 
             <div class="artigo">
                 <div class="artigo-info">
@@ -817,7 +1180,6 @@ paraphyly of <i>Sticherus</i> as defined so far, while ensuring nomenclatural st
                     <img src="imagens/Artigos/Rediscovery after three decades_3.jpg" alt="Image from article 2-3" onclick="openModal('imagens/Artigos/Rediscovery after three decades_3.jpg', 'Figure 3: SEM images of the spicules of <em>Metania kiliani</em> (UFPEPOR2999). A - Alpha-megasclere; B - Beta-megascleres; C-E - Anisochelaes gemoscleres; F-G - Boletiform gemmocleres; H-J - Gemmule...')">
                 </div>
             </div>
-        </div>
 
             <div class="artigo">
                 <div class="artigo-info">
@@ -876,7 +1238,6 @@ paraphyly of <i>Sticherus</i> as defined so far, while ensuring nomenclatural st
                     <img src="imagens/Artigos/victor 2024 5.jpg" alt="Image from article 5" onclick="openModal('imagens/Artigos/victor 2024 5.jpg', 'Figure 5: Ferns from Pico do Jabre. A-F. Species collected by...')">
                 </div>
             </div>
-        </div>
 
             <div class="artigo">
                 <div class="artigo-info">
@@ -903,7 +1264,6 @@ paraphyly of <i>Sticherus</i> as defined so far, while ensuring nomenclatural st
                     <img src="imagens/Artigos/lima 2024 3.jpg" alt="Image from article 5" onclick="openModal('imagens/Artigos/lima 2024 3.jpg', 'Figure 3: A. NMDS. Green triangles representing areas with elevation means above 1000 m and more than 50 km away from the sea in a straight line. Yellow circles representing...')">
                 </div>
             </div>
-        </div>
 
             <div class="artigo">
                 <div class="artigo-info">
@@ -934,7 +1294,7 @@ paraphyly of <i>Sticherus</i> as defined so far, while ensuring nomenclatural st
         </div>
 
     <!-- Nova seção de Editorial -->
-        <div class="year-group" data-year="preprints">
+        <div class="year-group" data-year="other">
             <h3 class="year-title">Editorial</h3>
             <div class="artigo full-width">
                <div class="artigo-info">
@@ -953,9 +1313,10 @@ paraphyly of <i>Sticherus</i> as defined so far, while ensuring nomenclatural st
                     </p>
                 </div>
             </div>
+        </div>
 
      <!-- Nova seção de Nomenclature comunications -->
-        <div class="year-group" data-year="preprints">
+        <div class="year-group" data-year="other">
             <h3 class="year-title">Nomenclature communications</h3>
             <div class="artigo full-width">
                <div class="artigo-info">
@@ -965,9 +1326,10 @@ paraphyly of <i>Sticherus</i> as defined so far, while ensuring nomenclatural st
                     </p>
                 </div>
             </div>
+        </div>
 
       <!-- Nova seção de Commentary -->
-        <div class="year-group" data-year="preprints">
+        <div class="year-group" data-year="other">
             <h3 class="year-title">Commentary</h3>
             <div class="artigo full-width">
                <div class="artigo-info">
@@ -977,9 +1339,10 @@ paraphyly of <i>Sticherus</i> as defined so far, while ensuring nomenclatural st
                     </p>
                 </div>
             </div>
+        </div>
 
     <!-- Nova seção de Dataset -->
-        <div class="year-group" data-year="preprints">
+        <div class="year-group" data-year="other">
             <h3 class="year-title">Dataset</h3>
             <div class="artigo full-width">
                <div class="artigo-info">
@@ -989,9 +1352,10 @@ paraphyly of <i>Sticherus</i> as defined so far, while ensuring nomenclatural st
                     </p>
                 </div>
             </div>
+        </div>
 
            <!-- Nova seção de Preprints -->
-        <div class="year-group" data-year="preprints">
+        <div class="year-group" data-year="other">
             <h3 class="year-title">Preprint</h3>
            
   <div class="artigo full-width">
@@ -1080,11 +1444,10 @@ paraphyly of <i>Sticherus</i> as defined so far, while ensuring nomenclatural st
 
     <!-- Modal para imagens -->
     <div id="imageModal" class="modal">
-        <span class="modal-close" onclick="closeModal()">&times;</span>
-        <img class="modal-content" id="modalImage">
+        <button type="button" class="modal-close" onclick="closeModal()" aria-label="Close image preview">&times;</button>
+        <img class="modal-content" id="modalImage" alt="Selected publication figure">
         <div id="modalCaption" class="modal-caption"></div>
     </div>
-    </footer>
 
     <script>
         // --- CONTROLE DO MENU HAMBURGER ---
@@ -1109,11 +1472,10 @@ paraphyly of <i>Sticherus</i> as defined so far, while ensuring nomenclatural st
         function toggleAbstract(element) {
             const container = element.nextElementSibling;
             container.classList.toggle('open');
-            if (container.classList.contains('open')) {
-                element.innerHTML = "Hide abstract -";
-            } else {
-                element.innerHTML = "Read abstract +";
-            }
+            const isOpen = container.classList.contains('open');
+            element.setAttribute('aria-expanded', String(isOpen));
+            element.textContent = isOpen ? "Hide abstract −" : "Read abstract +";
+            container.style.maxHeight = isOpen ? `${container.scrollHeight}px` : '0px';
         }
 
         // Função para abrir o modal com a imagem
@@ -1145,42 +1507,117 @@ paraphyly of <i>Sticherus</i> as defined so far, while ensuring nomenclatural st
         });
 
         // Função de busca: procura por título, autores, palavras-chave e journal
-        function searchPublications() {
+        let activePublicationFilter = 'all';
+
+        function normalizePublicationText(value) {
+            return (value || '')
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase();
+        }
+
+        function applyPublicationFilters() {
             const input = document.getElementById('searchInput');
-            const filter = (input.value || '').trim().toUpperCase();
+            const query = normalizePublicationText(input ? input.value.trim() : '');
+            let visibleTotal = 0;
 
-            // Seleciona todos os artigos da página
-            const articles = document.querySelectorAll('.artigo');
-            // Mapa para contar quantos artigos visíveis cada grupo por ano possui
-            const groupCounts = new Map();
+            document.querySelectorAll('.year-group').forEach(group => {
+                const groupFilter = group.dataset.year || 'other';
+                const periodMatches = activePublicationFilter === 'all' || groupFilter === activePublicationFilter;
+                let visibleInGroup = 0;
 
-            articles.forEach(artigo => {
-                const title = (artigo.querySelector('h3')?.textContent || '');
-                const authors = (artigo.querySelector('.authors')?.textContent || '');
-                const journal = (artigo.querySelector('.journal-info')?.textContent || '');
-                const keywords = Array.from(artigo.querySelectorAll('.keyword-tag')).map(k => k.textContent || '').join(' ');
+                group.querySelectorAll('.artigo').forEach(article => {
+                    const content = normalizePublicationText(article.textContent + ' ' + groupFilter);
+                    const matches = periodMatches && (!query || content.includes(query));
+                    article.hidden = !matches;
+                    if (matches) visibleInGroup += 1;
+                });
 
-                const combined = (title + ' ' + authors + ' ' + journal + ' ' + keywords).toUpperCase();
+                group.hidden = visibleInGroup === 0;
+                const counter = group.querySelector('.year-count');
+                if (counter) counter.textContent = `${visibleInGroup} ${visibleInGroup === 1 ? 'work' : 'works'}`;
+                visibleTotal += visibleInGroup;
+            });
 
-                const matches = filter === '' || combined.indexOf(filter) > -1;
+            const total = document.querySelectorAll('.artigo').length;
+            const summary = document.getElementById('resultSummary');
+            const noResults = document.getElementById('noResults');
+            const clearSearch = document.getElementById('clearSearch');
 
-                if (matches) {
-                    // Restaura o display padrão do elemento (deixa o CSS controlar o layout)
-                    artigo.style.display = '';
+            if (summary) {
+                const filtered = query || activePublicationFilter !== 'all';
+                summary.textContent = filtered
+                    ? `${visibleTotal} ${visibleTotal === 1 ? 'work' : 'works'} found`
+                    : `${total} works organized by year and publication type`;
+            }
+            if (noResults) noResults.hidden = visibleTotal !== 0;
+            if (clearSearch) clearSearch.hidden = !query;
+        }
 
-                    // Conta para o grupo de ano, se existir
-                    const group = artigo.closest('.year-group');
-                    if (group) groupCounts.set(group, (groupCounts.get(group) || 0) + 1);
-                } else {
-                    artigo.style.display = 'none';
+        function searchPublications() {
+            applyPublicationFilters();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('searchInput');
+            const clearSearch = document.getElementById('clearSearch');
+
+            document.querySelectorAll('.year-group').forEach(group => {
+                const title = group.querySelector('.year-title');
+                if (title && !title.querySelector('.year-count')) {
+                    const count = group.querySelectorAll('.artigo').length;
+                    const badge = document.createElement('span');
+                    badge.className = 'year-count';
+                    badge.textContent = `${count} ${count === 1 ? 'work' : 'works'}`;
+                    title.appendChild(badge);
                 }
             });
 
-            // Atualiza visibilidade dos grupos por ano
-            document.querySelectorAll('.year-group').forEach(group => {
-                group.style.display = (groupCounts.get(group) || 0) > 0 ? 'block' : 'none';
+            document.querySelectorAll('.toggle-abstract').forEach(toggle => {
+                toggle.setAttribute('role', 'button');
+                toggle.setAttribute('tabindex', '0');
+                toggle.setAttribute('aria-expanded', 'false');
+                toggle.addEventListener('keydown', event => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        toggle.click();
+                    }
+                });
             });
-        }
+
+            document.querySelectorAll('.artigo-gallery img').forEach(image => {
+                image.loading = 'lazy';
+                image.decoding = 'async';
+            });
+
+            document.querySelectorAll('.btn-acessar').forEach(link => {
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+            });
+
+            document.querySelectorAll('.publication-filter').forEach(button => {
+                button.addEventListener('click', () => {
+                    activePublicationFilter = button.dataset.filter || 'all';
+                    document.querySelectorAll('.publication-filter').forEach(item => {
+                        const active = item === button;
+                        item.classList.toggle('active', active);
+                        item.setAttribute('aria-pressed', String(active));
+                    });
+                    applyPublicationFilters();
+                });
+            });
+
+            if (searchInput) searchInput.addEventListener('input', applyPublicationFilters);
+            if (clearSearch && searchInput) {
+                clearSearch.addEventListener('click', () => {
+                    searchInput.value = '';
+                    searchInput.focus();
+                    applyPublicationFilters();
+                });
+            }
+
+            applyPublicationFilters();
+        });
 
         document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('theme-toggle');

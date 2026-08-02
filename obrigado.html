@@ -132,9 +132,22 @@
                 font-size: 1rem;
             }
         }
+        body.light-mode::before { background: rgba(255,255,255,0.78); }
+        body.light-mode .mensagem-box {
+            background: rgba(255,255,255,0.94);
+            color: #18311d;
+            border-color: rgba(0,0,0,0.06);
+        }
+        body.light-mode .mensagem-box h1,
+        body.light-mode .mensagem-box p { color: #18311d; }
     </style>
+    <link rel="stylesheet" href="site-theme-toggle.css">
 </head>
 <body>
+    <button id="theme-toggle" type="button" aria-pressed="false" aria-label="Ativar modo claro" title="Switch between light/dark mode">
+        <i class="fas fa-moon" aria-hidden="true"></i>
+    </button>
+
     <div class="mensagem-box">
         <div class="checkmark-container">
             <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
@@ -150,6 +163,23 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const applyTheme = mode => {
+                const isLight = mode === 'light';
+                document.body.classList.toggle('light-mode', isLight);
+                themeToggle.setAttribute('aria-pressed', String(isLight));
+                themeToggle.setAttribute('aria-label', isLight ? 'Ativar modo escuro' : 'Ativar modo claro');
+                themeToggle.innerHTML = isLight
+                    ? '<i class="fas fa-sun" aria-hidden="true"></i>'
+                    : '<i class="fas fa-moon" aria-hidden="true"></i>';
+                try { localStorage.setItem('site-theme', mode); } catch (error) {}
+            };
+
+            let savedTheme = null;
+            try { savedTheme = localStorage.getItem('site-theme'); } catch (error) {}
+            applyTheme(savedTheme || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'));
+            themeToggle.addEventListener('click', () => applyTheme(document.body.classList.contains('light-mode') ? 'dark' : 'light'));
+
             let seconds = 5;
             const countdownElement = document.getElementById('countdown');
             

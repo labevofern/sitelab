@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Environmental Layers</title>
+    <title>Environmental Layers | Fern and Lycophyte Evolution Lab</title>
+    <meta name="description" content="Download the laboratory's environmental layers in full resolution with Git LFS for Windows or macOS.">
     <link rel="icon" href="imagens/simb.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -24,7 +25,8 @@
             background-size: cover;
             background-attachment: fixed;
             position: relative;
-            padding-bottom: 70px;
+            padding-bottom: 2.5rem;
+            box-sizing: border-box;
         }
         body, nav, .tab-content, .card, .info-box, footer {
             transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
@@ -118,13 +120,13 @@
         .tab-content {
             display: block;
             padding: 2.5rem 2rem;
-            max-width: 900px;
+            max-width: 980px;
             margin: 2.5rem auto 0 auto;
             background: var(--surface);
             border-radius: 18px;
             box-shadow: 0 8px 32px rgba(76,175,80,0.18);
             backdrop-filter: blur(8px);
-            border: 1.2px solid #fff;
+            border: none;
             position: relative;
             z-index: 1;
         }
@@ -142,7 +144,7 @@
             font-size: 1.6rem;
             color: #c8e6c9;
             text-shadow: none;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             text-align: center;
             border-bottom: 2px solid #4caf50;
             padding-bottom: 0.5rem;
@@ -164,14 +166,107 @@
         .lab-intro {
             font-size: 1.15rem !important;
             text-align: center !important;
-            margin-bottom: 2.5rem;
+            margin: 0 auto 1.75rem;
             font-weight: 500;
+            max-width: 760px;
         }
         .cards {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 1.2rem;
             margin: 2rem 0;
+        }
+        .eyebrow {
+            margin: 0 0 0.55rem;
+            color: #9ee6a3;
+            font-size: 0.82rem !important;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-align: center !important;
+            text-transform: uppercase;
+        }
+        .feature-strip {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.8rem;
+            margin: 0 0 2rem;
+        }
+        .feature {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.65rem;
+            min-height: 54px;
+            padding: 0.75rem 0.9rem;
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 12px;
+            background: rgba(0,0,0,0.16);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .feature i { color: #79d37f; font-size: 1rem; }
+        .section-title {
+            margin: 0 0 1.15rem;
+            border: 0;
+            padding: 0;
+            font-size: 1.3rem;
+            text-align: left;
+        }
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.15rem;
+            margin-bottom: 1.25rem;
+        }
+        .download-card {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.85rem;
+            padding: 1.35rem;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 15px;
+            background: linear-gradient(145deg, rgba(0,0,0,0.24), rgba(0,0,0,0.12));
+            box-sizing: border-box;
+        }
+        .platform-heading {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .platform-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            flex: 0 0 44px;
+            border-radius: 12px;
+            background: rgba(76,175,80,0.16);
+            color: #a5e6aa;
+            font-size: 1.35rem;
+        }
+        .download-card h4 {
+            margin: 0;
+            color: #fff;
+            font-size: 1.18rem;
+        }
+        .download-card p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.94rem;
+            line-height: 1.55;
+            text-align: left;
+        }
+        .download-card .btn { margin-top: auto; }
+        .file-note {
+            width: 100%;
+            color: rgba(237,247,240,0.68) !important;
+            font-size: 0.78rem !important;
+            text-align: center !important;
         }
         .card {
             background: rgba(0,0,0,0.12);
@@ -217,22 +312,8 @@
         }
         .btn-primary { background: linear-gradient(135deg, var(--accent), #2e7d32); }
         .btn-primary:hover { background: linear-gradient(135deg, #5abf63, #1b5e20); }
-        input {
-            width: 100%;
-            padding: 0.8rem 0.95rem;
-            margin: 0;
-            border: 1px solid rgba(255,255,255,0.25);
-            border-radius: 8px;
-            background: rgba(255,255,255,0.12);
-            color: white;
-            font-size: 1rem;
-            box-sizing: border-box;
-        }
-        input::placeholder { color: rgba(255,255,255,0.7); }
-        .hint {
-            font-size: 0.9rem;
-            color: #dff4e2;
-        }
+        .btn-secondary { background: rgba(255,255,255,0.08); }
+        .btn-secondary:hover { background: rgba(255,255,255,0.14); }
         .info-box {
             background: rgba(0,0,0,0.10);
             padding: 1.2rem 1.3rem;
@@ -242,6 +323,58 @@
         }
         .info-box h3 { margin-top: 0; text-align: left; border: none; padding: 0; margin-bottom: 0.8rem; }
         .info-box ol { margin: 0; padding-left: 1.2rem; color: var(--text-muted); line-height: 1.7; }
+        .how-it-works {
+            display: grid;
+            grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.65fr);
+            gap: 1.15rem;
+            margin-top: 1.25rem;
+        }
+        .steps {
+            display: grid;
+            gap: 0.75rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .steps li {
+            display: grid;
+            grid-template-columns: 30px 1fr;
+            gap: 0.7rem;
+            align-items: start;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #2e7d32;
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        .steps strong { color: #fff; }
+        .requirements p {
+            margin: 0 0 0.85rem;
+            color: var(--text-muted);
+            font-size: 0.94rem;
+            line-height: 1.55;
+            text-align: left;
+        }
+        .requirements p:last-of-type { margin-bottom: 1rem; }
+        .requirements a:not(.btn) { color: #a5e6aa; font-weight: 600; }
+        code {
+            padding: 0.12rem 0.35rem;
+            border-radius: 5px;
+            background: rgba(0,0,0,0.28);
+            color: #d9f7dc;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 0.86em;
+            overflow-wrap: anywhere;
+        }
         footer {
             background: var(--footer-bg);
             color: #fff;
@@ -299,8 +432,14 @@
             --nav-bg:rgba(255,255,255,0.95); --footer-bg:rgba(55,125,50,0.95);
             --btn-bg:rgba(255,255,255,0.95); --btn-hover:rgba(76,175,80,0.15);
         }
-        body.light-mode .card, body.light-mode .info-box { background: rgba(255,255,255,0.75); }
+        body.light-mode .card, body.light-mode .info-box, body.light-mode .download-card, body.light-mode .feature { background: rgba(255,255,255,0.78); }
         body.light-mode .btn { color: #1b2e1d; }
+        body.light-mode .btn-primary { color: #fff; }
+        body.light-mode .download-card h4, body.light-mode .steps strong { color: #18311d; }
+        body.light-mode .platform-icon { color: #1b5e20; background: rgba(76,175,80,0.12); }
+        body.light-mode .feature i, body.light-mode .requirements a:not(.btn) { color: #1b6d22; }
+        body.light-mode .file-note { color: rgba(24,49,29,0.68) !important; }
+        body.light-mode code { color: #16491b; background: rgba(76,175,80,0.1); }
         body.light-mode .nav-btn { color: #2f3e2f; }
         body.light-mode .nav-btn:hover, body.light-mode .nav-btn.active { color: #145a15; }
         body.light-mode #theme-toggle {
@@ -319,7 +458,7 @@
         }
         @media (max-width: 860px) {
             nav { flex-wrap: wrap; }
-            .cards { grid-template-columns: 1fr; }
+            .cards, .download-grid, .how-it-works { grid-template-columns: 1fr; }
         }
         @media (max-width: 700px) {
             #hamburger-btn { display: block; }
@@ -332,23 +471,26 @@
             }
             nav.open { display: flex; }
             .tab-content { padding: 1.5rem 1rem; margin-top: 1.2rem; }
+            .feature-strip { grid-template-columns: 1fr; gap: 0.6rem; }
+            .feature { justify-content: flex-start; min-height: 48px; }
         }
     </style>
+    <link rel="stylesheet" href="site-theme-toggle.css">
 </head>
 <body>
     <canvas id="particle-canvas"></canvas>
 
     <header>
-        <img src="imagens/capa_lab.png" alt="Logo Samambaia" class="logo">
+        <img src="imagens/capa_lab.png" alt="Fern and Lycophyte Evolution Lab" class="logo">
         <h1>Fern and Lycophyte Evolution Lab</h1>
         <p class="header-subtitle">Federal University of Pernambuco | Evolutionary Biology | Ferns and Lycophytes</p>
     </header>
 
-    <button id="hamburger-btn" aria-label="Open menu">
+    <button id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="main-navigation">
         <i class="fas fa-bars"></i>
     </button>
 
-    <nav>
+    <nav id="main-navigation" aria-label="Main navigation">
         <a href="index.html" class="nav-btn">About</a>
         <a href="pesquisa.html" class="nav-btn">Research</a>
         <a href="equipe.html" class="nav-btn">Team</a>
@@ -359,39 +501,65 @@
     </nav>
 
     <section class="tab-content">
+        <p class="eyebrow">Open environmental data</p>
         <h2>Environmental Layers</h2>
-        <p class="lab-intro">Quickly download the complete repository of environmental data for studies and analyses.</p>
+        <p class="lab-intro">Use our interactive downloader to get the entire repository or only the folder you need. The original <code>.tif</code> files are retrieved in the highest resolution available through Git LFS.</p>
 
-        <div class="info-box" style="margin-top: 0; margin-bottom: 1.5rem;">
-            <h3>About these layers</h3>
-            <p style="margin: 0; line-height: 1.7; text-align: justify;">
-                These environmental layers are part of the laboratory's GitHub repository and are used in our analyses for ecological and evolutionary studies.
-            </p>
-            <a class="btn btn-primary" href="https://github.com/labevofern/Environmental-layers" target="_blank" rel="noreferrer" style="margin-top: 1rem; width: 100%; padding: 0.95rem 1rem; display: inline-block; text-align: center; box-sizing: border-box; font-size: 1rem; line-height: 1.2;">
-                <i class="fab fa-github"></i> Check the repository on GitHub
-            </a>
+        <div class="feature-strip" aria-label="Downloader features">
+            <div class="feature"><i class="fas fa-folder-tree" aria-hidden="true"></i> Entire repository or one folder</div>
+            <div class="feature"><i class="fas fa-hard-drive" aria-hidden="true"></i> Choose where to save</div>
+            <div class="feature"><i class="fas fa-expand" aria-hidden="true"></i> Full-resolution Git LFS files</div>
         </div>
 
-        <div class="cards" style="display: flex; flex-direction: column; gap: 1rem;">
-            <div class="card" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
-                <h4>1. Download all</h4>
-                <p>Use this option to download the complete repository in ZIP format.</p>
-                <a class="btn btn-primary" href="https://github.com/labevofern/Environmental-layers/archive/refs/heads/main.zip" target="_blank" rel="noreferrer">📦 Download full ZIP</a>
-            </div>
+        <h3 class="section-title">Choose your operating system</h3>
+        <div class="download-grid">
+            <article class="download-card">
+                <div class="platform-heading">
+                    <span class="platform-icon"><i class="fab fa-windows" aria-hidden="true"></i></span>
+                    <h4>Windows</h4>
+                </div>
+                <p>Download the installer, double-click it and follow the colored menu.</p>
+                <a class="btn btn-primary" href="download_layers.cmd" download>
+                    <i class="fas fa-download" aria-hidden="true"></i> Download for Windows
+                </a>
+                <p class="file-note">download_layers.cmd</p>
+            </article>
 
-            <div class="info-box" style="margin: 0; height: auto; display: flex; flex-direction: column; justify-content: center;">
-                <h3>How to use</h3>
-                <ol>
-                    <li>To download everything, click “Download full ZIP”.</li>
-                    <li>This file includes the full repository structure and all environmental layers.</li>
-                    <li>Use it when you want to work locally with the complete dataset.</li>
-                    <li>If you need to check the source files, open the GitHub repository link above.</li>
+            <article class="download-card">
+                <div class="platform-heading">
+                    <span class="platform-icon"><i class="fab fa-apple" aria-hidden="true"></i></span>
+                    <h4>macOS</h4>
+                </div>
+                <p>Download the installer and open it. If needed, allow execution once with <code>chmod +x</code>.</p>
+                <a class="btn btn-primary" href="download_layers.command" download>
+                    <i class="fas fa-download" aria-hidden="true"></i> Download for macOS
+                </a>
+                <p class="file-note">download_layers.command</p>
+            </article>
+        </div>
+
+        <div class="how-it-works">
+            <div class="info-box" style="margin: 0;">
+                <h3>How it works</h3>
+                <ol class="steps">
+                    <li><span class="step-number">1</span><span><strong>Open the installer</strong> for your operating system.</span></li>
+                    <li><span class="step-number">2</span><span><strong>Choose the entire repository or one folder</strong>, then select where to save it.</span></li>
+                    <li><span class="step-number">3</span><span><strong>Git LFS retrieves the original files</strong> in the highest resolution available.</span></li>
                 </ol>
             </div>
+
+            <aside class="info-box requirements" style="margin: 0;">
+                <h3>Before you start</h3>
+                <p>Install <a href="https://git-scm.com/downloads" target="_blank" rel="noopener noreferrer">Git</a> and <a href="https://git-lfs.com/" target="_blank" rel="noopener noreferrer">Git LFS</a>. An internet connection and sufficient disk space are required.</p>
+                <p>The menu reads the current repository each time, so newly added folders appear automatically.</p>
+                <a class="btn btn-secondary" href="https://github.com/labevofern/Environmental-layers" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github" aria-hidden="true"></i> View repository
+                </a>
+            </aside>
         </div>
     </section>
 
-    <button id="theme-toggle" aria-pressed="false" aria-label="Ativar modo claro" title="Switch between light/dark mode">
+    <button id="theme-toggle" aria-pressed="false" aria-label="Enable light mode" title="Switch between light and dark mode">
         <i class="fas fa-moon" aria-hidden="true"></i>
     </button>
 
@@ -405,6 +573,7 @@
 
             hamburgerBtn.addEventListener('click', () => {
                 nav.classList.toggle('open');
+                hamburgerBtn.setAttribute('aria-expanded', nav.classList.contains('open') ? 'true' : 'false');
                 icon.classList.toggle('fa-bars');
                 icon.classList.toggle('fa-times');
             });
@@ -413,6 +582,7 @@
                 document.body.classList.toggle('light-mode');
                 const isLight = document.body.classList.contains('light-mode');
                 themeToggle.setAttribute('aria-pressed', isLight ? 'true' : 'false');
+                themeToggle.setAttribute('aria-label', isLight ? 'Enable dark mode' : 'Enable light mode');
                 themeIcon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
             });
         });
