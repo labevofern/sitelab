@@ -1,5 +1,20 @@
 @echo off
 chcp 65001 >nul
+
+rem Executa o instalador em um processo filho. Se houver uma falha inesperada,
+rem esta janela externa permanece aberta para que a mensagem possa ser lida.
+if /I "%~1"=="--executar" goto :script_start
+cmd.exe /d /c ""%~f0" --executar"
+set "LAUNCH_EXIT=%ERRORLEVEL%"
+if "%LAUNCH_EXIT%"=="0" exit /B 0
+echo.
+echo [DIAGNOSTICO] O instalador terminou com o codigo %LAUNCH_EXIT%.
+echo Fotografe ou copie as ultimas linhas acima para identificar o problema.
+echo.
+pause
+exit /B %LAUNCH_EXIT%
+
+:script_start
 setlocal EnableExtensions DisableDelayedExpansion
 
 title Download de camadas ambientais - LabEvoFern
@@ -223,7 +238,7 @@ if errorlevel 1 goto :sparse_failed
 
 set "GIT_LFS_SKIP_SMUDGE="
 echo %C_CYAN%[3/3]%C_RESET% Baixando os arquivos LFS em alta resolução dessa pasta...
-git -c lfs.concurrenttransfers=16 lfs pull --include="%SELECTED_FOLDER%/**" --exclude=""
+git -c lfs.concurrenttransfers=4 lfs pull --include="%SELECTED_FOLDER%/**" --exclude=""
 if errorlevel 1 goto :lfs_failed
 goto :download_success
 
@@ -232,7 +247,7 @@ set "GIT_LFS_SKIP_SMUDGE="
 echo.
 echo %C_CYAN%[2/3]%C_RESET% Estrutura preparada.
 echo %C_CYAN%[3/3]%C_RESET% Baixando todos os arquivos LFS em alta resolução...
-git -c lfs.concurrenttransfers=16 lfs pull
+git -c lfs.concurrenttransfers=4 lfs pull
 if errorlevel 1 goto :lfs_failed
 goto :download_success
 
@@ -305,21 +320,91 @@ echo Verificando Git e Git LFS...
 where git >nul 2>&1
 if errorlevel 1 (
     echo.
-    echo %C_RED%[ERRO]%C_RESET% Git não foi encontrado.
-    echo Instale o Git para Windows e execute este arquivo novamente.
-    echo https://git-scm.com/download/win
-    pause
-    exit /B 1
+    echo %C_YELLOW%[AVISO]%C_RESET% Git não foi encontrado.
+    call :install_with_winget "Git e Git LFS" "Git.Git"
+    if errorlevel 1 exit /B 1
+    call :refresh_git_path
+    where git >nul 2>&1
+    if errorlevel 1 (
+        echo.
+        echo %C_YELLOW%[AVISO]%C_RESET% O Git foi instalado, mas este Windows ainda não atualizou o PATH.
+        echo Feche esta janela, abra o instalador novamente e continue.
+        pause
+        exit /B 1
+    )
 )
 git lfs version >nul 2>&1
 if errorlevel 1 (
     echo.
-    echo %C_RED%[ERRO]%C_RESET% Git LFS não foi encontrado.
-    echo Instale o Git LFS e execute este arquivo novamente.
+    echo %C_YELLOW%[AVISO]%C_RESET% Git LFS não foi encontrado.
+    call :install_with_winget "Git LFS" "GitHub.GitLFS"
+    if errorlevel 1 exit /B 1
+    call :refresh_git_path
+    git lfs version >nul 2>&1
+    if errorlevel 1 (
+        echo.
+        echo %C_RED%[ERRO]%C_RESET% O Git LFS ainda não está disponível.
+        echo Feche esta janela, abra o instalador novamente e continue.
+        pause
+        exit /B 1
+    )
+)
+git lfs install >nul 2>&1
+if errorlevel 1 (
+    echo.
+    echo %C_RED%[ERRO]%C_RESET% O Git LFS foi encontrado, mas não pôde ser ativado.
+    echo Tente executar este instalador novamente ou use: git lfs install
+    pause
+    exit /B 1
+)
+exit /B 0
+
+:install_with_winget
+set "COMPONENT_LABEL=%~1"
+set "PACKAGE_ID=%~2"
+echo O instalador pode baixar e instalar %COMPONENT_LABEL% automaticamente.
+choice /C SN /N /M "Deseja instalar agora? [S/N]: "
+if errorlevel 2 goto :manual_requirement
+where winget >nul 2>&1
+if errorlevel 1 goto :winget_unavailable
+echo.
+echo %C_CYAN%Baixando e instalando %COMPONENT_LABEL%...%C_RESET%
+echo O Windows pode pedir sua confirmação durante esta etapa.
+winget install --id "%PACKAGE_ID%" --exact --source winget --accept-source-agreements --accept-package-agreements
+if errorlevel 1 (
+    echo.
+    echo %C_RED%[ERRO]%C_RESET% A instalação automática de %COMPONENT_LABEL% falhou.
+    echo Instale manualmente pelos endereços abaixo e execute este arquivo novamente:
+    echo https://git-scm.com/download/win
     echo https://git-lfs.com/
     pause
     exit /B 1
 )
+echo.
+echo %C_GREEN%[OK]%C_RESET% %COMPONENT_LABEL% foi instalado.
+exit /B 0
+
+:winget_unavailable
+echo.
+echo %C_YELLOW%[AVISO]%C_RESET% A instalação automática não está disponível neste Windows.
+echo Instale o Git for Windows pelo endereço abaixo. Ele já inclui o Git LFS:
+echo https://git-scm.com/download/win
+start "" "https://git-scm.com/download/win" >nul 2>&1
+pause
+exit /B 1
+
+:manual_requirement
+echo.
+echo Instale os componentes manualmente e execute este arquivo novamente:
+echo https://git-scm.com/download/win
+echo https://git-lfs.com/
+pause
+exit /B 1
+
+:refresh_git_path
+if exist "%ProgramFiles%\Git\cmd\git.exe" set "PATH=%ProgramFiles%\Git\cmd;%PATH%"
+if exist "%LOCALAPPDATA%\Programs\Git\cmd\git.exe" set "PATH=%LOCALAPPDATA%\Programs\Git\cmd;%PATH%"
+if defined ProgramFiles(x86) if exist "%ProgramFiles(x86)%\Git\cmd\git.exe" set "PATH=%ProgramFiles(x86)%\Git\cmd;%PATH%"
 exit /B 0
 
 :header

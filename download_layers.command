@@ -70,21 +70,51 @@ check_requirements() {
     printf '%s\n' "Verificando Git e Git LFS..."
 
     if ! command -v git >/dev/null 2>&1; then
-        printf '\n%s[ERRO]%s Git não foi encontrado.\n' "$C_RED" "$C_RESET"
-        printf '%s\n' "Instale as ferramentas de linha de comando do macOS ou o Git:"
-        printf '%s\n' "  xcode-select --install"
-        printf '%s\n' "  https://git-scm.com/download/mac"
+        printf '\n%s[AVISO]%s Git não foi encontrado.\n' "$C_YELLOW" "$C_RESET"
+        printf '%s\n' "O macOS abrirá o instalador oficial das Ferramentas de Linha de Comando, que incluem o Git."
+        printf 'Deseja abrir o instalador agora? [S/n]: '
+        IFS= read -r INSTALL_GIT_OPTION
+        case "$INSTALL_GIT_OPTION" in
+            ""|s|S)
+                xcode-select --install >/dev/null 2>&1 || true
+                printf '%s\n' "Conclua a instalação do macOS e depois abra este arquivo novamente."
+                ;;
+            *)
+                printf '%s\n' "Instalação manual: https://git-scm.com/download/mac"
+                ;;
+        esac
         pause_terminal
         exit 1
     fi
 
     if ! git lfs version >/dev/null 2>&1; then
-        printf '\n%s[ERRO]%s Git LFS não foi encontrado.\n' "$C_RED" "$C_RESET"
-        printf '%s\n' "Instale-o e execute este arquivo novamente:"
-        printf '%s\n' "  brew install git-lfs"
-        printf '%s\n' "  https://git-lfs.com/"
-        pause_terminal
-        exit 1
+        printf '\n%s[AVISO]%s Git LFS não foi encontrado.\n' "$C_YELLOW" "$C_RESET"
+        if command -v brew >/dev/null 2>&1; then
+            printf 'Deseja baixar e instalar o Git LFS com Homebrew agora? [S/n]: '
+            IFS= read -r INSTALL_LFS_OPTION
+            case "$INSTALL_LFS_OPTION" in
+                ""|s|S)
+                    if ! brew install git-lfs; then
+                        fail_and_exit "A instalação do Git LFS falhou. Instale manualmente em https://git-lfs.com/"
+                    fi
+                    ;;
+                *)
+                    printf '%s\n' "Instalação manual: brew install git-lfs ou https://git-lfs.com/"
+                    pause_terminal
+                    exit 1
+                    ;;
+            esac
+        else
+            printf '%s\n' "O Homebrew não está instalado. A página oficial do Git LFS será aberta."
+            open "https://git-lfs.com/" >/dev/null 2>&1 || true
+            printf '%s\n' "Instale o Git LFS e depois abra este arquivo novamente."
+            pause_terminal
+            exit 1
+        fi
+    fi
+
+    if ! git lfs install >/dev/null 2>&1; then
+        fail_and_exit "O Git LFS foi encontrado, mas não pôde ser ativado. Tente executar: git lfs install"
     fi
 }
 
@@ -342,14 +372,14 @@ download_lfs_files() {
     unset GIT_LFS_SKIP_SMUDGE
     if [ "$DOWNLOAD_MODE" = "folder" ]; then
         printf '%s[3/3]%s Baixando os arquivos LFS em alta resolução dessa pasta...\n' "$C_CYAN" "$C_RESET"
-        if ! git -c lfs.concurrenttransfers=16 lfs pull --include="$SELECTED_FOLDER/**" --exclude=""; then
+        if ! git -c lfs.concurrenttransfers=4 lfs pull --include="$SELECTED_FOLDER/**" --exclude=""; then
             cd "$START_DIR" || true
             fail_and_exit "O download LFS falhou. Verifique a conexão, o espaço livre e a cota do Git LFS. A pasta foi mantida: $TARGET_DIR"
         fi
     else
         printf '\n%s[2/3]%s Estrutura preparada.\n' "$C_CYAN" "$C_RESET"
         printf '%s[3/3]%s Baixando todos os arquivos LFS em alta resolução...\n' "$C_CYAN" "$C_RESET"
-        if ! git -c lfs.concurrenttransfers=16 lfs pull; then
+        if ! git -c lfs.concurrenttransfers=4 lfs pull; then
             cd "$START_DIR" || true
             fail_and_exit "O download LFS falhou. Verifique a conexão, o espaço livre e a cota do Git LFS. A pasta foi mantida: $TARGET_DIR"
         fi

@@ -1,0 +1,5 @@
+# Preserve CRLF bytes in the repository so files downloaded from the website
+# run correctly in cmd.exe without relying on a Git checkout conversion.
+*.cmd -text whitespace=cr-at-eol
+*.bat -text whitespace=cr-at-eol
+*.command text eol=lf
