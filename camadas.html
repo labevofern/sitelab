@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Environmental Layers | Fern and Lycophyte Evolution Lab</title>
-    <meta name="description" content="Download the laboratory's environmental layers in full resolution with Git LFS for Windows or macOS.">
+    <meta name="description" content="Step-by-step visual guide to browse and download the laboratory's environmental layers directly from GitHub.">
     <link rel="icon" type="image/png" href="/sitelab/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -215,58 +215,149 @@
             font-size: 1.3rem;
             text-align: left;
         }
-        .download-grid {
+        .repository-cta {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 1.15rem;
-            margin-bottom: 1.25rem;
-        }
-        .download-card {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 0.85rem;
-            padding: 1.35rem;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 1.25rem;
+            margin: 0 0 2rem;
             border: 1px solid rgba(255,255,255,0.15);
             border-radius: 15px;
             background: linear-gradient(145deg, rgba(0,0,0,0.24), rgba(0,0,0,0.12));
-            box-sizing: border-box;
         }
-        .platform-heading {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-        .platform-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
-            flex: 0 0 44px;
-            border-radius: 12px;
-            background: rgba(76,175,80,0.16);
-            color: #a5e6aa;
-            font-size: 1.35rem;
-        }
-        .download-card h4 {
-            margin: 0;
-            color: #fff;
-            font-size: 1.18rem;
-        }
-        .download-card p {
+        .repository-cta p {
             margin: 0;
             color: var(--text-muted);
-            font-size: 0.94rem;
+            font-size: 0.96rem;
             line-height: 1.55;
             text-align: left;
         }
-        .download-card .btn { margin-top: auto; }
-        .file-note {
+        .repository-cta .btn { width: auto; min-width: 220px; }
+        .guide-section {
+            margin-top: 2.4rem;
+            scroll-margin-top: 90px;
+        }
+        .guide-heading {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            margin-bottom: 0.7rem;
+        }
+        .guide-heading h3 {
+            flex: 1;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            text-align: left;
+            font-size: 1.35rem;
+        }
+        .guide-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 46px;
+            height: 46px;
+            flex: 0 0 46px;
+            border-radius: 13px;
+            background: rgba(76,175,80,0.18);
+            color: #a5e6aa;
+            font-size: 1.2rem;
+        }
+        .guide-intro {
+            margin: 0 0 1rem !important;
+            color: var(--text-muted);
+            font-size: 0.98rem !important;
+            text-align: left !important;
+        }
+        .guide-steps {
+            display: grid;
+            gap: 0.7rem;
+            margin: 0 0 1.15rem;
+            padding: 0;
+            list-style: none;
+        }
+        .guide-steps li {
+            display: grid;
+            grid-template-columns: 34px 1fr;
+            gap: 0.75rem;
+            align-items: start;
+            padding: 0.85rem 0.95rem;
+            border: 1px solid rgba(255,255,255,0.11);
+            border-radius: 11px;
+            background: rgba(0,0,0,0.13);
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+        .guide-steps strong { color: #fff; }
+        .guide-step-number,
+        .screenshot-marker {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #2e7d32;
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 700;
+            box-shadow: 0 0 0 4px rgba(255,255,255,0.88), 0 4px 14px rgba(0,0,0,0.35);
+            box-sizing: border-box;
+        }
+        .screenshot-frame {
+            position: relative;
+            margin: 0;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 14px;
+            background: #fff;
+            box-shadow: 0 10px 28px rgba(0,0,0,0.28);
+        }
+        .screenshot-frame img {
+            display: block;
             width: 100%;
-            color: rgba(237,247,240,0.68) !important;
-            font-size: 0.78rem !important;
-            text-align: center !important;
+            height: auto;
+        }
+        .screenshot-frame figcaption {
+            padding: 0.8rem 1rem;
+            background: rgba(8,18,10,0.96);
+            color: rgba(237,247,240,0.88);
+            font-size: 0.86rem;
+            line-height: 1.5;
+            text-align: left;
+        }
+        .screenshot-marker {
+            position: absolute;
+            z-index: 2;
+            transform: translate(-50%, -50%);
+            background: #ef6c00;
+        }
+        .marker-folder { left: 4.3%; top: 58.3%; }
+        .marker-file-download { left: 91.1%; top: 45.9%; }
+        .marker-code { left: 68%; top: 30.9%; }
+        .marker-zip { left: 47%; top: 69.2%; }
+        .guide-note {
+            display: grid;
+            grid-template-columns: 28px 1fr;
+            gap: 0.7rem;
+            align-items: start;
+            margin-top: 1rem;
+            padding: 1rem;
+            border-left: 4px solid #ffb300;
+            border-radius: 10px;
+            background: rgba(255,179,0,0.1);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.55;
+        }
+        .guide-note i { color: #ffd166; margin-top: 0.2rem; }
+        .guide-note strong { color: #fff; }
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.8rem;
+            margin: 1rem 0 0;
         }
         .card {
             background: rgba(0,0,0,0.12);
@@ -432,13 +523,13 @@
             --nav-bg:rgba(255,255,255,0.95); --footer-bg:rgba(55,125,50,0.95);
             --btn-bg:rgba(255,255,255,0.95); --btn-hover:rgba(76,175,80,0.15);
         }
-        body.light-mode .card, body.light-mode .info-box, body.light-mode .download-card, body.light-mode .feature { background: rgba(255,255,255,0.78); }
+        body.light-mode .card, body.light-mode .info-box, body.light-mode .repository-cta, body.light-mode .feature, body.light-mode .guide-steps li { background: rgba(255,255,255,0.78); }
         body.light-mode .btn { color: #1b2e1d; }
         body.light-mode .btn-primary { color: #fff; }
-        body.light-mode .download-card h4, body.light-mode .steps strong { color: #18311d; }
-        body.light-mode .platform-icon { color: #1b5e20; background: rgba(76,175,80,0.12); }
+        body.light-mode .steps strong, body.light-mode .guide-steps strong, body.light-mode .guide-note strong { color: #18311d; }
+        body.light-mode .guide-icon { color: #1b5e20; background: rgba(76,175,80,0.12); }
         body.light-mode .feature i, body.light-mode .requirements a:not(.btn) { color: #1b6d22; }
-        body.light-mode .file-note { color: rgba(24,49,29,0.68) !important; }
+        body.light-mode .guide-note { background: rgba(255,179,0,0.14); }
         body.light-mode code { color: #16491b; background: rgba(76,175,80,0.1); }
         body.light-mode .nav-btn { color: #2f3e2f; }
         body.light-mode .nav-btn:hover, body.light-mode .nav-btn.active { color: #145a15; }
@@ -458,7 +549,8 @@
         }
         @media (max-width: 860px) {
             nav { flex-wrap: wrap; }
-            .cards, .download-grid, .how-it-works { grid-template-columns: 1fr; }
+            .cards, .how-it-works, .repository-cta { grid-template-columns: 1fr; }
+            .repository-cta .btn { width: 100%; }
         }
         @media (max-width: 700px) {
             #hamburger-btn { display: block; }
@@ -473,6 +565,9 @@
             .tab-content { padding: 1.5rem 1rem; margin-top: 1.2rem; }
             .feature-strip { grid-template-columns: 1fr; gap: 0.6rem; }
             .feature { justify-content: flex-start; min-height: 48px; }
+            .quick-links { grid-template-columns: 1fr; }
+            .screenshot-frame { border-radius: 10px; }
+            .screenshot-marker { width: 27px; height: 27px; font-size: 0.78rem; box-shadow: 0 0 0 3px rgba(255,255,255,0.9), 0 3px 10px rgba(0,0,0,0.35); }
         }
     </style>
     <link rel="stylesheet" href="site-theme-toggle.css">
@@ -503,61 +598,81 @@
     <section class="tab-content">
         <p class="eyebrow">Open environmental data</p>
         <h2>Environmental Layers</h2>
-        <p class="lab-intro">Use our interactive downloader to get the entire repository or only the folder you need. The original <code>.tif</code> files are retrieved in the highest resolution available through Git LFS.</p>
+        <p class="lab-intro">Browse the environmental layer collection on GitHub and use this visual guide to download one original <code>.tif</code> file or the complete repository.</p>
 
-        <div class="feature-strip" aria-label="Downloader features">
-            <div class="feature"><i class="fas fa-folder-tree" aria-hidden="true"></i> Entire repository or one folder</div>
-            <div class="feature"><i class="fas fa-hard-drive" aria-hidden="true"></i> Choose where to save</div>
-            <div class="feature"><i class="fas fa-expand" aria-hidden="true"></i> Full-resolution Git LFS files</div>
+        <div class="feature-strip" aria-label="Guide features">
+            <div class="feature"><i class="fab fa-github" aria-hidden="true"></i> Access directly on GitHub</div>
+            <div class="feature"><i class="fas fa-file-arrow-down" aria-hidden="true"></i> Download one layer</div>
+            <div class="feature"><i class="fas fa-box-archive" aria-hidden="true"></i> Download the collection</div>
         </div>
 
-        <h3 class="section-title">Choose your operating system</h3>
-        <div class="download-grid">
-            <article class="download-card">
-                <div class="platform-heading">
-                    <span class="platform-icon"><i class="fab fa-windows" aria-hidden="true"></i></span>
-                    <h4>Windows</h4>
-                </div>
-                <p>Download the installer, double-click it and follow the colored menu. It can install Git and Git LFS for you through Windows Package Manager.</p>
-                <a class="btn btn-primary" href="download_layers.cmd" download>
-                    <i class="fas fa-download" aria-hidden="true"></i> Download for Windows
-                </a>
-                <p class="file-note">download_layers.cmd</p>
-            </article>
-
-            <article class="download-card">
-                <div class="platform-heading">
-                    <span class="platform-icon"><i class="fab fa-apple" aria-hidden="true"></i></span>
-                    <h4>macOS</h4>
-                </div>
-                <p>Download the installer and open it. It checks Git and helps install Git LFS with Homebrew. If needed, allow execution once with <code>chmod +x</code>.</p>
-                <a class="btn btn-primary" href="download_layers.command" download>
-                    <i class="fas fa-download" aria-hidden="true"></i> Download for macOS
-                </a>
-                <p class="file-note">download_layers.command</p>
-            </article>
+        <div class="repository-cta">
+            <p><strong>Start here:</strong> open the public repository. No GitHub account or special program is required to browse the folders and download an individual layer.</p>
+            <a class="btn btn-primary" href="https://github.com/labevofern/Environmental-layers" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github" aria-hidden="true"></i> Open the layers on GitHub
+            </a>
         </div>
 
-        <div class="how-it-works">
-            <div class="info-box" style="margin: 0;">
-                <h3>How it works</h3>
-                <ol class="steps">
-                    <li><span class="step-number">1</span><span><strong>Open the installer</strong> for your operating system.</span></li>
-                    <li><span class="step-number">2</span><span><strong>Choose the entire repository or one folder</strong>, then select where to save it.</span></li>
-                    <li><span class="step-number">3</span><span><strong>Git LFS retrieves the original files</strong> in the highest resolution available.</span></li>
-                </ol>
+        <section class="guide-section" id="download-one-file" aria-labelledby="one-file-title">
+            <div class="guide-heading">
+                <span class="guide-icon"><i class="fas fa-file-arrow-down" aria-hidden="true"></i></span>
+                <h3 id="one-file-title">How to download one layer</h3>
+            </div>
+            <p class="guide-intro"><strong>Recommended:</strong> download one layer at a time to receive the original file in full resolution.</p>
+
+            <ol class="guide-steps">
+                <li><span class="guide-step-number">1</span><span>On the repository page, <strong>click the folder</strong> that contains the type of layer you need, such as <em>Soil variables</em> or <em>Elevation</em>.</span></li>
+                <li><span class="guide-step-number">2</span><span>Inside the folder, <strong>click the name of the desired <code>.tif</code> file</strong>.</span></li>
+                <li><span class="guide-step-number">3</span><span>On the file page, click the <strong>download arrow beside &ldquo;Raw&rdquo;</strong>. Your browser will save the original file.</span></li>
+            </ol>
+
+            <figure class="screenshot-frame">
+                <img src="imagens/github-guide/github-repositorio.png" alt="GitHub repository page showing the environmental layer folders" loading="lazy">
+                <span class="screenshot-marker marker-folder" aria-hidden="true">1</span>
+                <figcaption><strong>Step 1:</strong> choose one of the blue folders in the repository.</figcaption>
+            </figure>
+
+            <figure class="screenshot-frame" style="margin-top: 1rem;">
+                <img src="imagens/github-guide/github-baixar-arquivo.png" alt="GitHub file page showing the download raw file arrow" loading="lazy">
+                <span class="screenshot-marker marker-file-download" aria-hidden="true">3</span>
+                <figcaption><strong>Step 3:</strong> click the arrow next to &ldquo;Raw&rdquo; to download the selected <code>.tif</code>.</figcaption>
+            </figure>
+        </section>
+
+        <section class="guide-section" id="download-all-layers" aria-labelledby="all-layers-title">
+            <div class="guide-heading">
+                <span class="guide-icon"><i class="fas fa-box-archive" aria-hidden="true"></i></span>
+                <h3 id="all-layers-title">How to download the complete repository</h3>
+            </div>
+            <p class="guide-intro">Use this route when you want all folders in a single ZIP archive.</p>
+
+            <ol class="guide-steps">
+                <li><span class="guide-step-number">1</span><span>Return to the main repository page and click the green <strong>Code</strong> button.</span></li>
+                <li><span class="guide-step-number">2</span><span>In the menu that opens, click <strong>Download ZIP</strong>.</span></li>
+                <li><span class="guide-step-number">3</span><span>When the download finishes, <strong>extract the ZIP file</strong> to see the folders on your computer.</span></li>
+            </ol>
+
+            <figure class="screenshot-frame">
+                <img src="imagens/github-guide/github-baixar-tudo.png" alt="GitHub Code menu showing the Download ZIP option" loading="lazy">
+                <span class="screenshot-marker marker-code" aria-hidden="true">1</span>
+                <span class="screenshot-marker marker-zip" aria-hidden="true">2</span>
+                <figcaption><strong>Steps 1 and 2:</strong> open &ldquo;Code&rdquo; and then select &ldquo;Download ZIP&rdquo;.</figcaption>
+            </figure>
+
+            <div class="guide-note">
+                <i class="fas fa-circle-info" aria-hidden="true"></i>
+                <span><strong>Recommended:</strong> download one layer at a time using the first guide. This gives you the original <code>.tif</code> in full resolution. A ZIP containing the entire repository may include small pointer files instead of the complete rasters.</span>
             </div>
 
-            <aside class="info-box requirements" style="margin: 0;">
-                <h3>Before you start</h3>
-                <p>The installer checks <a href="https://git-scm.com/downloads" target="_blank" rel="noopener noreferrer">Git</a> and <a href="https://git-lfs.com/" target="_blank" rel="noopener noreferrer">Git LFS</a> and offers assisted installation when possible. Git for Windows already includes Git LFS. An internet connection and sufficient disk space are required.</p>
-                <p>On Windows, the window now stays open if an error occurs. Photograph or copy the final diagnostic lines if you need support.</p>
-                <p>The menu reads the current repository each time, so newly added folders appear automatically.</p>
-                <a class="btn btn-secondary" href="https://github.com/labevofern/Environmental-layers" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-github" aria-hidden="true"></i> View repository
+            <div class="quick-links">
+                <a class="btn btn-primary" href="https://github.com/labevofern/Environmental-layers" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github" aria-hidden="true"></i> Open repository
                 </a>
-            </aside>
-        </div>
+                <a class="btn btn-secondary" href="#download-one-file">
+                    <i class="fas fa-arrow-up" aria-hidden="true"></i> Review individual download
+                </a>
+            </div>
+        </section>
     </section>
 
     <button id="theme-toggle" aria-pressed="false" aria-label="Enable light mode" title="Switch between light and dark mode">
@@ -586,6 +701,7 @@
                 themeToggle.setAttribute('aria-label', isLight ? 'Enable dark mode' : 'Enable light mode');
                 themeIcon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
             });
+
         });
     </script>
 </body>
