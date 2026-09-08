@@ -936,6 +936,7 @@
                 <button type="button" class="publication-filter" data-filter="2025" aria-pressed="false">2025</button>
                 <button type="button" class="publication-filter" data-filter="2024" aria-pressed="false">2024</button>
                 <button type="button" class="publication-filter" data-filter="other" aria-pressed="false">Other works</button>
+                <button type="button" class="publication-filter" data-filter="preprints" aria-pressed="false">Preprints</button>
             </div>
             <p id="resultSummary" aria-live="polite"></p>
         </div>
@@ -1033,6 +1034,43 @@
                 </div>
             </div>
      
+<div class="artigo">
+                <div class="artigo-info">
+                    <h3>Evolutionary and biogeographic history of disjunct species of Polypodiaceae between tropical America and the Afrotropics</h3>
+                    <p class="authors"><strong>Authors:</strong> Matheus B. Medeiros | Thais E. Almeida</p>
+                    <p class="journal-info"><strong>Journal:</strong> Acta Botanica Brasilica (2026) - Original research article</p>
+                    
+                    <div class="toggle-abstract" onclick="toggleAbstract(this)">Read abstract +</div>
+                    <div class="abstract-container">
+                        <p><strong>Abstract:</strong> Across the tropical Atlantic, morphologically similar vascular plants suggest the action of vicariance and dispersal processes.
+Robbin C. Moran & Alan R. Smith’s research documented this pattern for ferns and lycophytes, particularly within
+Polypodiaceae. This study aims to determine the evolutionary history and biogeographical relationships of Polypodiaceae
+species between tropical America and Afrotropics. Using the floristic relationships proposed by Moran & Smith, a dated
+maximum-credibility topology was constructed with 113 species distributed in 24 genera. A presence-absence matrix
+was created for each species per bioregion, and biogeographical inferences were made using the BioGeoBEARS package
+in R. Six possible models were tested, and Stochastic Biogeographic Mapping (BSM) was used to estimate biogeographic
+events. Most proposed floristic relationships were corroborated by previous studies, except <i>Microgramma lycopodioides</i> (tropical America) and <i>M. mauritiana</i> (Afrotropics), explained by evolutionary convergence. Sympatric speciation and
+dispersal were the most frequent events, with Central and South America as the main source. Long-distance dispersal
+events, though less frequent, were crucial for the evolution and establishment of species on new continents, shaping
+current biogeographical patterns. These findings highlight the importance of understanding biogeographical processes
+in interpreting global plant diversity and distribution.</p>
+                    </div>
+
+                    <div class="keywords-container">
+                        <span class="keyword-tag">Convergence</span>
+                        <span class="keyword-tag">Ferns</span>
+                        <span class="keyword-tag">Long-Distance Dispersal</span>
+                        <span class="keyword-tag">Speciation</span>
+                        <span class="keyword-tag">Vicariance</span>
+                    </div>
+                    <a href="https://doi.org/10.1590/1677-941X-ABB-2024-0150" class="btn-acessar" target="_blank">Access article</a>
+                </div>
+                <div class="artigo-gallery">
+                    <img src="imagens/Artigos/medeiros2026_1 (1).png" alt="Image from article 1" onclick="openModal('imagens/Artigos/medeiros2026_1 (1).png', 'Table 1: Floristic relationships in Polypodiaceae described by Moran & Smith (2001) highlighting the tropical American...')">
+                    <img src="imagens/Artigos/medeiros2026_1 (2).png" alt="Image from article 2" onclick="openModal('imagens/Artigos/medeiros2026_1 (2).png', 'Figure 1: Divergence time estimate tree resulting from BEAST analysis and ancestral areas estimated by BioGeoBEARS for Polypodiaceae...')">
+                    <img src="imagens/Artigos/medeiros2026_1 (3).png" alt="Image from article 3" onclick="openModal('imagens/Artigos/medeiros2026_1 (3).png', 'Table 5: Details of the number of dispersal events estimated in the evolutionary history of Polypodiaceae...')">
+                </div>
+            </div>
 
  <div class="artigo">
                 <div class="artigo-info">
@@ -1355,7 +1393,7 @@ paraphyly of <i>Sticherus</i> as defined so far, while ensuring nomenclatural st
         </div>
 
            <!-- Nova seção de Preprints -->
-        <div class="year-group" data-year="other">
+        <div class="year-group" data-year="preprints">
             <h3 class="year-title">Preprint</h3>
            
   <div class="artigo full-width">
@@ -1516,6 +1554,22 @@ paraphyly of <i>Sticherus</i> as defined so far, while ensuring nomenclatural st
                 .toLowerCase();
         }
 
+        function getFirstAuthorSurname(article) {
+            const authorElement = article.querySelector('.authors, .journal-info');
+            const authorText = authorElement ? authorElement.textContent.replace(/^Authors:\s*/i, '').trim() : '';
+            const firstAuthor = authorText.split(/\||,|&|—| - /)[0].trim();
+            const nameParts = firstAuthor.split(/\s+/).filter(Boolean);
+            return normalizePublicationText(nameParts[nameParts.length - 1] || firstAuthor);
+        }
+
+        function sortPublicationArticles() {
+            document.querySelectorAll('.year-group').forEach(group => {
+                const articles = Array.from(group.querySelectorAll(':scope > .artigo'));
+                articles.sort((first, second) => getFirstAuthorSurname(first).localeCompare(getFirstAuthorSurname(second)));
+                articles.forEach(article => group.appendChild(article));
+            });
+        }
+
         function applyPublicationFilters() {
             const input = document.getElementById('searchInput');
             const query = normalizePublicationText(input ? input.value.trim() : '');
@@ -1561,6 +1615,8 @@ paraphyly of <i>Sticherus</i> as defined so far, while ensuring nomenclatural st
         document.addEventListener('DOMContentLoaded', () => {
             const searchInput = document.getElementById('searchInput');
             const clearSearch = document.getElementById('clearSearch');
+
+            sortPublicationArticles();
 
             document.querySelectorAll('.year-group').forEach(group => {
                 const title = group.querySelector('.year-title');
